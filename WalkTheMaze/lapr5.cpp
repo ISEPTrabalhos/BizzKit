@@ -10,6 +10,9 @@ using namespace std;
 #define graus(X) (double)((X)*180/M_PI)
 #define rad(X)   (double)((X)*M_PI/180)
 
+
+void myReshape(int w, int h);
+
 // luzes e materiais
 
 const GLfloat mat_ambient[][4] = {{0.33, 0.22, 0.03, 1.0},	// brass
@@ -600,6 +603,26 @@ void desenhaEixos(){
 	glPopMatrix();
 }
 
+void desenhaMiniMapa(int width, int height) {
+
+	// Altera viewport e projecção
+
+	glViewport(width * 0.65, 50, 250, 250);
+	glMatrixMode(GL_PROJECTION);
+
+	glLoadIdentity();
+
+	glOrtho(-50, 50, -50, 50, -100, 100);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+	desenhaLabirinto();
+
+	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+}
+
+
 void setCamera(){
 	Vertice eye;
 	eye[0]=estado.camera.center[0]+estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
@@ -637,6 +660,8 @@ void display(void)
 		desenhaPlanoDrag(estado.eixoTranslaccao);
 
 	}
+
+	desenhaMiniMapa(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 
 	glFlush();
 	glutSwapBuffers();
