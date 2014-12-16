@@ -1,7 +1,9 @@
 #include "Maze.h"
+#include "MainCharacter.h"
 
 Model *model = new Model();
 Status *status = new Status();
+MainCharacter *character = new MainCharacter();
 
 void Maze::Timer(int value) {
     ALint state;
