@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebDev.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebDev.Controllers
 {
@@ -22,7 +24,7 @@ namespace WebDev.Controllers
         {
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
         {
             UserManager = userManager;
             SignInManager = signInManager;
@@ -34,9 +36,9 @@ namespace WebDev.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -120,7 +122,7 @@ namespace WebDev.Controllers
             // If a user enters incorrect codes for a specified amount of time then the user account 
             // will be locked out for a specified amount of time. 
             // You can configure the account lockout settings in IdentityConfig
-            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
+            var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent: model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,15 +157,15 @@ namespace WebDev.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    using(var db = new DAL.WebDevContext())
+                    using (var db = new DAL.WebDevContext())
                     {
                         var context = new ApplicationDbContext();
 
@@ -182,17 +184,13 @@ namespace WebDev.Controllers
             return View(model);
         }
 
-        private string ConvertPasswordMd5(string plainPassword)
+        /// <summary>Converts a plain-text password into a md5 hash</summary>
+        /// <param name="data">a password, passed as a string</param>
+        public static string ConvertPasswordMd5(string plainPassword)
         {
-            var md5 = System.Security.Cryptography.MD5.Create();
-            var md5Bytes = System.Text.Encoding.Default.GetBytes(plainPassword);
-            var hashBytes = md5.ComputeHash(md5Bytes);
-            string hashPassword = "";
-            foreach (var hashByte in hashBytes)
-	        {
-		        hashPassword += hashByte.ToString("X");
-	        }
-            return hashPassword;
+            MD5 algorithm = MD5.Create();
+            byte[] passwordHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(plainPassword));
+            return BitConverter.ToString(passwordHash).Replace("-", "");
         }
 
         //

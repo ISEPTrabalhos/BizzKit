@@ -12,6 +12,6 @@ namespace WebDev.Services
     public interface IService
     {
         [OperationContract]
-        string Login(string username, string password);
+        int Login(string username, string password);
     }
 }
