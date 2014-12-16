@@ -631,16 +631,16 @@ void desenhaMiniMapa(int width, int height) {
 
 	// Altera viewport e projecção
 
-	glViewport(width * 0.65, 50, 250, 250);
+	glViewport(width * 0.65, 0, 250, 250);
 	glMatrixMode(GL_PROJECTION);
 
 	glLoadIdentity();
 
 	// mini map option to big view
-	//glOrtho(-100, 100, -100, 100, -100, 100);
+	glOrtho(-100, 100, -100, 100, -100, 100);
 
 	// mini map option to room view
-	glOrtho(-1000, 1000, -1000, 1000, -100, 100);
+	//glOrtho(-1000, 1000, -1000, 1000, -100, 100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
