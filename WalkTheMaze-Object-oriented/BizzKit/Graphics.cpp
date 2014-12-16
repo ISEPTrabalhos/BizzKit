@@ -1,17 +1,23 @@
 #include "Graphics.h"
 
-void Graphics::drawGround(){
+void Graphics::drawGround(GLuint texID){
 #define STEP 10
+    glBindTexture(GL_TEXTURE_2D, texID);
 	glBegin(GL_QUADS);
 	glNormal3f(0, 0, 1);
 	for (int i = -300; i<300; i += STEP)
 	for (int j = -300; j<300; j += STEP){
-		glVertex2f(i, j);
-		glVertex2f(i + STEP, j);
-		glVertex2f(i + STEP, j + STEP);
-		glVertex2f(i, j + STEP);
+        glTexCoord2f(1, 1);
+        glVertex2f(i,j);
+        glTexCoord2f(0, 1);
+        glVertex2f(i+STEP,j);
+        glTexCoord2f(0, 0);
+        glVertex2f(i+STEP,j+STEP);
+        glTexCoord2f(1, 0);
+        glVertex2f(i,j+STEP);
 	}
 	glEnd();
+    glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
 void Graphics::CrossProduct(GLdouble v1[], GLdouble v2[], GLdouble cross[]){
@@ -323,19 +329,19 @@ void Graphics::drawDragPlane(Status *status, int eixo){
 	glTranslated(status->eixo[0], status->eixo[1], status->eixo[2]);
 	switch (eixo) {
 	case EIXO_Y:
-		if (abs(status->camera->dir_lat)<M_PI / 4)
+		if (fabs(status->camera->dir_lat)<M_PI / 4)
 			glRotatef(-90, 0, 0, 1);
 		else
 			glRotatef(90, 1, 0, 0);
 		material(red_plastic);
 		break;
 	case EIXO_X:
-		if (abs(status->camera->dir_lat)>M_PI / 6)
+		if (fabs(status->camera->dir_lat)>M_PI / 6)
 			glRotatef(90, 1, 0, 0);
 		material(azul);
 		break;
 	case EIXO_Z:
-		if (abs(cos(status->camera->dir_long))>0.5)
+		if (fabs(cos(status->camera->dir_long))>0.5)
 			glRotatef(90, 0, 0, 1);
 
 		material(emerald);

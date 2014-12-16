@@ -16,6 +16,7 @@ public:
 
 	GLfloat escala;
 	GLUquadric *quad;
+    GLuint texID[1];
 
 
 	// functions

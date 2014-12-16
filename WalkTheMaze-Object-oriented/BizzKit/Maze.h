@@ -7,6 +7,7 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "Model.h"
 
 class Maze {
 public:
@@ -25,6 +26,7 @@ public:
 	static void keyboard(unsigned char key, int x, int y);
 	static void Special(int key, int x, int y);
 	static void help(void);
+    static void createTextures(GLuint texID[]);
 };
 
 #endif
