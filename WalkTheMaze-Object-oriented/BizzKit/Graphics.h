@@ -7,7 +7,7 @@
 
 class Graphics{
 public:
-	static void drawGround(void); // desenhaSolo
+	static void drawGround(GLuint texID); // desenhaSolo
 	static void drawNormal(GLdouble x, GLdouble y, GLdouble z, GLdouble normal[], tipo_material mat);
 	static void drawWall(Status *status, GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf);
 	static void drawPlatform(Status *status, GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf, int orient); //desenhaChao

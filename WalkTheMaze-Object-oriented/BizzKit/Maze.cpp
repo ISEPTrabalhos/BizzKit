@@ -61,7 +61,7 @@ void Maze::display(void){
 	Maze::setCamera();
 
 	Graphics::material(slate);
-	Graphics::drawGround();
+    Graphics::drawGround(model->texID[0]);
 
 
 	Graphics::drawAxes(status, model);
@@ -391,6 +391,33 @@ void Maze::help(void){
 	printf("ESC - Sair\n");
 }
 
+#define FLOOR_TEXTURE "floor.jpg"
+
+extern "C" int read_JPEG_file(char *, char **, int *, int *, int *);
+
+void Maze::createTextures(GLuint texID[])
+{
+    char *image;
+    int w, h, bpp;
+    
+    glGenTextures(1,texID);
+    
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    
+    if(	read_JPEG_file(FLOOR_TEXTURE, &image, &w, &h, &bpp))
+    {
+        glBindTexture(GL_TEXTURE_2D, texID[0]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST );
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        gluBuild2DMipmaps(GL_TEXTURE_2D, 3, w, h, GL_RGB, GL_UNSIGNED_BYTE, image);
+    }else{
+        printf("Textura %s not Found\n",FLOOR_TEXTURE);
+        exit(0);
+    }
+    glBindTexture(GL_TEXTURE_2D, NULL);
+}
+
 void Maze::Launch(int argc, char **argv){
 	glutInit(&argc, argv);
 
@@ -406,13 +433,15 @@ void Maze::Launch(int argc, char **argv){
 	glutMouseFunc(Maze::mouse);
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
-
+    Maze::createTextures(model->texID);
+    
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 
 	glEnable(GL_SMOOTH); /*enable smooth shading */
 	glEnable(GL_LIGHTING); /* enable lighting */
 	glEnable(GL_DEPTH_TEST); /* enable z buffer */
 	glEnable(GL_NORMALIZE);
+    glEnable(GL_TEXTURE_2D);
 
 	glDepthFunc(GL_LESS);
 

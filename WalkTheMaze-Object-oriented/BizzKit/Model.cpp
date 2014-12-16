@@ -16,6 +16,7 @@ Model::Model(){
 	g_pos_luz2[1] = -15.0;
 	g_pos_luz2[2] = 5.0;
 	g_pos_luz2[3] = 0.0;
+
 }
 
 Model::~Model(){}
