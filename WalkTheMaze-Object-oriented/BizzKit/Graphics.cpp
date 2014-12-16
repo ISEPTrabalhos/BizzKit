@@ -284,7 +284,7 @@ void Graphics::drawArc(Status *status, Arco arco){
 			Graphics::drawWall(status, nof->x - 0.5*nof->largura, nof->y - 0.5*arco.largura, nof->z, noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z);
 		}
 		else{
-			cout << "arco diagonal... não será desenhado";
+			cout << "arco diagonal... nÃ£o serÃ¡ desenhado";
 		}
 	}
 }
@@ -329,19 +329,19 @@ void Graphics::drawDragPlane(Status *status, int eixo){
 	glTranslated(status->eixo[0], status->eixo[1], status->eixo[2]);
 	switch (eixo) {
 	case EIXO_Y:
-		if (fabs(status->camera->dir_lat)<M_PI / 4)
+		if (abs((int)(status->camera->dir_lat)<M_PI / 4))
 			glRotatef(-90, 0, 0, 1);
 		else
 			glRotatef(90, 1, 0, 0);
 		material(red_plastic);
 		break;
 	case EIXO_X:
-		if (fabs(status->camera->dir_lat)>M_PI / 6)
+		if (abs((int)(status->camera->dir_lat)>M_PI / 6))
 			glRotatef(90, 1, 0, 0);
 		material(azul);
 		break;
 	case EIXO_Z:
-		if (fabs(cos(status->camera->dir_long))>0.5)
+		if (abs((int)(cos(status->camera->dir_long))>0.5))
 			glRotatef(90, 0, 0, 1);
 
 		material(emerald);
