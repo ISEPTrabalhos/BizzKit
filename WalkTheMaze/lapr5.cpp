@@ -4,11 +4,15 @@
 #include <GL\glut.h>
 #include <iostream>
 #include "grafos.h"
+#include <AL\alut.h>
 
 using namespace std;
 
 #define graus(X) (double)((X)*180/M_PI)
 #define rad(X)   (double)((X)*M_PI/180)
+
+
+void myReshape(int w, int h);
 
 // luzes e materiais
 
@@ -73,6 +77,9 @@ typedef struct Estado{
 	GLint		lightViewer;
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
+	GLint		timer;
+	ALuint		buffer, source;
+	ALboolean	tecla_o;
 }Estado;
 
 typedef struct Modelo {
@@ -122,6 +129,13 @@ void initModelo(){
 	modelo.g_pos_luz2[3]= 0.0;
 }
 
+void InitAudio()
+{
+	estado.buffer = alutCreateBufferFromFile("file1.wav");
+	alGenSources(1, &estado.source);
+	alSourcei(estado.source, AL_BUFFER, estado.buffer);
+	estado.tecla_o = AL_TRUE;
+}
 
 void myInit()
 {
@@ -502,7 +516,20 @@ void desenhaArco(Arco arco){
 			desenhaParede(nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
 		}
 		else{
-			cout << "arco diagonal... não será desenhado";
+            //arco diagonal
+            if (nos[arco.noi].x < nos[arco.nof].x) {
+                noi = &nos[arco.noi];
+                nof = &nos[arco.nof];
+            }
+            else{
+                nof = &nos[arco.noi];
+                noi = &nos[arco.nof];
+            }
+            
+            //desenhaChao(noi->x, noi->y, noi->z, nof->x, nof->y, nof->z, NORTE_SUL);
+            
+            desenhaParede(noi->x+0.5*noi->largura,noi->y+0.5*arco.largura,noi->z,nof->x-0.5*nof->largura,nof->y+0.5*arco.largura,nof->z);
+            desenhaParede(nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
 		}
 	}
 }
@@ -600,6 +627,26 @@ void desenhaEixos(){
 	glPopMatrix();
 }
 
+void desenhaMiniMapa(int width, int height) {
+
+	// Altera viewport e projecção
+
+	glViewport(width * 0.65, 50, 250, 250);
+	glMatrixMode(GL_PROJECTION);
+
+	glLoadIdentity();
+
+	glOrtho(-50, 50, -50, 50, -100, 100);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+	desenhaLabirinto();
+
+	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+}
+
+
 void setCamera(){
 	Vertice eye;
 	eye[0]=estado.camera.center[0]+estado.camera.dist*cos(estado.camera.dir_long)*cos(estado.camera.dir_lat);
@@ -637,6 +684,8 @@ void display(void)
 		desenhaPlanoDrag(estado.eixoTranslaccao);
 
 	}
+
+	desenhaMiniMapa(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 
 	glFlush();
 	glutSwapBuffers();
@@ -708,8 +757,24 @@ void keyboard(unsigned char key, int x, int y)
 				initModelo();
 				glutPostRedisplay();
 			break;    
+		case 'o':
+		case 'O':
+			estado.tecla_o = AL_TRUE;
+			break;
 	}
 }
+
+void keyUp(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+	case 'o':
+	case 'O':
+		estado.tecla_o = AL_FALSE;
+		break;
+	}
+}
+
 
 void Special(int key, int x, int y){
 
@@ -929,6 +994,21 @@ void mouse(int btn, int state, int x, int y){
 	}
 }
 
+void Timer(int value)
+{
+	ALint state;
+	glutTimerFunc(estado.timer, Timer, 0);
+	alGetSourcei(estado.source, AL_SOURCE_STATE, &state);
+	if (estado.tecla_o)
+	{
+		if (state != AL_PLAYING)
+			alSourcePlay(estado.source);
+		else
+			alSourceStop(estado.source);
+	}
+	glutPostRedisplay();
+}
+
 void main(int argc, char **argv)
 {
     glutInit(&argc, argv);
@@ -941,11 +1021,15 @@ void main(int argc, char **argv)
     glutReshapeFunc(myReshape);
     glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
+	glutKeyboardUpFunc(keyUp);
 	glutSpecialFunc(Special);
 	glutMouseFunc(mouse);
 
+	glutTimerFunc(estado.timer, Timer, 0);
 	myInit();
 
+	alutInit(&argc, argv);
+	InitAudio();
 	imprime_ajuda();
 
     glutMainLoop();
