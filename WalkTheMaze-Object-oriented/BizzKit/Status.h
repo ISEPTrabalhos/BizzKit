@@ -13,6 +13,9 @@ public:
 	GLint lightViewer;
 	GLint eixoTranslaccao;
 	GLdouble eixo[3];
+    GLint		timer;
+    ALuint		buffer, source;
+    ALboolean	tecla_o;
 
 	// functions
 	Status();
