@@ -11,17 +11,15 @@ namespace WebDev.Services
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service.svc or Service.svc.cs at the Solution Explorer and start debugging.
     public class Service : IService
     {
-        private WebDevContext db = new WebDevContext();
-
         public string Login(string username, string password)
         {
-            var context = new ApplicationDbContext();
+            var db = new WebDevContext();
 
-            var user = from u in context.Users
-                       where u.UserName == username
+            var user = from u in db.Users
+                       where u.Username == username
                        select u;
 
-            return user.First().Id;
+            return user.First().PasswordHash;
         }
     }
 }
