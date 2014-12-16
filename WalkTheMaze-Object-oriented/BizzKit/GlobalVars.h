@@ -26,6 +26,10 @@ using namespace std;
 #define graus(X) (double)((X)*180/M_PI)
 #define rad(X)   (double)((X)*M_PI/180)
 
+#define FLOOR_TEXTURE "floor.jpg"
+
+extern "C" int read_JPEG_file(char *, char **, int *, int *, int *);
+
 // luzes e materiais
 
 const GLfloat mat_ambient[][4] = { { 0.33, 0.22, 0.03, 1.0 },	// brass
