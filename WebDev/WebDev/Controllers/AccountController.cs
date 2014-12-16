@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using WebDev.Models;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WebDev.Controllers
 {
@@ -186,15 +188,9 @@ namespace WebDev.Controllers
         /// <param name="data">a password, passed as a string</param>
         public static string ConvertPasswordMd5(string plainPassword)
         {
-            var md5 = System.Security.Cryptography.MD5.Create();
-            var md5Bytes = System.Text.Encoding.Default.GetBytes(plainPassword);
-            var hashBytes = md5.ComputeHash(md5Bytes);
-            string hashPassword = "";
-            foreach (var hashByte in hashBytes)
-            {
-                hashPassword += hashByte.ToString("X");
-            }
-            return hashPassword;
+            MD5 algorithm = MD5.Create();
+            byte[] passwordHash = algorithm.ComputeHash(Encoding.UTF8.GetBytes(plainPassword));
+            return BitConverter.ToString(passwordHash).Replace("-", "");
         }
 
         //
