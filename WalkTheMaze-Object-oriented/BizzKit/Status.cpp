@@ -17,6 +17,8 @@ Status::Status(){
     alGenSources(1, &source);
     alSourcei(source, AL_BUFFER, buffer);
     tecla_o = AL_FALSE;
+    
+    eixoTranslaccao = 0;
 }
 
 Status::~Status(){}
