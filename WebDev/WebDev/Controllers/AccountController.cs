@@ -75,7 +75,7 @@ namespace WebDev.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -163,6 +163,16 @@ namespace WebDev.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
+                    using(var db = new DAL.WebDevContext())
+                    {
+                        var context = new ApplicationDbContext();
+
+                        Models.User gameUser = new User { Username = model.Username, PasswordHash = ConvertPasswordMd5(model.Password) };
+                        db.Users.Add(gameUser);
+                        db.SaveChanges();
+                    }
+                    /**/
+
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
@@ -170,6 +180,19 @@ namespace WebDev.Controllers
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private string ConvertPasswordMd5(string plainPassword)
+        {
+            var md5 = System.Security.Cryptography.MD5.Create();
+            var md5Bytes = System.Text.Encoding.Default.GetBytes(plainPassword);
+            var hashBytes = md5.ComputeHash(md5Bytes);
+            string hashPassword = "";
+            foreach (var hashByte in hashBytes)
+	        {
+		        hashPassword += hashByte.ToString("X");
+	        }
+            return hashPassword;
         }
 
         //
