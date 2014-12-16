@@ -4,6 +4,7 @@
 #include <GL\glut.h>
 #include <iostream>
 #include "grafos.h"
+#include <AL\alut.h>
 
 using namespace std;
 
@@ -76,6 +77,9 @@ typedef struct Estado{
 	GLint		lightViewer;
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
+	GLint		timer;
+	ALuint		buffer, source;
+	ALboolean	tecla_o;
 }Estado;
 
 typedef struct Modelo {
@@ -125,6 +129,13 @@ void initModelo(){
 	modelo.g_pos_luz2[3]= 0.0;
 }
 
+void InitAudio()
+{
+	estado.buffer = alutCreateBufferFromFile("file1.wav");
+	alGenSources(1, &estado.source);
+	alSourcei(estado.source, AL_BUFFER, estado.buffer);
+	estado.tecla_o = AL_TRUE;
+}
 
 void myInit()
 {
@@ -733,8 +744,24 @@ void keyboard(unsigned char key, int x, int y)
 				initModelo();
 				glutPostRedisplay();
 			break;    
+		case 'o':
+		case 'O':
+			estado.tecla_o = AL_TRUE;
+			break;
 	}
 }
+
+void keyUp(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+	case 'o':
+	case 'O':
+		estado.tecla_o = AL_FALSE;
+		break;
+	}
+}
+
 
 void Special(int key, int x, int y){
 
@@ -954,6 +981,21 @@ void mouse(int btn, int state, int x, int y){
 	}
 }
 
+void Timer(int value)
+{
+	ALint state;
+	glutTimerFunc(estado.timer, Timer, 0);
+	alGetSourcei(estado.source, AL_SOURCE_STATE, &state);
+	if (estado.tecla_o)
+	{
+		if (state != AL_PLAYING)
+			alSourcePlay(estado.source);
+		else
+			alSourceStop(estado.source);
+	}
+	glutPostRedisplay();
+}
+
 void main(int argc, char **argv)
 {
     glutInit(&argc, argv);
@@ -966,11 +1008,15 @@ void main(int argc, char **argv)
     glutReshapeFunc(myReshape);
     glutDisplayFunc(display);
 	glutKeyboardFunc(keyboard);
+	glutKeyboardUpFunc(keyUp);
 	glutSpecialFunc(Special);
 	glutMouseFunc(mouse);
 
+	glutTimerFunc(estado.timer, Timer, 0);
 	myInit();
 
+	alutInit(&argc, argv);
+	InitAudio();
 	imprime_ajuda();
 
     glutMainLoop();
