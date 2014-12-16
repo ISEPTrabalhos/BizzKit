@@ -637,10 +637,10 @@ void desenhaMiniMapa(int width, int height) {
 	glLoadIdentity();
 
 	// mini map option to big view
-	glOrtho(-100, 100, -100, 100, -100, 100);
+	//glOrtho(-100, 100, -100, 100, -100, 100);
 
 	// mini map option to room view
-	//glOrtho(-1000, 1000, -1000, 1000, -100, 100);
+	glOrtho(-1000, 1000, -1000, 1000, -100, 100);
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
