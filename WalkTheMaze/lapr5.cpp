@@ -4,7 +4,14 @@
 #include <GL\glut.h>
 #include <iostream>
 #include "grafos.h"
+#include <string>
 #include <AL\alut.h>
+#include "stdafx.h"
+#include "WebServices.h"
+#include "schemas.microsoft.com.2003.10.Serialization.xsd.h"
+#include "tempuri.org.xsd.h"
+#include "tempuri.org.wsdl.h"
+//#include "schema.xsd.h"
 
 using namespace std;
 
@@ -129,13 +136,13 @@ void initModelo(){
 	modelo.g_pos_luz2[3]= 0.0;
 }
 
-void InitAudio()
-{
-	estado.buffer = alutCreateBufferFromFile("The_Simpsons.wav");
-	alGenSources(1, &estado.source);
-	alSourcei(estado.source, AL_BUFFER, estado.buffer);
-	estado.tecla_o = AL_FALSE;
-}
+//void InitAudio()
+//{
+//	estado.buffer = alutCreateBufferFromFile("The_Simpsons.wav");
+//	alGenSources(1, &estado.source);
+//	alSourcei(estado.source, AL_BUFFER, estado.buffer);
+//	estado.tecla_o = AL_FALSE;
+//}
 
 void myInit()
 {
@@ -1019,28 +1026,87 @@ void Timer(int value)
 	glutPostRedisplay();
 }
 
+int callLoginService(string user, string pass) {
+	HRESULT hr = ERROR_SUCCESS;
+	WS_ERROR* error = NULL;
+	WS_HEAP* heap = NULL;
+	WS_SERVICE_PROXY* proxy = NULL;
+	WS_ENDPOINT_ADDRESS address = {};
+	// endereço do serviço
+	WS_STRING url = WS_STRING_VALUE(
+		L"http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc");
+	address.url = url;
+	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
+	WS_HTTP_BINDING_TEMPLATE templ = {};
+	// criação do proxy para o serviço
+	hr = BasicHttpBinding_IService_CreateServiceProxy(
+		&templ, NULL, 0, &proxy, error);
+	hr = WsOpenServiceProxy(proxy, &address, NULL, error);
+
+	WCHAR* idResult;
+	WCHAR username = L'username';
+	WCHAR password = L'password';
+	hr = BasicHttpBinding_IService_Login(
+		proxy, &username, &password, &idResult, heap, NULL, 0, NULL, error);
+	//wprintf(L"%s\n", idResult);
+
+	int id = _wtoi(idResult);
+
+	return id;
+}
+
+bool login() {
+	string username = "", password = "";
+	bool valid = false;
+	cout << "******* SIGN IN *******\n";
+	while (valid == false) {
+		cout << "Username: ";
+		getline(cin, username);
+		cout << "Password: ";
+		getline(cin, password);
+		cout << "Username: " << username << " Password: " << password;
+		cout << "\n" << endl;
+
+		int id = callLoginService(username, password);
+
+		if (id > 0) { // valid user
+			valid = true;
+			cout << "\n ** You're now logged in !! **\n" << endl;
+			valid = true;
+		}
+		else {
+			cout << "Invalid user, please try again !! \n" << endl;
+		}
+	}
+	return true;
+
+}
+
 void main(int argc, char **argv)
 {
-    glutInit(&argc, argv);
+	if (login()) {
+		glutInit(&argc, argv);
 
-/* need both double buffering and z buffer */
+		/* need both double buffering and z buffer */
 
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(640, 480);
-    glutCreateWindow("OpenGL");
-    glutReshapeFunc(myReshape);
-    glutDisplayFunc(display);
-	glutKeyboardFunc(keyboard);
-	glutKeyboardUpFunc(keyUp);
-	glutSpecialFunc(Special);
-	glutMouseFunc(mouse);
+		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+		glutInitWindowSize(640, 480);
+		glutCreateWindow("OpenGL");
+		glutReshapeFunc(myReshape);
+		glutDisplayFunc(display);
+		glutKeyboardFunc(keyboard);
+		//glutKeyboardUpFunc(keyUp);
+		glutSpecialFunc(Special);
+		glutMouseFunc(mouse);
 
-	glutTimerFunc(estado.timer, Timer, 0);
-	myInit();
+		glutTimerFunc(estado.timer, Timer, 0);
+		myInit();
 
-	alutInit(&argc, argv);
-	InitAudio();
-	imprime_ajuda();
+		alutInit(&argc, argv);
+		InitAudio();
+		imprime_ajuda();
 
-    glutMainLoop();
+		glutMainLoop();
+	} 
+
 }

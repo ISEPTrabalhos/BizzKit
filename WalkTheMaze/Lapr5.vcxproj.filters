@@ -21,9 +21,27 @@
     <ClCompile Include="lapr5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tempuri.org.wsdl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tempuri.org.xsd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="grafos.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.wsdl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.xsd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
