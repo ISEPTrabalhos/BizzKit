@@ -6,9 +6,12 @@
 
 class MainCharacter {
 public:
+    StudioModel homer;
     Point *position;
     GLfloat  dir;
     GLfloat  vel;
+    
+    MainCharacter();
 
 };
 

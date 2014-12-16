@@ -13,13 +13,16 @@
 #endif
 
 #ifdef _WIN32
-    //#include <GL\glut.h>
+    #include <AL\alut.h>
 #elif __APPLE__
     #include <OpenAL/al.h>
     #include <OpenAL/alc.h>
 #endif
 
 #include "Grafo.h"
+#include "mathlib.h"
+#include "studio.h"
+#include "mdlviewer.h"
 
 using namespace std;
 
