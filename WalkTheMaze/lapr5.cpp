@@ -131,10 +131,10 @@ void initModelo(){
 
 void InitAudio()
 {
-	estado.buffer = alutCreateBufferFromFile("file1.wav");
+	estado.buffer = alutCreateBufferFromFile("The_Simpsons.wav");
 	alGenSources(1, &estado.source);
 	alSourcei(estado.source, AL_BUFFER, estado.buffer);
-	estado.tecla_o = AL_TRUE;
+	estado.tecla_o = AL_FALSE;
 }
 
 void myInit()
@@ -631,15 +631,22 @@ void desenhaMiniMapa(int width, int height) {
 
 	// Altera viewport e projecção
 
-	glViewport(width * 0.65, 50, 250, 250);
+	glViewport(width * 0.65, 0, 250, 250);
 	glMatrixMode(GL_PROJECTION);
 
 	glLoadIdentity();
 
-	glOrtho(-50, 50, -50, 50, -100, 100);
+	// mini map option to big view
+	//glOrtho(-100, 100, -100, 100, -100, 100);
+
+	// mini map option to room view
+	glOrtho(-1000, 1000, -1000, 1000, -100, 100);
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+
 	gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+
 	desenhaLabirinto();
 
 	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
@@ -1003,8 +1010,11 @@ void Timer(int value)
 	{
 		if (state != AL_PLAYING)
 			alSourcePlay(estado.source);
-		else
-			alSourceStop(estado.source);
+		else{
+			if (state==AL_PLAYING)
+				alSourceStop(estado.source);
+		}
+			
 	}
 	glutPostRedisplay();
 }
