@@ -7,7 +7,10 @@
 
 class Keyboard {
 public:
-	
+    static void keyboard(unsigned char key, int x, int y);
+    static void Special(int key, int x, int y);
+    static void help(void);
+
 };
 
 #endif

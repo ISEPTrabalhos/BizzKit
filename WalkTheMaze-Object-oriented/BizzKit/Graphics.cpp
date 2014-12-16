@@ -1,5 +1,8 @@
 #include "Graphics.h"
 
+extern Status *status;
+extern Model *model;
+
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
     glBindTexture(GL_TEXTURE_2D, texID);
@@ -73,7 +76,7 @@ void Graphics::drawNormal(GLdouble x, GLdouble y, GLdouble z, GLdouble normal[],
 	glEnable(GL_LIGHTING);
 }
 
-void Graphics::drawWall(Status *status, GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf){
+void Graphics::drawWall(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf){
 	GLdouble v1[3], v2[3], cross[3];
 	GLdouble length;
 	v1[0] = xf - xi;
@@ -104,7 +107,7 @@ void Graphics::drawWall(Status *status, GLfloat xi, GLfloat yi, GLfloat zi, GLfl
 	}
 }
 
-void Graphics::drawPlatform(Status *status, GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf, int orient){
+void Graphics::drawPlatform(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf, int orient){
 	GLdouble v1[3], v2[3], cross[3];
 	GLdouble length;
 	v1[0] = xf - xi;
@@ -180,13 +183,16 @@ void Graphics::drawPlatform(Status *status, GLfloat xi, GLfloat yi, GLfloat zi, 
 	}
 }
 
-void Graphics::drawNode(Status *status, int no){
+void Graphics::drawNode(int no){
 	GLboolean norte, sul, este, oeste;
-	GLfloat larguraNorte, larguraSul, larguraEste, larguraOeste;
+	GLfloat larguraNorte = 0.0,
+            larguraSul = 0.0,
+            larguraEste = 0.0,
+            larguraOeste = 0.0;
 	Arco arco = arcos[0];
 	No *noi = &nos[no], *nof;
 	norte = sul = este = oeste = GL_TRUE;
-	Graphics::drawPlatform(status, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, PLANO);
+	Graphics::drawPlatform(nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, PLANO);
 	for (int i = 0; i<numArcos; arco = arcos[++i]){
 		if (arco.noi == no)
 			nof = &nos[arco.nof];
@@ -220,37 +226,37 @@ void Graphics::drawNode(Status *status, int no){
 			return;
 	}
 	if (norte)
-		Graphics::drawWall(status, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
 	else
 	if (larguraNorte < noi->largura){
-		Graphics::drawWall(status, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*larguraNorte, nos[no].y + 0.5*noi->largura, nos[no].z);
-		Graphics::drawWall(status, nos[no].x + 0.5*larguraNorte, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*larguraNorte, nos[no].y + 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x + 0.5*larguraNorte, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
 	}
 	if (sul)
-		Graphics::drawWall(status, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
 	else
 	if (larguraSul < noi->largura){
-		Graphics::drawWall(status, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*larguraSul, nos[no].y - 0.5*noi->largura, nos[no].z);
-		Graphics::drawWall(status, nos[no].x - 0.5*larguraSul, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*larguraSul, nos[no].y - 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x - 0.5*larguraSul, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
 	}
 	if (este)
-		Graphics::drawWall(status, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
 	else
 	if (larguraEste < noi->largura){
-		Graphics::drawWall(status, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*larguraEste, nos[no].z);
-		Graphics::drawWall(status, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*larguraEste, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*larguraEste, nos[no].z);
+		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*larguraEste, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
 	}
 	if (oeste)
-		Graphics::drawWall(status, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
 	else
 	if (larguraOeste < noi->largura){
-		Graphics::drawWall(status, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*larguraOeste, nos[no].z);
-		Graphics::drawWall(status, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*larguraOeste, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
+		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*larguraOeste, nos[no].z);
+		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*larguraOeste, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
 	}
 }
 
 
-void Graphics::drawArc(Status *status, Arco arco){
+void Graphics::drawArc(Arco arco){
 	No *noi, *nof;
 
 	if (nos[arco.noi].x == nos[arco.nof].x){
@@ -264,9 +270,9 @@ void Graphics::drawArc(Status *status, Arco arco){
 			noi = &nos[arco.nof];
 		}
 
-		Graphics::drawPlatform(status, noi->x - 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z, nof->x + 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z, NORTE_SUL);
-		Graphics::drawWall(status, noi->x - 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z, nof->x - 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z);
-		Graphics::drawWall(status, nof->x + 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z, noi->x + 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z);
+		Graphics::drawPlatform(noi->x - 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z, nof->x + 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z, NORTE_SUL);
+		Graphics::drawWall(noi->x - 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z, nof->x - 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z);
+		Graphics::drawWall(nof->x + 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z, noi->x + 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z);
 	}
 	else{
 		if (nos[arco.noi].y == nos[arco.nof].y){
@@ -279,9 +285,9 @@ void Graphics::drawArc(Status *status, Arco arco){
 				nof = &nos[arco.noi];
 				noi = &nos[arco.nof];
 			}
-			Graphics::drawPlatform(status, noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z, nof->x - 0.5*nof->largura, nof->y + 0.5*arco.largura, nof->z, ESTE_OESTE);
-			Graphics::drawWall(status, noi->x + 0.5*noi->largura, noi->y + 0.5*arco.largura, noi->z, nof->x - 0.5*nof->largura, nof->y + 0.5*arco.largura, nof->z);
-			Graphics::drawWall(status, nof->x - 0.5*nof->largura, nof->y - 0.5*arco.largura, nof->z, noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z);
+			Graphics::drawPlatform(noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z, nof->x - 0.5*nof->largura, nof->y + 0.5*arco.largura, nof->z, ESTE_OESTE);
+			Graphics::drawWall(noi->x + 0.5*noi->largura, noi->y + 0.5*arco.largura, noi->z, nof->x - 0.5*nof->largura, nof->y + 0.5*arco.largura, nof->z);
+			Graphics::drawWall(nof->x - 0.5*nof->largura, nof->y - 0.5*arco.largura, nof->z, noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z);
 		}
 		else{
             nof = &nos[arco.noi];
@@ -290,12 +296,12 @@ void Graphics::drawArc(Status *status, Arco arco){
         
         //desenhaChao(noi->x, noi->y, noi->z, nof->x, nof->y, nof->z, NORTE_SUL);
         
-        Graphics::drawWall(status, noi->x+0.5*noi->largura,noi->y+0.5*arco.largura,noi->z,nof->x-0.5*nof->largura,nof->y+0.5*arco.largura,nof->z);
-        Graphics::drawWall(status, nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
+        Graphics::drawWall(noi->x+0.5*noi->largura,noi->y+0.5*arco.largura,noi->z,nof->x-0.5*nof->largura,nof->y+0.5*arco.largura,nof->z);
+        Graphics::drawWall(nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
 		}
 }
 
-void Graphics::drawMaze(Status *status){
+void Graphics::drawMaze(){
 	glPushMatrix();
 	glTranslatef(0, 0, 0.05);
 	glScalef(5, 5, 5);
@@ -306,15 +312,15 @@ void Graphics::drawMaze(Status *status){
 		glTranslatef(nos[i].x, nos[i].y, nos[i].z + 0.25);
 		glutSolidCube(0.5);
 		glPopMatrix();
-		Graphics::drawNode(status, i);
+		Graphics::drawNode(i);
 	}
 	Graphics::material(emerald);
 	for (int i = 0; i<numArcos; i++)
-		Graphics::drawArc(status, arcos[i]);
+		Graphics::drawArc(arcos[i]);
 	glPopMatrix();
 }
 
-void Graphics::drawAxis(Model *model){
+void Graphics::drawAxis(){
 	gluCylinder(model->quad, 0.5, 0.5, 20, 16, 15);
 	glPushMatrix();
 	glTranslatef(0, 0, 20);
@@ -330,7 +336,7 @@ void Graphics::drawAxis(Model *model){
 #define EIXO_Y		2
 #define EIXO_Z		3
 
-void Graphics::drawDragPlane(Status *status, int eixo){
+void Graphics::drawDragPlane(int eixo){
 	glPushMatrix();
 	glTranslated(status->eixo[0], status->eixo[1], status->eixo[2]);
 	switch (eixo) {
@@ -363,26 +369,26 @@ void Graphics::drawDragPlane(Status *status, int eixo){
 	glPopMatrix();
 }
 
-void Graphics::drawAxes(Status *status, Model *model){
+void Graphics::drawAxes(){
 
 	glPushMatrix();
 	glTranslated(status->eixo[0], status->eixo[1], status->eixo[2]);
 	Graphics::material(emerald);
 	glPushName(EIXO_Z);
-	Graphics::drawAxis(model);
+	Graphics::drawAxis();
 	glPopName();
 	glPushName(EIXO_Y);
 	glPushMatrix();
 	glRotatef(-90, 1, 0, 0);
 	Graphics::material(red_plastic);
-	Graphics::drawAxis(model);
+	Graphics::drawAxis();
 	glPopMatrix();
 	glPopName();
 	glPushName(EIXO_X);
 	glPushMatrix();
 	glRotatef(90, 0, 1, 0);
 	Graphics::material(azul);
-	Graphics::drawAxis(model);
+	Graphics::drawAxis();
 	glPopMatrix();
 	glPopName();
 	glPopMatrix();
@@ -394,3 +400,122 @@ void Graphics::material(enum tipo_material mat) {
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular[mat]);
 	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, mat_shininess[mat]);
 }
+
+void Graphics::putLights(GLfloat* diffuse){
+    const GLfloat white_amb[] = { 0.2, 0.2, 0.2, 1.0 };
+    
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, white_light);
+    glLightfv(GL_LIGHT0, GL_AMBIENT, white_amb);
+    glLightfv(GL_LIGHT0, GL_POSITION, model->g_pos_luz1);
+    
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
+    glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
+    glLightfv(GL_LIGHT1, GL_POSITION, model->g_pos_luz2);
+    
+    /* desenhar luz */
+    //material(red_plastic);
+    //glPushMatrix();
+    //	glTranslatef(Maze::model->g_pos_luz1[0], Maze::model->g_pos_luz1[1], Maze::model->g_pos_luz1[2]);
+    //	glDisable(GL_LIGHTING);
+    //	glColor3f(1.0, 1.0, 1.0);
+    //	glutSolidCube(0.1);
+    //	glEnable(GL_LIGHTING);
+    //glPopMatrix();
+    //glPushMatrix();
+    //	glTranslatef(Maze::model->g_pos_luz2[0], Maze::model->g_pos_luz2[1], Maze::model->g_pos_luz2[2]);
+    //	glDisable(GL_LIGHTING);
+    //	glColor3f(1.0, 1.0, 1.0);
+    //	glutSolidCube(0.1);
+    //	glEnable(GL_LIGHTING);
+    //glPopMatrix();
+    
+    glEnable(GL_LIGHT0);
+    glEnable(GL_LIGHT1);
+}
+
+void Graphics::setCamera(){
+    Vertice eye;
+    eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+    eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+    eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
+    
+    if (status->light){
+        gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
+        Graphics::putLights((GLfloat*)white_light);
+    }
+    else{
+        Graphics::putLights((GLfloat*)white_light);
+        gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
+    }
+}
+
+void Graphics::display(void){
+    
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glLoadIdentity();
+    Graphics::setCamera();
+    
+    Graphics::material(slate);
+    Graphics::drawGround(model->texID[0]);
+    
+    
+    Graphics::drawAxes();
+    
+    Graphics::drawMaze();
+    
+    if (status->eixoTranslaccao) {
+        // desenha plano de translacÁ„o
+        cout << "Translate... " << status->eixoTranslaccao << endl;
+        Graphics::drawDragPlane(status->eixoTranslaccao);
+        
+    }
+    
+    glFlush();
+    glutSwapBuffers();
+    
+}
+
+void Graphics::setProjection(int x, int y, GLboolean picking){
+    glLoadIdentity();
+    if (picking) { // esta no modo picking
+        GLint vport[4];
+        glGetIntegerv(GL_VIEWPORT, vport);
+        gluPickMatrix(x, glutGet(GLUT_WINDOW_HEIGHT) - y, 4, 4, vport); // Inverte o rato para corresponder
+    }
+    
+    gluPerspective(status->camera->fov, (GLfloat)glutGet(GLUT_WINDOW_WIDTH) / glutGet(GLUT_WINDOW_HEIGHT), 1, 500);
+    
+}
+
+void Graphics::myReshape(int w, int h){
+    glViewport(0, 0, w, h);
+    glMatrixMode(GL_PROJECTION);
+    Graphics::setProjection(0, 0, GL_FALSE);
+    glMatrixMode(GL_MODELVIEW);
+}
+
+void Graphics::createTextures(GLuint texID[]) {
+    char *image;
+    int w, h, bpp;
+    
+    glGenTextures(1,texID);
+    
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    
+    if(	read_JPEG_file(FLOOR_TEXTURE, &image, &w, &h, &bpp))
+    {
+        glBindTexture(GL_TEXTURE_2D, texID[0]);
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST );
+        glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
+        glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+        gluBuild2DMipmaps(GL_TEXTURE_2D, 3, w, h, GL_RGB, GL_UNSIGNED_BYTE, image);
+    }else{
+        printf("Textura %s not Found\n",FLOOR_TEXTURE);
+        exit(0);
+    }
+    glBindTexture(GL_TEXTURE_2D, NULL);
+}
+
