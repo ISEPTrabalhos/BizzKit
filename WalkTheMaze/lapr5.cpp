@@ -5,7 +5,7 @@
 #include <iostream>
 #include "grafos.h"
 #include <string>
-//#include <AL\alut.h>
+#include <AL\alut.h>
 #include "stdafx.h"
 #include "WebServices.h"
 #include "schemas.microsoft.com.2003.10.Serialization.xsd.h"
@@ -85,8 +85,8 @@ typedef struct Estado{
 	GLint		eixoTranslaccao;
 	GLdouble	eixo[3];
 	GLint		timer;
-	/*ALuint		buffer, source;
-	ALboolean	tecla_o;*/
+	ALuint		buffer, source;
+	ALboolean	tecla_o;
 }Estado;
 
 typedef struct Modelo {
@@ -771,23 +771,23 @@ void keyboard(unsigned char key, int x, int y)
 				initModelo();
 				glutPostRedisplay();
 			break;    
-		/*case 'o':
+		case 'o':
 		case 'O':
 			estado.tecla_o = AL_TRUE;
-			break;*/
+			break;
 	}
 }
 
-//void keyUp(unsigned char key, int x, int y)
-//{
-//	switch (key)
-//	{
-//	case 'o':
-//	case 'O':
-//		estado.tecla_o = AL_FALSE;
-//		break;
-//	}
-//}
+void keyUp(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+	case 'o':
+	case 'O':
+		estado.tecla_o = AL_FALSE;
+		break;
+	}
+}
 
 
 void Special(int key, int x, int y){
@@ -1008,23 +1008,23 @@ void mouse(int btn, int state, int x, int y){
 	}
 }
 
-//void Timer(int value)
-//{
-//	ALint state;
-//	glutTimerFunc(estado.timer, Timer, 0);
-//	alGetSourcei(estado.source, AL_SOURCE_STATE, &state);
-//	if (estado.tecla_o)
-//	{
-//		if (state != AL_PLAYING)
-//			alSourcePlay(estado.source);
-//		else{
-//			if (state==AL_PLAYING)
-//				alSourceStop(estado.source);
-//		}
-//			
-//	}
-//	glutPostRedisplay();
-//}
+void Timer(int value)
+{
+	ALint state;
+	glutTimerFunc(estado.timer, Timer, 0);
+	alGetSourcei(estado.source, AL_SOURCE_STATE, &state);
+	if (estado.tecla_o)
+	{
+		if (state != AL_PLAYING)
+			alSourcePlay(estado.source);
+		else{
+			if (state==AL_PLAYING)
+				alSourceStop(estado.source);
+		}
+			
+	}
+	glutPostRedisplay();
+}
 
 int callLoginService(string user, string pass) {
 	HRESULT hr = ERROR_SUCCESS;
@@ -1099,11 +1099,11 @@ void main(int argc, char **argv)
 		glutSpecialFunc(Special);
 		glutMouseFunc(mouse);
 
-		//glutTimerFunc(estado.timer, Timer, 0);
+		glutTimerFunc(estado.timer, Timer, 0);
 		myInit();
 
-		/*alutInit(&argc, argv);
-		InitAudio();*/
+		alutInit(&argc, argv);
+		InitAudio();
 		imprime_ajuda();
 
 		glutMainLoop();
