@@ -516,7 +516,20 @@ void desenhaArco(Arco arco){
 			desenhaParede(nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
 		}
 		else{
-			cout << "arco diagonal... não será desenhado";
+            //arco diagonal
+            if (nos[arco.noi].x < nos[arco.nof].x) {
+                noi = &nos[arco.noi];
+                nof = &nos[arco.nof];
+            }
+            else{
+                nof = &nos[arco.noi];
+                noi = &nos[arco.nof];
+            }
+            
+            //desenhaChao(noi->x, noi->y, noi->z, nof->x, nof->y, nof->z, NORTE_SUL);
+            
+            desenhaParede(noi->x+0.5*noi->largura,noi->y+0.5*arco.largura,noi->z,nof->x-0.5*nof->largura,nof->y+0.5*arco.largura,nof->z);
+            desenhaParede(nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
 		}
 	}
 }
