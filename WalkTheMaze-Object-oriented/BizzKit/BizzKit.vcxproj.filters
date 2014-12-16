@@ -66,6 +66,9 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Downloads\Aula8_Template\readjpeg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -94,6 +97,15 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Downloads\Aula8_Template\jconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Downloads\Aula8_Template\jmorecfg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\..\Downloads\Aula8_Template\jpeglib.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
