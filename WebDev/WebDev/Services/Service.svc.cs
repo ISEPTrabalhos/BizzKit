@@ -45,5 +45,10 @@ namespace WebDev.Services
                 return 0;
             }
         }
+        
+        public int Score(string username, int score)
+        {
+            return 1;
+        }
     }
 }

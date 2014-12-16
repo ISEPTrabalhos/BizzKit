@@ -13,5 +13,8 @@ namespace WebDev.Services
     {
         [OperationContract]
         int Login(string username, string password);
+
+        [OperationContract]
+        int Score(string username, int score);
     }
 }
