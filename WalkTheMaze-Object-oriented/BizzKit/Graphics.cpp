@@ -284,9 +284,15 @@ void Graphics::drawArc(Status *status, Arco arco){
 			Graphics::drawWall(status, nof->x - 0.5*nof->largura, nof->y - 0.5*arco.largura, nof->z, noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z);
 		}
 		else{
-			cout << "arco diagonal... não será desenhado";
+            nof = &nos[arco.noi];
+            noi = &nos[arco.nof];
+        }
+        
+        //desenhaChao(noi->x, noi->y, noi->z, nof->x, nof->y, nof->z, NORTE_SUL);
+        
+        Graphics::drawWall(status, noi->x+0.5*noi->largura,noi->y+0.5*arco.largura,noi->z,nof->x-0.5*nof->largura,nof->y+0.5*arco.largura,nof->z);
+        Graphics::drawWall(status, nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
 		}
-	}
 }
 
 void Graphics::drawMaze(Status *status){
