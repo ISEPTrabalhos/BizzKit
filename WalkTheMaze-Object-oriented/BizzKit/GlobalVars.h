@@ -3,9 +3,15 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <stdlib.h>     
-#include <GLUT/glut.h>
+#include <stdlib.h>   
 #include <iostream>
+
+#ifdef _WIN32
+    #include <GL\glut.h>
+#elif __APPLE__
+    #include <GLUT/glut.h>
+#endif
+
 #include "Grafo.h"
 
 using namespace std;
