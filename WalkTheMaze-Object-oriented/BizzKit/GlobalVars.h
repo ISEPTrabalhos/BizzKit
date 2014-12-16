@@ -12,6 +12,13 @@
     #include <GLUT/glut.h>
 #endif
 
+#ifdef _WIN32
+    //#include <GL\glut.h>
+#elif __APPLE__
+    #include <OpenAL/al.h>
+    #include <OpenAL/alc.h>
+#endif
+
 #include "Grafo.h"
 
 using namespace std;

@@ -324,6 +324,10 @@ void Maze::keyboard(unsigned char key, int x, int y){
 		model = new Model();
 		glutPostRedisplay();
 		break;
+    case 'o':
+    case 'O':
+        status->tecla_o = !status->tecla_o;
+        break;
 	}
 }
 
@@ -431,6 +435,7 @@ void Maze::Launch(int argc, char **argv){
 	glutKeyboardFunc(Maze::keyboard);
 	glutSpecialFunc(Maze::Special);
 	glutMouseFunc(Maze::mouse);
+    glutTimerFunc(status->timer, Timer, 0);
 
 	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
     Maze::createTextures(model->texID);
@@ -458,4 +463,22 @@ void Maze::Launch(int argc, char **argv){
 	Maze::help();
 
 	glutMainLoop();
+}
+
+void Maze::Timer(int value)
+{
+    ALint state;
+    glutTimerFunc(status->timer, Timer, 0);
+    alGetSourcei(status->source, AL_SOURCE_STATE, &state);
+    if (status->tecla_o)
+    {
+        if (state != AL_PLAYING)
+            alSourcePlay(status->source);
+        else{
+            if (state==AL_PLAYING)
+                alSourceStop(status->source);
+        }
+        
+    }
+    glutPostRedisplay();
 }

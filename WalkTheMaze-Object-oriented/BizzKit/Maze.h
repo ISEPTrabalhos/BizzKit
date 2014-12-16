@@ -27,6 +27,7 @@ public:
 	static void Special(int key, int x, int y);
 	static void help(void);
     static void createTextures(GLuint texID[]);
+    static void Timer(int value);
 };
 
 #endif
