@@ -21,6 +21,8 @@
 		596226481A40A7DC0036240E /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 596226471A40A7DC0036240E /* GLUT.framework */; };
 		5962264D1A40B4980036240E /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5962264C1A40B4980036240E /* OpenAL.framework */; };
 		5962264F1A40B8430036240E /* libjpeg.9.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5962264E1A40B8430036240E /* libjpeg.9.dylib */; };
+		596226521A40DE530036240E /* MainCharacter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596226501A40DE530036240E /* MainCharacter.cpp */; };
+		596226551A40DEAB0036240E /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596226531A40DEAB0036240E /* Point.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -61,6 +63,10 @@
 		596226471A40A7DC0036240E /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		5962264C1A40B4980036240E /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		5962264E1A40B8430036240E /* libjpeg.9.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libjpeg.9.dylib; path = ../../../../../opt/local/lib/libjpeg.9.dylib; sourceTree = "<group>"; };
+		596226501A40DE530036240E /* MainCharacter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MainCharacter.cpp; sourceTree = "<group>"; };
+		596226511A40DE530036240E /* MainCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainCharacter.h; sourceTree = "<group>"; };
+		596226531A40DEAB0036240E /* Point.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
+		596226541A40DEAB0036240E /* Point.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Point.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,7 @@
 		5962261A1A40A6A90036240E /* BizzKit */ = {
 			isa = PBXGroup;
 			children = (
+				596226561A40E0550036240E /* headers */,
 				596226441A40A74F0036240E /* lib */,
 				596226251A40A7060036240E /* Logic */,
 				596226241A40A6FF0036240E /* Input */,
@@ -116,11 +123,10 @@
 			isa = PBXGroup;
 			children = (
 				596226261A40A71C0036240E /* Camera.cpp */,
-				596226271A40A71C0036240E /* Camera.h */,
 				596226331A40A71C0036240E /* Model.cpp */,
-				596226341A40A71C0036240E /* Model.h */,
 				596226381A40A71C0036240E /* Status.cpp */,
-				596226391A40A71C0036240E /* Status.h */,
+				596226501A40DE530036240E /* MainCharacter.cpp */,
+				596226531A40DEAB0036240E /* Point.cpp */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -129,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				5962262C1A40A71C0036240E /* Graphics.cpp */,
-				5962262D1A40A71C0036240E /* Graphics.h */,
 			);
 			name = Render;
 			sourceTree = "<group>";
@@ -138,9 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				5962262E1A40A71C0036240E /* Keyboard.cpp */,
-				5962262F1A40A71C0036240E /* Keyboard.h */,
 				596226351A40A71C0036240E /* Mouse.cpp */,
-				596226361A40A71C0036240E /* Mouse.h */,
 			);
 			name = Input;
 			sourceTree = "<group>";
@@ -149,8 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				596226311A40A71C0036240E /* Maze.cpp */,
-				596226321A40A71C0036240E /* Maze.h */,
-				596226291A40A71C0036240E /* GlobalVars.h */,
 			);
 			name = Logic;
 			sourceTree = "<group>";
@@ -160,9 +161,26 @@
 			children = (
 				596226371A40A71C0036240E /* readjpeg.c */,
 				5962262A1A40A71C0036240E /* Grafo.cpp */,
-				5962262B1A40A71C0036240E /* Grafo.h */,
 			);
 			name = lib;
+			sourceTree = "<group>";
+		};
+		596226561A40E0550036240E /* headers */ = {
+			isa = PBXGroup;
+			children = (
+				5962262B1A40A71C0036240E /* Grafo.h */,
+				596226321A40A71C0036240E /* Maze.h */,
+				596226291A40A71C0036240E /* GlobalVars.h */,
+				5962262F1A40A71C0036240E /* Keyboard.h */,
+				596226361A40A71C0036240E /* Mouse.h */,
+				5962262D1A40A71C0036240E /* Graphics.h */,
+				596226271A40A71C0036240E /* Camera.h */,
+				596226341A40A71C0036240E /* Model.h */,
+				596226391A40A71C0036240E /* Status.h */,
+				596226511A40DE530036240E /* MainCharacter.h */,
+				596226541A40DEAB0036240E /* Point.h */,
+			);
+			name = headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				596226551A40DEAB0036240E /* Point.cpp in Sources */,
 				5962263F1A40A71C0036240E /* Maze.cpp in Sources */,
 				5962263A1A40A71C0036240E /* Camera.cpp in Sources */,
 				5962263C1A40A71C0036240E /* Graphics.cpp in Sources */,
@@ -228,6 +247,7 @@
 				596226411A40A71C0036240E /* Mouse.cpp in Sources */,
 				5962263D1A40A71C0036240E /* Keyboard.cpp in Sources */,
 				596226401A40A71C0036240E /* Model.cpp in Sources */,
+				596226521A40DE530036240E /* MainCharacter.cpp in Sources */,
 				596226421A40A71C0036240E /* readjpeg.c in Sources */,
 				5962263B1A40A71C0036240E /* Grafo.cpp in Sources */,
 				5962263E1A40A71C0036240E /* Launcher.cpp in Sources */,

@@ -28,6 +28,8 @@ public:
     static void myReshape(int w, int h);
     
     static void createTextures(GLuint texID[]);
+    
+    static void drawMiniMap(int width, int height);
 };
 
 #endif

@@ -339,26 +339,26 @@ void Graphics::drawAxis(){
 void Graphics::drawDragPlane(int eixo){
 	glPushMatrix();
 	glTranslated(status->eixo[0], status->eixo[1], status->eixo[2]);
-	switch (eixo) {
-	case EIXO_Y:
-		if (abs((int)(status->camera->dir_lat)<M_PI / 4))
-			glRotatef(-90, 0, 0, 1);
-		else
-			glRotatef(90, 1, 0, 0);
-		material(red_plastic);
-		break;
-	case EIXO_X:
-		if (abs((int)(status->camera->dir_lat)>M_PI / 6))
-			glRotatef(90, 1, 0, 0);
-		material(azul);
-		break;
-	case EIXO_Z:
-		if (abs((int)(cos(status->camera->dir_long))>0.5))
-			glRotatef(90, 0, 0, 1);
-
-		material(emerald);
-		break;
-	}
+    switch (eixo) {
+        case EIXO_Y :
+            if(fabs(status->camera->dir_lat)<M_PI/4)
+                glRotatef(-90,0,0,1);
+            else
+                glRotatef(90,1,0,0);
+            material(red_plastic);
+            break;
+        case EIXO_X :
+            if(fabs(status->camera->dir_lat)>M_PI/6)
+                glRotatef(90,1,0,0);
+            material(azul);
+            break;
+        case EIXO_Z :
+            if(fabs(cos(status->camera->dir_long))>0.5)
+                glRotatef(90,0,0,1);
+            
+            material(emerald);
+            break;
+    }
 	glBegin(GL_QUADS);
 	glNormal3f(0, 1, 0);
 	glVertex3f(-100, 0, -100);
@@ -470,8 +470,9 @@ void Graphics::display(void){
         // desenha plano de translacÁ„o
         cout << "Translate... " << status->eixoTranslaccao << endl;
         Graphics::drawDragPlane(status->eixoTranslaccao);
-        
     }
+    
+    Graphics::drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     
     glFlush();
     glutSwapBuffers();
@@ -517,5 +518,30 @@ void Graphics::createTextures(GLuint texID[]) {
         exit(0);
     }
     glBindTexture(GL_TEXTURE_2D, NULL);
+}
+
+void Graphics::drawMiniMap(int width, int height) {
+
+    // Altera viewport e projecção
+    
+    glViewport(width * 0.65, 0, 250, 250);
+    glMatrixMode(GL_PROJECTION);
+    
+    glLoadIdentity();
+    
+    // mini map option to big view
+    //glOrtho(-100, 100, -100, 100, -100, 100);
+    
+    // mini map option to room view
+    glOrtho(-1000, 1000, -1000, 1000, -100, 100);
+    
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    
+    gluLookAt(0, 0, 10, 0, 0, 0, 0, 1, 0);
+    
+    Graphics::drawMaze();
+    
+    Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 }
 
