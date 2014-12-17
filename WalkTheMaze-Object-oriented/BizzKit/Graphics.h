@@ -31,6 +31,9 @@ public:
     static void createTextures(GLuint texID[]);
     
     static void drawMiniMap(int width, int height);
+
+	static void setTopCamera();
+	static void firstPersonCamera();
 };
 
 #endif

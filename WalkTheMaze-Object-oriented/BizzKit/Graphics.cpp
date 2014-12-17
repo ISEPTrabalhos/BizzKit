@@ -440,11 +440,42 @@ void Graphics::putLights(GLfloat* diffuse){
 }
 
 void Graphics::setCamera(){
+
     Vertice eye;
-    eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-    eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
-    eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
-    
+
+	if (!status->top){
+
+		//	set the camera center to the character
+		status->camera->center[0] = character->position->x + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[1] = character->position->y + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[2] = 0;
+
+		//	set the eye of the camera to a position above the character
+		eye[0] = character->position->x;
+		eye[1] = character->position->y;
+		eye[2] = character->position->z + 5;
+	} 
+	else if(status->first){
+
+		status->camera->center[0] = 0;
+		status->camera->center[1] = 0;
+		status->camera->center[2] = 0;
+
+		eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
+	}
+
+	else{
+		status->camera->center[0] = 0;
+		status->camera->center[1] = 0;
+		status->camera->center[2] = 0;
+
+		eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
+	}
+
     if (status->light){
         gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
         Graphics::putLights((GLfloat*)white_light);
@@ -468,7 +499,6 @@ void Graphics::display(void){
     glPushMatrix();
     glTranslatef(character->position->x ,character->position->y,character->position->z);
     glRotatef(GRAUS(character->dir),0,1,0);
-    //glRotatef(-90,1,0,0);
     glScalef(SCALE_HOMER,SCALE_HOMER,SCALE_HOMER);
     mdlviewer_display(character->homer);
     glPopMatrix();
@@ -555,4 +585,57 @@ void Graphics::drawMiniMap(int width, int height) {
     
     Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 }
+
+void Graphics::setTopCamera(){
+
+	//	set the camera center to the character
+	status->camera->center[0] = character->position->x;
+	status->camera->center[1] = character->position->y;
+	status->camera->center[2] = character->position->z;
+
+	//	set the eye of the camera to a position above the character
+	Vertice eye;
+	eye[0] = character->position->x;
+	eye[1] = character->position->y;
+	eye[2] = character->position->z;
+	
+	if (status->light){
+		gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
+		Graphics::putLights((GLfloat*)white_light);
+	}
+	else{
+		Graphics::putLights((GLfloat*)white_light);
+		gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
+	}
+
+
+}
+
+void Graphics::firstPersonCamera(){
+
+	//	set the camera center to the character
+	status->camera->center[0] = character->position->x + 1;
+	status->camera->center[1] = character->position->y + 1;
+	status->camera->center[2] = character->position->z + 0.5;
+
+	//	set the eye of the camera to a position above the character
+	Vertice eye;
+	eye[0] = character->position->x;
+	eye[1] = character->position->y;
+	eye[2] = character->position->z;
+
+	gluLookAt(eye[0], eye[1], eye[2], character->position->x + 1, character->position->y + 1, character->position->z + 0.5 , 0, 0, 1);
+
+	/*if (status->light){
+		gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
+		Graphics::putLights((GLfloat*)white_light);
+	}
+	else{
+		Graphics::putLights((GLfloat*)white_light);
+		gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
+	}*/
+
+
+}
+
 

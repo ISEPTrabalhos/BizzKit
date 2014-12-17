@@ -16,6 +16,7 @@ public:
     GLint		timer;
     ALuint		buffer, source;
     ALboolean	tecla_o;
+	GLboolean		top, first;
 
 	// functions
 	Status();

@@ -92,6 +92,24 @@ void Keyboard::Special(int key, int x, int y){
             leGrafo();
             glutPostRedisplay();
             break;
+
+		case GLUT_KEY_F3:
+			status->top = GL_TRUE;
+			status->first = GL_FALSE;
+			glutPostRedisplay();
+			break;
+
+		case GLUT_KEY_F4:
+			status->top = GL_FALSE;
+			status->first = GL_TRUE;
+			glutPostRedisplay();
+			break;
+
+		case GLUT_KEY_F5:
+			status->top = GL_FALSE;
+			status->first = GL_FALSE;
+			glutPostRedisplay();
+			break;
             
         case GLUT_KEY_F6:
             numNos = numArcos = 0;
