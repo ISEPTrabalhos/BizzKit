@@ -88,7 +88,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Downloads\Aula8_Template\readjpeg.c" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Grafo.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -101,6 +100,7 @@
     <ClCompile Include="mdlviewer.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="readjpeg.c" />
     <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="studio_render.cpp" />
@@ -109,13 +109,13 @@
     <ClCompile Include="tempuri.org.xsd.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\Downloads\Aula8_Template\jconfig.h" />
-    <ClInclude Include="..\..\..\..\..\Downloads\Aula8_Template\jmorecfg.h" />
-    <ClInclude Include="..\..\..\..\..\Downloads\Aula8_Template\jpeglib.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="jconfig.h" />
+    <ClInclude Include="jmorecfg.h" />
+    <ClInclude Include="jpeglib.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="MainCharacter.h" />
