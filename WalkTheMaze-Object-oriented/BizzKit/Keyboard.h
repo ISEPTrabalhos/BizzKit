@@ -10,7 +10,7 @@ public:
     static void keyboard(unsigned char key, int x, int y);
     static void Special(int key, int x, int y);
     static void help(void);
-	
+	//static void keyUp(unsigned char key, int x, int y);
 };
 
 #endif
