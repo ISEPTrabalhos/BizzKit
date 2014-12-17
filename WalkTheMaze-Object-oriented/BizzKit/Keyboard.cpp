@@ -66,10 +66,21 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
             break;
         case 'o':
         case 'O':
-            status->tecla_o = !status->tecla_o;
+			status->tecla_o =!status->tecla_o;
             break;
     }
 }
+
+//void Keyboard::keyUp(unsigned char key, int x, int y)
+//{
+//	switch (key)
+//	{
+//	case 'o':
+//	case 'O':
+//		status->tecla_o = AL_FALSE;
+//		break;
+//	}
+//}
 
 void Keyboard::Special(int key, int x, int y){
     
