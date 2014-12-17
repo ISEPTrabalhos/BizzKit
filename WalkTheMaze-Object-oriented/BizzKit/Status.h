@@ -20,6 +20,7 @@ public:
 	// functions
 	Status();
 	~Status();
+	void InitAudio();
 };
 
 #endif

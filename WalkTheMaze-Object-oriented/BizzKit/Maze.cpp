@@ -1,6 +1,7 @@
 #include "Maze.h"
 #include "MainCharacter.h"
 #include "Login.h"
+#include "Status.h"
 
 Model *model = new Model();
 Status *status = new Status();
@@ -14,11 +15,8 @@ void Maze::Timer(int value) {
     {
         if (state != AL_PLAYING)
             alSourcePlay(status->source);
-        else{
-            if (state==AL_PLAYING)
-                alSourceStop(status->source);
-        }
-        
+        else
+            alSourceStop(status->source);   
     }
     glutPostRedisplay();
 }
@@ -63,6 +61,9 @@ void Maze::Launch(int argc, char **argv){
 		model->quad = gluNewQuadric();
 		gluQuadricDrawStyle(model->quad, GLU_FILL);
 		gluQuadricNormals(model->quad, GLU_OUTSIDE);
+
+		alutInit(&argc, argv);
+		status->InitAudio();
 
 		leGrafo();
 
