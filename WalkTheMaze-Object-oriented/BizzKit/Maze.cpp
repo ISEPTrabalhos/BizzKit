@@ -1,5 +1,6 @@
 #include "Maze.h"
 #include "MainCharacter.h"
+#include "Login.h"
 
 Model *model = new Model();
 Status *status = new Status();
@@ -24,44 +25,50 @@ void Maze::Timer(int value) {
 
 
 void Maze::Launch(int argc, char **argv){
-	glutInit(&argc, argv);
 
-	/* need both double buffering and z buffer */
 
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(640, 480);
-	glutCreateWindow("OpenGL");
-	glutReshapeFunc(Graphics::myReshape);
-	glutDisplayFunc(Graphics::display);
-	glutKeyboardFunc(Keyboard::keyboard);
-	glutSpecialFunc(Keyboard::Special);
-	glutMouseFunc(Mouse::mouse);
-    glutTimerFunc(status->timer, Timer, 0);
+	Login *login = new Login();
+	if (login->ShowSignInMenu()) {
+		glutInit(&argc, argv);
 
-	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
-    Graphics::createTextures(model->texID);
-    
-	glClearColor(0.0, 0.0, 0.0, 0.0);
+		/* need both double buffering and z buffer */
 
-	glEnable(GL_SMOOTH); /*enable smooth shading */
-	glEnable(GL_LIGHTING); /* enable lighting */
-	glEnable(GL_DEPTH_TEST); /* enable z buffer */
-	glEnable(GL_NORMALIZE);
-    glEnable(GL_TEXTURE_2D);
+		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+		glutInitWindowSize(640, 480);
+		glutCreateWindow("OpenGL");
+		glutReshapeFunc(Graphics::myReshape);
+		glutDisplayFunc(Graphics::display);
+		glutKeyboardFunc(Keyboard::keyboard);
+		glutSpecialFunc(Keyboard::Special);
+		glutMouseFunc(Mouse::mouse);
+		glutTimerFunc(status->timer, Timer, 0);
 
-	glDepthFunc(GL_LESS);
+		GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
+		Graphics::createTextures(model->texID);
 
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
-	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+		glClearColor(0.0, 0.0, 0.0, 0.0);
 
-	model->quad = gluNewQuadric();
-	gluQuadricDrawStyle(model->quad, GLU_FILL);
-	gluQuadricNormals(model->quad, GLU_OUTSIDE);
+		glEnable(GL_SMOOTH); /*enable smooth shading */
+		glEnable(GL_LIGHTING); /* enable lighting */
+		glEnable(GL_DEPTH_TEST); /* enable z buffer */
+		glEnable(GL_NORMALIZE);
+		glEnable(GL_TEXTURE_2D);
 
-	leGrafo();
+		glDepthFunc(GL_LESS);
 
-	Keyboard::help();
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
+		glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
+		glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
-	glutMainLoop();
+		model->quad = gluNewQuadric();
+		gluQuadricDrawStyle(model->quad, GLU_FILL);
+		gluQuadricNormals(model->quad, GLU_OUTSIDE);
+
+		leGrafo();
+
+		Keyboard::help();
+
+		glutMainLoop();
+	}
+	
 }
