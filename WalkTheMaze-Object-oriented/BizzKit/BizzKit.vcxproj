@@ -102,6 +102,7 @@
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="readjpeg.c" />
     <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="studio_render.cpp" />
     <ClCompile Include="studio_utils.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Model.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Status.h" />
     <ClInclude Include="studio.h" />
     <ClInclude Include="tempuri.org.wsdl.h" />
