@@ -39,17 +39,16 @@ int Login::LoginUser(string user, string pass) {
 
 }
 
-
 bool Login::ShowSignInMenu() {
 	string username = "", password = "";
 	bool valid = false;
+
 	cout << "******* SIGN IN *******\n";
 	while (valid == false) {
 		cout << "Username: ";
 		getline(cin, username);
 		cout << "Password: ";
 		getline(cin, password);
-		cout << "Username: " << username << " Password: " << password;
 		cout << "\n" << endl;
 
 		int id = LoginUser(username, password);
