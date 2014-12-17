@@ -18,11 +18,19 @@ int Login::LoginUser(string user, string pass) {
 		&templ, NULL, 0, &proxy, error);
 	hr = WsOpenServiceProxy(proxy, &address, NULL, error);
 
+	typedef codecvt_utf8<wchar_t> convert_typeX;
+	wstring_convert<convert_typeX, wchar_t> converterX;
+	wstring str1 = converterX.from_bytes(user);
+	wchar_t* username = const_cast<wchar_t*>(str1.c_str());
+	wstring str2 = converterX.from_bytes(pass);
+	wchar_t*  password = const_cast<wchar_t*>(str2.c_str());
+	
 	WCHAR* idResult;
-	WCHAR username = L'username';
-	WCHAR password = L'password';
+	/*wchar_t myuser[100] = L"admin";
+	wchar_t mypass[100] = L"Admin_123";*/
+	
 	hr = BasicHttpBinding_IService_Login(
-		proxy, &username, &password, &idResult, heap, NULL, 0, NULL, error);
+		proxy, username, password, &idResult, heap, NULL, 0, NULL, error);
 	//wprintf(L"%s\n", idResult);
 
 	int id = _wtoi(idResult);
@@ -52,7 +60,7 @@ bool Login::ShowSignInMenu() {
 			return true;
 		}
 		else {
-			cout << "Invalid user, please try again !! \n" << endl;
+			cout << "Invalid username or password, please try again !! \n" << endl;
 		}
 	}
 	return false;

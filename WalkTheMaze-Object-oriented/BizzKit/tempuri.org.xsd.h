@@ -43,6 +43,8 @@ extern "C" {
 
 //     struct _Login;
 //     struct _LoginResponse;
+//     struct _Score;
+//     struct _ScoreResponse;
 
 // The following header files must be included in this order before this one
 
@@ -65,6 +67,19 @@ typedef struct _LoginResponse
     WCHAR* LoginResult; // optional
 } _LoginResponse;
 
+// typeDescription: n/a
+typedef struct _Score 
+{
+    WCHAR* username; // optional
+    int score;
+} _Score;
+
+// typeDescription: n/a
+typedef struct _ScoreResponse 
+{
+    int ScoreResult;
+} _ScoreResponse;
+
 ////////////////////////////////////////////////
 // Global web service descriptions.
 ////////////////////////////////////////////////
@@ -83,11 +98,23 @@ typedef struct _tempuri_org_xsd
         // elementDescription: tempuri_org_xsd.globalElements.LoginResponse
         WS_ELEMENT_DESCRIPTION LoginResponse;
         
+        // xml element: Score ("http://tempuri.org/")
+        // c type: _Score
+        // elementDescription: tempuri_org_xsd.globalElements.Score
+        WS_ELEMENT_DESCRIPTION Score;
+        
+        // xml element: ScoreResponse ("http://tempuri.org/")
+        // c type: _ScoreResponse
+        // elementDescription: tempuri_org_xsd.globalElements.ScoreResponse
+        WS_ELEMENT_DESCRIPTION ScoreResponse;
+        
     } globalElements;
     struct // externallyReferencedTypes
     {
         WS_STRUCT_DESCRIPTION Login;
         WS_STRUCT_DESCRIPTION LoginResponse;
+        WS_STRUCT_DESCRIPTION Score;
+        WS_STRUCT_DESCRIPTION ScoreResponse;
     } externallyReferencedTypes;
 } _tempuri_org_xsd;
 

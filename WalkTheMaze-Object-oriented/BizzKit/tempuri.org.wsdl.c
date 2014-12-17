@@ -10,6 +10,8 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
     {
         WS_MESSAGE_DESCRIPTION IService_Login_InputMessage;
         WS_MESSAGE_DESCRIPTION IService_Login_OutputMessage;
+        WS_MESSAGE_DESCRIPTION IService_Score_InputMessage;
+        WS_MESSAGE_DESCRIPTION IService_Score_OutputMessage;
     } messages; // end of messages
     struct // contracts
     {
@@ -20,7 +22,12 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
                 WS_PARAMETER_DESCRIPTION params[3];
                 WS_OPERATION_DESCRIPTION BasicHttpBinding_IService_Login;
             } BasicHttpBinding_IService_Login;
-            WS_OPERATION_DESCRIPTION* operations[1];
+            struct // BasicHttpBinding_IService_Score
+            {
+                WS_PARAMETER_DESCRIPTION params[3];
+                WS_OPERATION_DESCRIPTION BasicHttpBinding_IService_Score;
+            } BasicHttpBinding_IService_Score;
+            WS_OPERATION_DESCRIPTION* operations[2];
             WS_CONTRACT_DESCRIPTION contractDesc;
         } BasicHttpBinding_IService;
     } contracts;  // endof contracts 
@@ -40,6 +47,8 @@ typedef struct _tempuri_org_wsdlLocalDefinitions
         {
             WS_XML_STRING IService_Login_InputMessageactionName;  // http://tempuri.org/IService/Login
             WS_XML_STRING IService_Login_OutputMessageactionName;  // http://tempuri.org/IService/LoginResponse
+            WS_XML_STRING IService_Score_InputMessageactionName;  // http://tempuri.org/IService/Score
+            WS_XML_STRING IService_Score_OutputMessageactionName;  // http://tempuri.org/IService/ScoreResponse
         } xmlStrings; // end of XML string list
         WS_XML_DICTIONARY dict;  
     } dictionary;  // end of XML dictionary
@@ -78,6 +87,39 @@ HRESULT CALLBACK BasicHttpBinding_IService_LoginOperationStub(
 #if (_MSC_VER >=1400) 
 #pragma warning(pop)
 #endif
+
+typedef struct BasicHttpBinding_IService_ScoreParamStruct 
+{
+    WCHAR** username;
+    int* score;
+    int* ScoreResult;
+} BasicHttpBinding_IService_ScoreParamStruct;
+
+#if (_MSC_VER >=1400) 
+#pragma warning(push)
+#endif
+#pragma warning(disable: 4055) // conversion from data pointer to function pointer
+HRESULT CALLBACK BasicHttpBinding_IService_ScoreOperationStub(
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in void* _stackStruct,
+    __in const void* _callback,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error)
+{
+    BasicHttpBinding_IService_ScoreCallback _operation = (BasicHttpBinding_IService_ScoreCallback)_callback;
+    BasicHttpBinding_IService_ScoreParamStruct *_stack =(BasicHttpBinding_IService_ScoreParamStruct*)_stackStruct;
+    return _operation( 
+        _context,
+        *(_stack->username),
+        *(_stack->score),
+        (_stack->ScoreResult),
+        (WS_ASYNC_CONTEXT*)_asyncContext,
+        _error);
+}
+#pragma warning(default: 4055)  // conversion from data pointer to function pointer
+#if (_MSC_VER >=1400) 
+#pragma warning(pop)
+#endif
 const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions =
 {
     { // messages
@@ -89,6 +131,14 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IService_Login_OutputMessageactionName, // http://tempuri.org/IService/LoginResponse
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.LoginResponse, 
         },    // message description for IService_Login_OutputMessage
+        {    // message description for IService_Score_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IService_Score_InputMessageactionName, // http://tempuri.org/IService/Score
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.Score, 
+        },    // message description for IService_Score_InputMessage
+        {    // message description for IService_Score_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IService_Score_OutputMessageactionName, // http://tempuri.org/IService/ScoreResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.ScoreResponse, 
+        },    // message description for IService_Score_OutputMessage
     }, // end of messages 
     { // contracts
         {    // BasicHttpBinding_IService,
@@ -110,11 +160,30 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
                     WS_NON_RPC_LITERAL_OPERATION
                 }, //operation description for BasicHttpBinding_IService_Login
             },  // BasicHttpBinding_IService_Login
+            { // BasicHttpBinding_IService_Score
+                { // parameter descriptions for BasicHttpBinding_IService_Score
+                    { WS_PARAMETER_TYPE_NORMAL, (USHORT)0, (USHORT)-1 },
+                    { WS_PARAMETER_TYPE_NORMAL, (USHORT)1, (USHORT)-1 },
+                    { WS_PARAMETER_TYPE_NORMAL, (USHORT)-1, (USHORT)0 },
+                },    // parameter descriptions for BasicHttpBinding_IService_Score
+                {    // operation description for BasicHttpBinding_IService_Score
+                    1,
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IService_Score_InputMessage, 
+                    (WS_MESSAGE_DESCRIPTION*)&tempuri_org_wsdl.messages.IService_Score_OutputMessage, 
+                    0,
+                    0,
+                    3,
+                    (WS_PARAMETER_DESCRIPTION*)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IService.BasicHttpBinding_IService_Score.params,
+                    BasicHttpBinding_IService_ScoreOperationStub,
+                    WS_NON_RPC_LITERAL_OPERATION
+                }, //operation description for BasicHttpBinding_IService_Score
+            },  // BasicHttpBinding_IService_Score
             {    // array of operations for BasicHttpBinding_IService
                 (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IService.BasicHttpBinding_IService_Login.BasicHttpBinding_IService_Login,
+                (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IService.BasicHttpBinding_IService_Score.BasicHttpBinding_IService_Score,
             },    // array of operations for BasicHttpBinding_IService
             {    // contract description for BasicHttpBinding_IService
-            1,
+            2,
             (WS_OPERATION_DESCRIPTION**)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IService.operations,
             },  // end of contract description for BasicHttpBinding_IService
         },    // BasicHttpBinding_IService
@@ -147,13 +216,15 @@ const static _tempuri_org_wsdlLocalDefinitions tempuri_org_wsdlLocalDefinitions 
         { // xmlStrings
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IService/Login",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 0),
             WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IService/LoginResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 1),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IService/Score",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 2),
+            WS_XML_STRING_DICTIONARY_VALUE("http://tempuri.org/IService/ScoreResponse",&tempuri_org_wsdlLocalDefinitions.dictionary.dict, 3),
         },  // end of xmlStrings
         
         {   // tempuri_org_wsdldictionary
-        // 23d1c435-b9fb-4335-8c3a-4d9d41f2c95a 
-        { 0x23d1c435, 0xb9fb, 0x4335, { 0x8c, 0x3a, 0x4d,0x9d, 0x41, 0xf2, 0xc9, 0x5a } },
+        // 679c3b51-0f78-404a-8a17-3007801679cc 
+        { 0x679c3b51, 0x0f78, 0x404a, { 0x8a, 0x17, 0x30,0x07, 0x80, 0x16, 0x79, 0xcc } },
         (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings,
-        2,
+        4,
         TRUE,
         },
     },   //  end of dictionary
@@ -185,6 +256,32 @@ HRESULT WINAPI BasicHttpBinding_IService_Login(
         _asyncContext,
         _error);
 }
+
+// operation: BasicHttpBinding_IService_Score
+HRESULT WINAPI BasicHttpBinding_IService_Score(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* username, 
+    __in int score, 
+    __out int* ScoreResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error)
+{
+    void* _argList[3]; 
+    _argList[0] = &username;
+    _argList[1] = &score;
+    _argList[2] = &ScoreResult;
+    return WsCall(_serviceProxy,
+        (WS_OPERATION_DESCRIPTION*)&tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IService.BasicHttpBinding_IService_Score.BasicHttpBinding_IService_Score,
+        (const void **)&_argList,
+        _heap,
+        _callProperties,
+        _callPropertyCount,
+        _asyncContext,
+        _error);
+}
 const _tempuri_org_wsdl tempuri_org_wsdl =
 {
     {// messages
@@ -196,10 +293,18 @@ const _tempuri_org_wsdl tempuri_org_wsdl =
             (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IService_Login_OutputMessageactionName, // http://tempuri.org/IService/LoginResponse
             (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.LoginResponse, 
         },    // message description for IService_Login_OutputMessage
+        {    // message description for IService_Score_InputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IService_Score_InputMessageactionName, // http://tempuri.org/IService/Score
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.Score, 
+        },    // message description for IService_Score_InputMessage
+        {    // message description for IService_Score_OutputMessage
+            (WS_XML_STRING*)&tempuri_org_wsdlLocalDefinitions.dictionary.xmlStrings.IService_Score_OutputMessageactionName, // http://tempuri.org/IService/ScoreResponse
+            (WS_ELEMENT_DESCRIPTION*)&tempuri_org_xsd.globalElements.ScoreResponse, 
+        },    // message description for IService_Score_OutputMessage
     }, // messages
     {// contracts
         {   // BasicHttpBinding_IService
-            1,
+            2,
             (WS_OPERATION_DESCRIPTION**)tempuri_org_wsdlLocalDefinitions.contracts.BasicHttpBinding_IService.operations,
         },    // end of BasicHttpBinding_IService
     }, // contracts

@@ -81,6 +81,12 @@
     <ClCompile Include="MainCharacter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Login.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="readjpeg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -88,12 +94,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tempuri.org.xsd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Login.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="readjpeg.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -137,15 +137,6 @@
     <ClInclude Include="MainCharacter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tempuri.org.wsdl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tempuri.org.xsd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Login.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
@@ -156,6 +147,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="jmorecfg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.wsdl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.xsd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

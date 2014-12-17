@@ -10,6 +10,9 @@
 #include "tempuri.org.xsd.h"
 #include "tempuri.org.wsdl.h"
 //#include "schema.xsd.h"
+#include <atlconv.h>
+#include <locale>
+#include <codecvt>
 
 using namespace std;
 

@@ -19,6 +19,17 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION LoginResult;
             WS_FIELD_DESCRIPTION* _LoginResponseFields [1]; 
         } _LoginResponsedescs; // end of _LoginResponse
+        struct // _Score
+        {
+            WS_FIELD_DESCRIPTION username;
+            WS_FIELD_DESCRIPTION score;
+            WS_FIELD_DESCRIPTION* _ScoreFields [2]; 
+        } _Scoredescs; // end of _Score
+        struct // _ScoreResponse
+        {
+            WS_FIELD_DESCRIPTION ScoreResult;
+            WS_FIELD_DESCRIPTION* _ScoreResponseFields [1]; 
+        } _ScoreResponsedescs; // end of _ScoreResponse
     } globalElements;  // end of global elements
     struct // XML dictionary
     {
@@ -30,6 +41,10 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_XML_STRING _LoginpasswordLocalName;  // password
             WS_XML_STRING _LoginResponseTypeName;  // LoginResponse
             WS_XML_STRING _LoginResponseLoginResultLocalName;  // LoginResult
+            WS_XML_STRING _ScoreTypeName;  // Score
+            WS_XML_STRING _ScorescoreLocalName;  // score
+            WS_XML_STRING _ScoreResponseTypeName;  // ScoreResponse
+            WS_XML_STRING _ScoreResponseScoreResultLocalName;  // ScoreResult
         } xmlStrings; // end of XML string list
         WS_XML_DICTIONARY dict;  
     } dictionary;  // end of XML dictionary
@@ -83,6 +98,50 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._LoginResponsedescs.LoginResult,
             },
         },    // _LoginResponse
+        {   // _Score
+            { // field description for username
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginusernameLocalName, // username
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_Score, username),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for username
+            { // field description for score
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScorescoreLocalName, // score
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_Score, score),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for score
+            {    // fields description for _Score
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs.username,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs.score,
+            },
+        },    // _Score
+        {   // _ScoreResponse
+            { // field description for ScoreResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreResponseScoreResultLocalName, // ScoreResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_INT32_TYPE,
+            0,
+            WsOffsetOf(_ScoreResponse, ScoreResult),
+             WS_FIELD_OPTIONAL,
+            0,
+            0xffffffff
+            },    // end of field description for ScoreResult
+            {    // fields description for _ScoreResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs.ScoreResult,
+            },
+        },    // _ScoreResponse
     }, // end of global elements
     {    // dictionary 
         { // xmlStrings
@@ -92,13 +151,17 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("password",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 3),
             WS_XML_STRING_DICTIONARY_VALUE("LoginResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 4),
             WS_XML_STRING_DICTIONARY_VALUE("LoginResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 5),
+            WS_XML_STRING_DICTIONARY_VALUE("Score",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 6),
+            WS_XML_STRING_DICTIONARY_VALUE("score",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 7),
+            WS_XML_STRING_DICTIONARY_VALUE("ScoreResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 8),
+            WS_XML_STRING_DICTIONARY_VALUE("ScoreResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 9),
         },  // end of xmlStrings
         
         {   // tempuri_org_xsddictionary
-        // 9a81f788-da2d-429d-996d-f9288d2ff78f 
-        { 0x9a81f788, 0xda2d, 0x429d, { 0x99, 0x6d, 0xf9,0x28, 0x8d, 0x2f, 0xf7, 0x8f } },
+        // 3b26968b-d1dc-4912-86f9-534084b0f840 
+        { 0x3b26968b, 0xd1dc, 0x4912, { 0x86, 0xf9, 0x53,0x40, 0x84, 0xb0, 0xf8, 0x40 } },
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings,
-        6,
+        10,
         TRUE,
         },
     },   //  end of dictionary
@@ -118,6 +181,18 @@ const _tempuri_org_xsd tempuri_org_xsd =
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
             WS_STRUCT_TYPE,
             (void*)&tempuri_org_xsd.externallyReferencedTypes.LoginResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreTypeName, // Score
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.Score,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreResponseTypeName, // ScoreResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.ScoreResponse,
         },
     }, // globalElements
     {  // begin of externallyReferencedTypes
@@ -143,5 +218,27 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         0,
         },   // end of struct description for _LoginResponse
+        {
+        sizeof(_Score),
+        __alignof(_Score),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs._ScoreFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs._ScoreFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreTypeName, // Score
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _Score
+        {
+        sizeof(_ScoreResponse),
+        __alignof(_ScoreResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs._ScoreResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs._ScoreResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreResponseTypeName, // ScoreResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _ScoreResponse
     }, // end of externallyReferencedTypes;
 }; // end of _tempuri_org_xsd

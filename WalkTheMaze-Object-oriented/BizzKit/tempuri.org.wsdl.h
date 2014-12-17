@@ -125,6 +125,7 @@ extern "C" {
 // The following client functions were generated:
 
 //     BasicHttpBinding_IService_Login
+//     BasicHttpBinding_IService_Score
 
 // The following server function tables were generated:
 
@@ -184,6 +185,18 @@ HRESULT WINAPI BasicHttpBinding_IService_Login(
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
+// operation: BasicHttpBinding_IService_Score
+HRESULT WINAPI BasicHttpBinding_IService_Score(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* username, 
+    __in int score, 
+    __out int* ScoreResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
 ////////////////////////////////////////////////
 // Service functions definitions
 ////////////////////////////////////////////////
@@ -196,10 +209,19 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IService_LoginCallback) (
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_ScoreCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in_opt __nullterminated WCHAR* username, 
+    __in int score, 
+    __out int* ScoreResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
 // binding: BasicHttpBinding_IService
 typedef struct BasicHttpBinding_IServiceFunctionTable 
 {
     BasicHttpBinding_IService_LoginCallback BasicHttpBinding_IService_Login;
+    BasicHttpBinding_IService_ScoreCallback BasicHttpBinding_IService_Score;
 } BasicHttpBinding_IServiceFunctionTable;
 
 ////////////////////////////////////////////////
@@ -222,6 +244,18 @@ typedef struct _tempuri_org_wsdl
         // messageDescription: tempuri_org_wsdl.messages.IService_Login_OutputMessage
         WS_MESSAGE_DESCRIPTION IService_Login_OutputMessage;
         
+        // message: IService_Score_InputMessage
+        // c type: _Score
+        // action: "http://tempuri.org/IService/Score"
+        // messageDescription: tempuri_org_wsdl.messages.IService_Score_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_Score_InputMessage;
+        
+        // message: IService_Score_OutputMessage
+        // c type: _ScoreResponse
+        // action: "http://tempuri.org/IService/ScoreResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_Score_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_Score_OutputMessage;
+        
     } messages;
     struct // contracts
     {
@@ -230,6 +264,9 @@ typedef struct _tempuri_org_wsdl
         // operation: BasicHttpBinding_IService_Login
         //     input message: IService_Login_InputMessage
         //     output message: IService_Login_OutputMessage
+        // operation: BasicHttpBinding_IService_Score
+        //     input message: IService_Score_InputMessage
+        //     output message: IService_Score_OutputMessage
         // contractDescription: tempuri_org_wsdl.contracts.BasicHttpBinding_IService
         WS_CONTRACT_DESCRIPTION BasicHttpBinding_IService;
         
