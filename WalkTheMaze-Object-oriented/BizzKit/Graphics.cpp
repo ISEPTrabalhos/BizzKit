@@ -1,7 +1,11 @@
 #include "Graphics.h"
 
+#define SCALE_HOMER 0.005
+#define GRAUS(x)        (180*(x)/M_PI)
+
 extern Status *status;
 extern Model *model;
+extern MainCharacter *character;
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
@@ -461,6 +465,13 @@ void Graphics::display(void){
     Graphics::material(slate);
     Graphics::drawGround(model->texID[0]);
     
+    glPushMatrix();
+    glTranslatef(character->position->x,character->position->y,character->position->z);
+    glRotatef(GRAUS(character->dir),0,1,0);
+    glRotatef(-90,1,0,0);
+    glScalef(SCALE_HOMER,SCALE_HOMER,SCALE_HOMER);
+    //mdlviewer_display(character->homer);
+    glPopMatrix();
     
     Graphics::drawAxes();
     

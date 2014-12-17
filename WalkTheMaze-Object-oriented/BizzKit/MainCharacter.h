@@ -12,6 +12,7 @@ public:
     GLfloat  vel;
     
     MainCharacter();
+    ~MainCharacter();
 
 };
 

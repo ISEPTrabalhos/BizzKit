@@ -4,6 +4,7 @@
 #include "GlobalVars.h"
 #include "Status.h"
 #include "Model.h"
+#include "MainCharacter.h"
 
 class Graphics{
 public:
