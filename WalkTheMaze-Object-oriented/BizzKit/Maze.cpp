@@ -37,6 +37,7 @@ void Maze::Launch(int argc, char **argv){
 		glutReshapeFunc(Graphics::myReshape);
 		glutDisplayFunc(Graphics::display);
 		glutKeyboardFunc(Keyboard::keyboard);
+		//glutKeyboardUpFunc(Keyboard::keyUp);
 		glutSpecialFunc(Keyboard::Special);
 		glutMouseFunc(Mouse::mouse);
 		glutTimerFunc(status->timer, Timer, 0);
