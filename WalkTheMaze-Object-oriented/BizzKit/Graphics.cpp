@@ -206,26 +206,26 @@ void Graphics::drawNode(int no){
 		else
 			continue;
 		if (noi->x == nof->x)
-		if (noi->y<nof->y){
-			norte = GL_FALSE;
-			larguraNorte = arco.largura;
-		}
-		else{
-			sul = GL_FALSE;
-			larguraSul = arco.largura;
-		}
+			if (noi->y < nof->y){
+				norte = GL_FALSE;
+				larguraNorte = arco.largura;
+			}
+			else{
+				sul = GL_FALSE;
+				larguraSul = arco.largura;
+			}
 		else
-		if (noi->y == nof->y)
-		if (noi->x<nof->x){
-			oeste = GL_FALSE;
-			larguraOeste = arco.largura;
-		}
-		else{
-			este = GL_FALSE;
-			larguraEste = arco.largura;
-		}
-		else
-			cout << "Arco dioagonal: " << arco.noi << " " << arco.nof << endl;
+			if (noi->y == nof->y)
+				if (noi->x < nof->x){
+					oeste = GL_FALSE;
+					larguraOeste = arco.largura;
+				}
+				else{
+					este = GL_FALSE;
+					larguraEste = arco.largura;
+				}
+			else
+				int x = 1;
 		if (norte && sul && este && oeste)
 			return;
 	}
@@ -443,12 +443,12 @@ void Graphics::setCamera(){
 
     Vertice eye;
 
-	if (!status->top){
+	if (status->top){
 
 		//	set the camera center to the character
-		status->camera->center[0] = character->position->x + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		status->camera->center[1] = character->position->y + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
-		status->camera->center[2] = 0;
+		status->camera->center[0] = character->position->x + cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[1] = character->position->y + sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[2] = character->position->z;
 
 		//	set the eye of the camera to a position above the character
 		eye[0] = character->position->x;
@@ -457,23 +457,23 @@ void Graphics::setCamera(){
 	} 
 	else if(status->first){
 
-		status->camera->center[0] = 0;
-		status->camera->center[1] = 0;
-		status->camera->center[2] = 0;
+		status->camera->center[0] = character->position->x + status->camera->dist * cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[1] = character->position->y + status->camera->dist * sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[2] = 1;
 
-		eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
+		eye[0] = character->position->x;
+		eye[1] = character->position->y;
+		eye[2] = 1;
 	}
 
 	else{
-		status->camera->center[0] = 0;
-		status->camera->center[1] = 0;
-		status->camera->center[2] = 0;
+		status->camera->center[0] = character->position->x + status->camera->dist * cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[1] = character->position->y + status->camera->dist * sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[2] = 1;
 
-		eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
+		eye[0] = character->position->x - 5;
+		eye[1] = character->position->y - 5;
+		eye[2] = 1;
 	}
 
     if (status->light){

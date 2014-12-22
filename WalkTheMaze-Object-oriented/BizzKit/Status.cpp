@@ -14,7 +14,7 @@ Status::Status(){
 	apresentaNormais = GL_FALSE;
 	lightViewer = 1;
   
-	top = first = GL_FALSE;
+	first = top = GL_FALSE;
     eixoTranslaccao = 0;
 }
 
