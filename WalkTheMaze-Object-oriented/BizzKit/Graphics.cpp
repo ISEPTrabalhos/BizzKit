@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include "MapsReceiver.h"
 
 #define SCALE_HOMER 0.025
 #define GRAUS(x)        (180*(x)/M_PI)
@@ -515,6 +516,8 @@ void Graphics::display(void){
     
     Graphics::drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     
+	//Graphics::displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)); called when a defined key is pressed
+
     glFlush();
     glutSwapBuffers();
     
@@ -584,6 +587,39 @@ void Graphics::drawMiniMap(int width, int height) {
     Graphics::drawMaze();
     
     Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+}
+
+void Graphics::displayMapList(int width, int height) {
+	
+	glViewport(0, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	//glOrtho(-100, 100, -100, 100, -100, 100);
+	glOrtho(-width, width, -height, height, -100, 100);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glColor3f(1, 0, 0);
+
+	int posX = -width + 50, gap = 0;
+
+	MapsReceiver *receiver = new MapsReceiver();
+	vector<string> maps = receiver->getAllMaps();
+	
+	for (int i = 0; i < maps.size(); i++) {
+		gap += 50,
+			Graphics::drawText(maps.at(i), posX, height - gap);
+	}
+
+	Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+}
+void Graphics::drawText(string src, int posX, int posY)
+{
+	char text[50];
+	sprintf(text, src.c_str());
+	glColor3f(0, 0, 0);
+	glRasterPos2i(posX, posY);
+	for (int i = 0; text[i] != '\0'; i++)
+		glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[i]);
 }
 
 void Graphics::setTopCamera(){

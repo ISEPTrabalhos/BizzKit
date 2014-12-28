@@ -6,6 +6,7 @@
 #include <stdlib.h>   
 #include <iostream>
 #include <string>
+#include <vector>
 
 #ifdef _WIN32
     #include <GL\glut.h>

@@ -36,3 +36,18 @@ int ServicesHandler::signIn(string user, string pass) {
 
 	return _wtoi(idResult);
 }
+
+vector<string> ServicesHandler::getMapsList() {
+	vector<string> maps;
+	/* it will be something like this, METHODS NOT READY YET
+	Maps m;
+	hr = BasicHttpBinding_IService_AllMaps(
+		proxy, &m, heap, NULL, 0, NULL, error);
+	maps.push_back(m->name); // do this for all maps received
+	*/
+	maps.push_back("Map Name 1");
+	maps.push_back("Map Name 2");
+	maps.push_back("Map Name 3");
+	
+	return maps;
+}

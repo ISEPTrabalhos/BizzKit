@@ -1,6 +1,7 @@
 #ifndef _SERVICESHANDLER
 #define _SERVICESHANDLER
 
+#include "GlobalVars.h"
 #include "stdafx.h"
 #include "WebServices.h"
 #include "schemas.microsoft.com.2003.10.Serialization.xsd.h"
@@ -31,6 +32,8 @@ public:
 	~ServicesHandler();
 
 	int signIn(string user, string pass);
+	vector<string> getMapsList();
+	string getSingleMap(int id);
 	
 };
 
