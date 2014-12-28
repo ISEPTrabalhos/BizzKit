@@ -102,6 +102,9 @@
     <ClCompile Include="MapsReceiver.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="ServicesHandler.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -168,6 +171,9 @@
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
     <ClInclude Include="MapsReceiver.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="ServicesHandler.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>

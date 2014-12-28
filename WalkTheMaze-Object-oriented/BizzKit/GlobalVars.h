@@ -5,6 +5,7 @@
 #include <math.h>
 #include <stdlib.h>   
 #include <iostream>
+#include <string>
 
 #ifdef _WIN32
     #include <GL\glut.h>
