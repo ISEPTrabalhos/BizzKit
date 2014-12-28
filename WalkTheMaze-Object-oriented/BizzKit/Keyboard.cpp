@@ -68,6 +68,9 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
         case 'O':
 			status->tecla_o =!status->tecla_o;
             break;
+		case 'm':
+		case 'M':
+			status->showMapMenu = !status->showMapMenu;
     }
 }
 
@@ -151,7 +154,9 @@ void Keyboard::help(void){
     printf("w,W - PolygonMode Wireframe \n");
     printf("p,P - PolygonMode Point \n");
     printf("c,C - Liga/Desliga Cull Face \n");
-    printf("n,N - Liga/Desliga apresentaÁ„o das normais \n");
+	printf("n,N - Liga/Desliga apresentaÁ„o das normais \n");
+	printf("******* Mapas ******* \n");
+	printf("m,M - Seleccionar mapa \n");
     printf("******* grafos ******* \n");
     printf("F1  - Grava grafo do ficheiro \n");
     printf("F2  - LÍ grafo para ficheiro \n");

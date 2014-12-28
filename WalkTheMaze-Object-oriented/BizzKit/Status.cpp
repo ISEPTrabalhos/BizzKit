@@ -14,6 +14,8 @@ Status::Status(){
 	apresentaNormais = GL_FALSE;
 	lightViewer = 1;
   
+	showMapMenu = GL_FALSE;
+
 	first = top = GL_FALSE;
     eixoTranslaccao = 0;
 }

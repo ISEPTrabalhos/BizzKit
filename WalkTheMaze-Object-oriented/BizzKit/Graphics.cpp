@@ -3,7 +3,7 @@
 
 #define SCALE_HOMER 0.025
 #define GRAUS(x)        (180*(x)/M_PI)
-
+#define CONCAT3(a,b,c) string(a)+string(b)+string(c)
 extern Status *status;
 extern Model *model;
 extern MainCharacter *character;
@@ -516,7 +516,9 @@ void Graphics::display(void){
     
     Graphics::drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     
-	//Graphics::displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT)); called when a defined key is pressed
+	if (status->showMapMenu) {
+		Graphics::displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	}
 
     glFlush();
     glutSwapBuffers();
@@ -606,8 +608,9 @@ void Graphics::displayMapList(int width, int height) {
 	vector<string> maps = receiver->getAllMaps();
 	
 	for (int i = 0; i < maps.size(); i++) {
-		gap += 50,
-			Graphics::drawText(maps.at(i), posX, height - gap);
+		gap += 50;
+		string str = to_string(i+1) + " - " + maps.at(i);
+		Graphics::drawText(str, posX, height - gap);
 	}
 
 	Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
