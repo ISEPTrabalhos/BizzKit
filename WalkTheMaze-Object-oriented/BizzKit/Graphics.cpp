@@ -3,7 +3,7 @@
 
 #define SCALE_HOMER 0.025
 #define GRAUS(x)        (180*(x)/M_PI)
-#define CONCAT3(a,b,c) string(a)+string(b)+string(c)
+
 extern Status *status;
 extern Model *model;
 extern MainCharacter *character;
