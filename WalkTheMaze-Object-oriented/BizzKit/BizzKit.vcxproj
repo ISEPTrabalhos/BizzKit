@@ -95,6 +95,7 @@
     <ClCompile Include="Launcher.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="MainCharacter.cpp" />
+    <ClCompile Include="MapsReceiver.cpp" />
     <ClCompile Include="math.cpp" />
     <ClCompile Include="Maze.cpp" />
     <ClCompile Include="mdlviewer.cpp" />
@@ -120,6 +121,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="MainCharacter.h" />
+    <ClInclude Include="MapsReceiver.h" />
     <ClInclude Include="mathlib.h" />
     <ClInclude Include="Maze.h" />
     <ClInclude Include="mdlviewer.h" />
