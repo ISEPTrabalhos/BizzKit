@@ -3,6 +3,7 @@
 
 #define SCALE_HOMER 0.025
 #define GRAUS(x)        (180*(x)/M_PI)
+#define K_CIRCLE 1.0
 
 extern Status *status;
 extern Model *model;
@@ -189,75 +190,16 @@ void Graphics::drawPlatform(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfl
 }
 
 void Graphics::drawNode(int no){
-	GLboolean norte, sul, este, oeste;
-	GLfloat larguraNorte = 0.0,
-            larguraSul = 0.0,
-            larguraEste = 0.0,
-            larguraOeste = 0.0;
-	Arco arco = arcos[0];
-	No *noi = &nos[no], *nof;
-	norte = sul = este = oeste = GL_TRUE;
-	Graphics::drawPlatform(nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, PLANO);
-	for (int i = 0; i<numArcos; arco = arcos[++i]){
-		if (arco.noi == no)
-			nof = &nos[arco.nof];
-		else
-		if (arco.nof == no)
-			nof = &nos[arco.noi];
-		else
-			continue;
-		if (noi->x == nof->x)
-			if (noi->y < nof->y){
-				norte = GL_FALSE;
-				larguraNorte = arco.largura;
-			}
-			else{
-				sul = GL_FALSE;
-				larguraSul = arco.largura;
-			}
-		else
-			if (noi->y == nof->y)
-				if (noi->x < nof->x){
-					oeste = GL_FALSE;
-					larguraOeste = arco.largura;
-				}
-				else{
-					este = GL_FALSE;
-					larguraEste = arco.largura;
-				}
-			else
-				int x = 1;
-		if (norte && sul && este && oeste)
-			return;
-	}
-	if (norte)
-		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
-	else
-	if (larguraNorte < noi->largura){
-		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*larguraNorte, nos[no].y + 0.5*noi->largura, nos[no].z);
-		Graphics::drawWall(nos[no].x + 0.5*larguraNorte, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
-	}
-	if (sul)
-		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
-	else
-	if (larguraSul < noi->largura){
-		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*larguraSul, nos[no].y - 0.5*noi->largura, nos[no].z);
-		Graphics::drawWall(nos[no].x - 0.5*larguraSul, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
-	}
-	if (este)
-		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
-	else
-	if (larguraEste < noi->largura){
-		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y - 0.5*larguraEste, nos[no].z);
-		Graphics::drawWall(nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*larguraEste, nos[no].z, nos[no].x - 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z);
-	}
-	if (oeste)
-		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
-	else
-	if (larguraOeste < noi->largura){
-		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*noi->largura, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y + 0.5*larguraOeste, nos[no].z);
-		Graphics::drawWall(nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*larguraOeste, nos[no].z, nos[no].x + 0.5*noi->largura, nos[no].y - 0.5*noi->largura, nos[no].z);
-	}
+	No * noI = &nos[no];
+	GLUquadric * quadric = gluNewQuadric();
+	int radius = K_CIRCLE * noI->largura/2.0;
+	int comp = noI->z + 2.0;
+	glPushMatrix();
+		glTranslatef(noI -> x, noI -> y, noI -> z);
+		gluCylinder(quadric, radius, radius, comp, 20, 1);
+		glTranslatef(0, 0, comp);
+		gluDisk(quadric, 0, radius, 20, 20);
+	glPopMatrix();
 }
 
 
@@ -468,13 +410,17 @@ void Graphics::setCamera(){
 	}
 
 	else{
-		status->camera->center[0] = character->position->x + status->camera->dist * cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		/*status->camera->center[0] = character->position->x + status->camera->dist * cos(status->camera->dir_long)*cos(status->camera->dir_lat);
 		status->camera->center[1] = character->position->y + status->camera->dist * sin(status->camera->dir_long)*cos(status->camera->dir_lat);
 		status->camera->center[2] = 1;
 
 		eye[0] = character->position->x - 5;
 		eye[1] = character->position->y - 5;
-		eye[2] = 1;
+		eye[2] = 1;*/
+
+		eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
 	}
 
     if (status->light){
