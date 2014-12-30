@@ -169,7 +169,7 @@ namespace WebDev.Controllers
                     {
                         var context = new ApplicationDbContext();
 
-                        Models.User gameUser = new User { Username = model.Username, PasswordHash = ConvertPasswordMd5(model.Password) };
+                        Models.User gameUser = new User { username = model.Username, passwordHash = ConvertPasswordMd5(model.Password) };
                         db.Users.Add(gameUser);
                         db.SaveChanges();
                     }

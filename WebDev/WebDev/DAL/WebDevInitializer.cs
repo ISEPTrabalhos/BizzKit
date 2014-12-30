@@ -13,8 +13,8 @@ namespace WebDev.DAL
         {
             var users = new List<User> {
                 new User {
-                    Username = "test",
-                    PasswordHash = "098F6BCD4621D373CADE4E832627B4F6"
+                    username = "test",
+                    passwordHash = "098F6BCD4621D373CADE4E832627B4F6"
                 }
             };
 

@@ -19,8 +19,8 @@ namespace WebDev.Services
             var passwordHash = AccountController.ConvertPasswordMd5(password);
 
             var user = from u in db.Users
-                       where u.Username == username
-                       && u.PasswordHash == passwordHash
+                       where u.username == username
+                       && u.passwordHash == passwordHash
                        select u;
 
             if (user.Count() == 1)
