@@ -19,5 +19,8 @@ namespace WebDev.Services
 
         [OperationContract]
         string[] ListLevels();
+
+        [OperationContract]
+        string LoadLevel(string levelName);
     }
 }

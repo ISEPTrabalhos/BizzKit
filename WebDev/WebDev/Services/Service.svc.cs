@@ -93,5 +93,21 @@ namespace WebDev.Services
 
             return listLevels.ToArray();
         }
+
+        public string LoadLevel(string levelName)
+        {
+            var levels = from l in db.Levels
+                         where l.name == levelName
+                         select l;
+
+            if (levels.Count() == 1)
+            {
+                return levels.First().content;
+            }
+            else
+            {
+                return "";
+            }
+        }
     }
 }
