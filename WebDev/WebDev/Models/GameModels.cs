@@ -1,23 +1,42 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebDev.Models
 {
     public class User
     {
         [Key]
-        public string Username { get; set; }
+        public string username { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public string passwordHash { get; set; }
     }
 
     public class Level
     {
         [Key]
-        public string Name { get; set; }
+        public string name { get; set; }
 
         [Required]
-        public string Content { get; set; }
+        public string content { get; set; }
+    }
+
+    public class Score
+    {
+        [Key]
+        [ForeignKey("User")]
+        public string username { get; set; }
+
+        [Key]
+        [ForeignKey("Level")]
+        public string levelName { get; set; }
+
+        [Required]
+        public int score { get; set; }
+
+        public virtual User User { get; set; }
+
+        public virtual Level Level { get; set; }
     }
 }
