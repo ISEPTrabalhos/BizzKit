@@ -144,6 +144,49 @@ void Graphics::drawNode(int no){
 
 			
 		}
+		else if (no == arco.nof){
+			noI = &nos[arco.nof];
+			No * noF = &nos[arco.noi];
+			comp = radius * K_CONNECTION;
+			GLfloat alpha = graus(atan2(noF->y - noI->y, noF->x - noI->x));
+
+			//	Horizontal rectangle
+			glPushMatrix();
+			glTranslatef(noI->x, noI->y, noI->z);
+			glRotatef(alpha, 0.0, 0.0, 1.0);
+			glTranslatef(comp * 0.5, 0.0, 0.0);
+			glBegin(GL_QUADS);
+			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
+			glEnd();
+			glPopMatrix();
+
+			//	Vertical rectangles
+			glPushMatrix();
+			glTranslatef(noI->x, noI->y, -INFINITESIMO);
+			glRotatef(alpha, 0.0, 0.0, 1.0);
+			glTranslatef(comp * 0.5, 0.0, 0.0);
+			glBegin(GL_QUADS);
+
+			//	1
+			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
+			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glVertex3f(comp * 0.5, -arco.largura * 0.5, noI->z);
+			glVertex3f(-comp * 0.5, -arco.largura * 0.5, noI->z);
+
+			//	2
+			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, arco.largura * 0.5, noI->z);
+			glVertex3f(comp * 0.5, arco.largura * 0.5, noI->z);
+
+			glEnd();
+			glPopMatrix();
+
+
+		}
 	}
 }
 
