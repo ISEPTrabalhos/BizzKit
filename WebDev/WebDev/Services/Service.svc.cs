@@ -45,9 +45,37 @@ namespace WebDev.Services
             }
         }
         
-        public int Score(string username, int score)
+        public int Score(string username, string levelName, int score)
         {
-            return 1;
+            var users = from u in db.Users
+                        where u.username == username
+                        select u;
+
+            if(users.Count() == 1)
+            {
+                var scores = from s in db.Scores
+                             where s.username == username
+                             && s.levelName == levelName
+                             select s;
+
+                if (scores.Count() == 0)
+                {
+                    Score s = new Score { username = username, levelName = levelName, score = score };
+                    db.Scores.Add(s);
+                }
+                else
+                {
+                    scores.First().score = score;
+                }
+
+                db.SaveChanges();
+
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }
