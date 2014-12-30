@@ -11,4 +11,13 @@ namespace WebDev.Models
         [Required]
         public string PasswordHash { get; set; }
     }
+
+    public class Level
+    {
+        [Key]
+        public string Name { get; set; }
+
+        [Required]
+        public string Content { get; set; }
+    }
 }
