@@ -102,7 +102,12 @@ namespace WebDev.Services
 
             if (levels.Count() == 1)
             {
-                return levels.First().content;
+                var cleanContent = levels.First().content;
+                cleanContent = cleanContent.Replace("\r\n", "\n");
+                cleanContent = cleanContent.Replace("\n\r", "\n");
+                cleanContent = cleanContent.Replace("\n\n", "\n");
+
+                return cleanContent;
             }
             else
             {
