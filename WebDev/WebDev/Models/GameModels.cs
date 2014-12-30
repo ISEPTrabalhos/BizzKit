@@ -26,10 +26,12 @@ namespace WebDev.Models
     {
         [Key]
         [ForeignKey("User")]
+        [Column(Order = 1)]
         public string username { get; set; }
 
         [Key]
         [ForeignKey("Level")]
+        [Column(Order = 2)]
         public string levelName { get; set; }
 
         [Required]
