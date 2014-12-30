@@ -10,8 +10,6 @@ class Graphics{
 public:
 	static void drawGround(GLuint texID); // desenhaSolo
 	static void drawNormal(GLdouble x, GLdouble y, GLdouble z, GLdouble normal[], tipo_material mat);
-	static void drawWall(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf);
-	static void drawPlatform(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf, int orient); //desenhaChao
 	static void drawNode(int no);
 	static void drawArc(Arco arco); // desenhaArco
 	static void drawMaze(void);

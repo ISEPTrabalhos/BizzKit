@@ -4,6 +4,8 @@
 #define SCALE_HOMER 0.025
 #define GRAUS(x)        (180*(x)/M_PI)
 #define K_CIRCLE 1.0
+#define K_CONNECTION 1.0
+#define INFINITESIMO 0.000001
 
 extern Status *status;
 extern Model *model;
@@ -82,170 +84,118 @@ void Graphics::drawNormal(GLdouble x, GLdouble y, GLdouble z, GLdouble normal[],
 	glEnable(GL_LIGHTING);
 }
 
-void Graphics::drawWall(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf){
-	GLdouble v1[3], v2[3], cross[3];
-	GLdouble length;
-	v1[0] = xf - xi;
-	v1[1] = yf - yi;
-	v1[2] = 0;
-	v2[0] = 0;
-	v2[1] = 0;
-	v2[2] = 1;
-	Graphics::CrossProduct(v1, v2, cross);
-	//printf("cross x=%lf y=%lf z=%lf",cross[0],cross[1],cross[2]);
-	length = Graphics::VectorNormalize(cross);
-	//printf("Normal x=%lf y=%lf z=%lf length=%lf\n",cross[0],cross[1],cross[2]);
-
-	Graphics::material(emerald);
-	glBegin(GL_QUADS);
-	glNormal3dv(cross);
-	glVertex3f(xi, yi, zi);
-	glVertex3f(xf, yf, zf + 0);
-	glVertex3f(xf, yf, zf + 1);
-	glVertex3f(xi, yi, zi + 1);
-	glEnd();
-
-	if (status->apresentaNormais) {
-		drawNormal(xi, yi, zi, cross, emerald);
-		drawNormal(xf, yf, zf, cross, emerald);
-		drawNormal(xf, yf, zf + 1, cross, emerald);
-		drawNormal(xi, yi, zi + 1, cross, emerald);
-	}
-}
-
-void Graphics::drawPlatform(GLfloat xi, GLfloat yi, GLfloat zi, GLfloat xf, GLfloat yf, GLfloat zf, int orient){
-	GLdouble v1[3], v2[3], cross[3];
-	GLdouble length;
-	v1[0] = xf - xi;
-	v1[1] = 0;
-	v2[0] = 0;
-	v2[1] = yf - yi;
-
-	switch (orient) {
-	case NORTE_SUL:
-		v1[2] = 0;
-		v2[2] = zf - zi;
-		Graphics::CrossProduct(v1, v2, cross);
-		//printf("cross x=%lf y=%lf z=%lf",cross[0],cross[1],cross[2]);
-		length = Graphics::VectorNormalize(cross);
-		//printf("Normal x=%lf y=%lf z=%lf length=%lf\n",cross[0],cross[1],cross[2]);
-
-		Graphics::material(red_plastic);
-		glBegin(GL_QUADS);
-		glNormal3dv(cross);
-		glVertex3f(xi, yi, zi);
-		glVertex3f(xf, yi, zi);
-		glVertex3f(xf, yf, zf);
-		glVertex3f(xi, yf, zf);
-		glEnd();
-		if (status->apresentaNormais) {
-			Graphics::drawNormal(xi, yi, zi, cross, red_plastic);
-			Graphics::drawNormal(xf, yi, zi, cross, red_plastic);
-			Graphics::drawNormal(xf, yf, zf, cross, red_plastic);
-			Graphics::drawNormal(xi, yi, zf, cross, red_plastic);
-		}
-		break;
-	case ESTE_OESTE:
-		v1[2] = zf - zi;
-		v2[2] = 0;
-		Graphics::CrossProduct(v1, v2, cross);
-		//printf("cross x=%lf y=%lf z=%lf",cross[0],cross[1],cross[2]);
-		length = VectorNormalize(cross);
-		//printf("Normal x=%lf y=%lf z=%lf length=%lf\n",cross[0],cross[1],cross[2]);
-		Graphics::material(red_plastic);
-		glBegin(GL_QUADS);
-		glNormal3dv(cross);
-		glVertex3f(xi, yi, zi);
-		glVertex3f(xf, yi, zf);
-		glVertex3f(xf, yf, zf);
-		glVertex3f(xi, yf, zi);
-		glEnd();
-		if (status->apresentaNormais) {
-			Graphics::drawNormal(xi, yi, zi, cross, red_plastic);
-			Graphics::drawNormal(xf, yi, zf, cross, red_plastic);
-			Graphics::drawNormal(xf, yf, zf, cross, red_plastic);
-			Graphics::drawNormal(xi, yi, zi, cross, red_plastic);
-		}
-		break;
-	default:
-		cross[0] = 0;
-		cross[1] = 0;
-		cross[2] = 1;
-		Graphics::material(azul);
-		glBegin(GL_QUADS);
-		glNormal3f(0, 0, 1);
-		glVertex3f(xi, yi, zi);
-		glVertex3f(xf, yi, zf);
-		glVertex3f(xf, yf, zf);
-		glVertex3f(xi, yf, zi);
-		glEnd();
-		if (status->apresentaNormais) {
-			Graphics::drawNormal(xi, yi, zi, cross, azul);
-			Graphics::drawNormal(xf, yi, zf, cross, azul);
-			Graphics::drawNormal(xf, yf, zf, cross, azul);
-			Graphics::drawNormal(xi, yi, zi, cross, azul);
-		}
-		break;
-	}
-}
-
 void Graphics::drawNode(int no){
 	No * noI = &nos[no];
 	GLUquadric * quadric = gluNewQuadric();
-	int radius = K_CIRCLE * noI->largura/2.0;
-	int comp = noI->z + 2.0;
+	GLfloat radius = K_CIRCLE * noI->largura * 0.5;
+	GLfloat comp = noI->z + 2.0 * INFINITESIMO;
+	Arco arco = arcos[0];
+
 	glPushMatrix();
-		glTranslatef(noI -> x, noI -> y, noI -> z);
-		gluCylinder(quadric, radius, radius, comp, 20, 1);
-		glTranslatef(0, 0, comp);
-		gluDisk(quadric, 0, radius, 20, 20);
+	glTranslatef(noI->x, noI->y, noI->z + INFINITESIMO);
+	gluDisk(quadric, 0, radius, 20, 20);
 	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(noI->x, noI->y, -INFINITESIMO);
+	gluCylinder(quadric, radius, radius, comp, 20, 1);
+	glPopMatrix();
+
+	for (int i = 0; i < numArcos; arco =  arcos[i++]){
+		if (no == arco.noi){
+			No * noF = &nos[arco.nof];
+			comp = radius * K_CONNECTION;
+			GLfloat alpha = graus(atan2(noF->y - noI->y, noF->x - noI->x));
+
+			//	Horizontal rectangle
+			glPushMatrix();
+			glTranslatef(noI->x, noI->y, noI->z);
+			glRotatef(alpha, 0.0, 0.0, 1.0);
+			glTranslatef(comp * 0.5, 0.0, 0.0);
+			glBegin(GL_QUADS);
+			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
+			glEnd();
+			glPopMatrix();
+
+			//	Vertical rectangles
+			glPushMatrix();
+			glTranslatef(noI->x, noI->y, -INFINITESIMO);
+			glRotatef(alpha, 0.0, 0.0, 1.0);
+			glTranslatef(comp * 0.5, 0.0, 0.0);
+			glBegin(GL_QUADS);
+
+			//	1
+			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
+			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glVertex3f(comp * 0.5, -arco.largura * 0.5, noI->z);
+			glVertex3f(-comp * 0.5, -arco.largura * 0.5, noI->z);
+
+			//	2
+			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glVertex3f(-comp * 0.5, arco.largura * 0.5, noI->z);
+			glVertex3f(comp * 0.5, arco.largura * 0.5, noI->z);
+
+			glEnd();
+			glPopMatrix();
+
+			
+		}
+	}
 }
 
 
 void Graphics::drawArc(Arco arco){
-	No *noi, *nof;
 
-	if (nos[arco.noi].x == nos[arco.nof].x){
-		// arco vertical
-		if (nos[arco.noi].y<nos[arco.nof].y){
-			noi = &nos[arco.noi];
-			nof = &nos[arco.nof];
-		}
-		else{
-			nof = &nos[arco.noi];
-			noi = &nos[arco.nof];
-		}
+	No *noi = &nos[arco.noi], *nof = &nos[arco.nof];
+	GLfloat ri = K_CIRCLE * noi->largura * 0.5;
+	GLfloat si = K_CONNECTION * ri;
+	GLfloat rf = K_CIRCLE * nof->largura * 0.5;
+	GLfloat sf = K_CONNECTION * rf;
+	GLfloat projLength = sqrtf(powf(nof->x - noi->x, 2) + powf(nof->y - noi->y, 2)) - si - sf;
+	GLfloat gap = nof->z - noi->z;
+	GLfloat length = sqrt(powf(projLength, 2) + pow(gap, 2));
+	GLfloat orientation = graus(atan2(nof->y - noi->y, nof->x - noi->x));
+	GLfloat inclination = graus(atan2(gap, projLength));
 
-		Graphics::drawPlatform(noi->x - 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z, nof->x + 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z, NORTE_SUL);
-		Graphics::drawWall(noi->x - 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z, nof->x - 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z);
-		Graphics::drawWall(nof->x + 0.5*arco.largura, nof->y - 0.5*nof->largura, nof->z, noi->x + 0.5*arco.largura, noi->y + 0.5*noi->largura, noi->z);
-	}
-	else{
-		if (nos[arco.noi].y == nos[arco.nof].y){
-			//arco horizontal
-			if (nos[arco.noi].x<nos[arco.nof].x){
-				noi = &nos[arco.noi];
-				nof = &nos[arco.nof];
-			}
-			else{
-				nof = &nos[arco.noi];
-				noi = &nos[arco.nof];
-			}
-			Graphics::drawPlatform(noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z, nof->x - 0.5*nof->largura, nof->y + 0.5*arco.largura, nof->z, ESTE_OESTE);
-			Graphics::drawWall(noi->x + 0.5*noi->largura, noi->y + 0.5*arco.largura, noi->z, nof->x - 0.5*nof->largura, nof->y + 0.5*arco.largura, nof->z);
-			Graphics::drawWall(nof->x - 0.5*nof->largura, nof->y - 0.5*arco.largura, nof->z, noi->x + 0.5*noi->largura, noi->y - 0.5*arco.largura, noi->z);
-		}
-		else{
-            nof = &nos[arco.noi];
-            noi = &nos[arco.nof];
-        }
-        
-        //desenhaChao(noi->x, noi->y, noi->z, nof->x, nof->y, nof->z, NORTE_SUL);
-        
-        Graphics::drawWall(noi->x+0.5*noi->largura,noi->y+0.5*arco.largura,noi->z,nof->x-0.5*nof->largura,nof->y+0.5*arco.largura,nof->z);
-        Graphics::drawWall(nof->x-0.5*nof->largura,nof->y-0.5*arco.largura,nof->z,noi->x+0.5*noi->largura,noi->y-0.5*arco.largura,noi->z);
-		}
+	glPushMatrix();
+	glTranslatef(noi->x, noi->y, noi->z);
+	glRotatef(orientation, 0.0, 0.0, 1.0);
+	glTranslatef(si, 0.0, 0.0);
+	glRotatef(-inclination, 0.0, 1.0, 0.0);
+	glTranslatef(length * 0.5, 0.0, 0.0);
+	glBegin(GL_QUADS);
+	glVertex3f(-length * 0.5, arco.largura * 0.5, 0);
+	glVertex3f(length * 0.5, arco.largura * 0.5, 0);
+	glVertex3f(length * 0.5, -arco.largura * 0.5, 0);
+	glVertex3f(-length * 0.5, -arco.largura * 0.5, 0);
+	glEnd();
+	glPopMatrix();
+
+	glPushMatrix();
+	glTranslatef(noi->x, noi->y, -INFINITESIMO);
+	glRotatef(orientation, 0.0, 0.0, 1.0);
+	glTranslatef(si, 0.0, 0.0);
+
+	//	1
+	glBegin(GL_QUADS);
+	glVertex3f(0.0, -arco.largura * 0.5, 0.0);
+	glVertex3f(projLength, -arco.largura * 0.5, 0.0);
+	glVertex3f(projLength, -arco.largura * 0.5, nof->z);
+	glVertex3f(0.0, -arco.largura * 0.5, noi->z);
+	glEnd();
+
+	//	2
+	glBegin(GL_QUADS);
+	glVertex3f(projLength, arco.largura * 0.5, 0.0);
+	glVertex3f(0.0, arco.largura * 0.5, 0.0);
+	glVertex3f(0.0, arco.largura * 0.5, noi->z);
+	glVertex3f(projLength, arco.largura * 0.5, nof->z);
+	glEnd();
+	glPopMatrix();
 }
 
 void Graphics::drawMaze(){
@@ -257,7 +207,7 @@ void Graphics::drawMaze(){
 		glPushMatrix();
 		Graphics::material(preto);
 		glTranslatef(nos[i].x, nos[i].y, nos[i].z + 0.25);
-		glutSolidCube(0.5);
+		//glutSolidCube(0.5);
 		glPopMatrix();
 		Graphics::drawNode(i);
 	}
