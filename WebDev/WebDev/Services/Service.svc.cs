@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using System.Linq;
 using WebDev.Controllers;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Collections.Generic;
 
 namespace WebDev.Services
 {
@@ -76,6 +77,21 @@ namespace WebDev.Services
             {
                 return 0;
             }
+        }
+
+        public string[] ListLevels()
+        {
+            var levels = from l in db.Levels
+                         select l;
+
+            List<string> listLevels = new List<string>();
+
+            foreach (var level in levels)
+            {
+                listLevels.Add(level.name);
+            }
+
+            return listLevels.ToArray();
         }
     }
 }

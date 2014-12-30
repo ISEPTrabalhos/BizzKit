@@ -16,5 +16,8 @@ namespace WebDev.Services
 
         [OperationContract]
         int Score(string username, string levelName, int score);
+
+        [OperationContract]
+        string[] ListLevels();
     }
 }
