@@ -72,6 +72,17 @@ namespace WebDev.DAL
 23 24 1 5
 24 25 1 5
 26 27 1 5"
+                },
+                new Level {
+                    name = "test",
+                    content = @"4
+-60 60 0
+-60 -60 0
+60 -60 0
+60 60 0
+2
+0 1 1 1
+1 2 1 1"
                 }
             };
 
