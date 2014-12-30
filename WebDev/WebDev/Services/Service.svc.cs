@@ -15,23 +15,22 @@ namespace WebDev.Services
 
         public int Login(string username, string password)
         {
-
             var passwordHash = AccountController.ConvertPasswordMd5(password);
 
-            var user = from u in db.Users
-                       where u.username == username
-                       && u.passwordHash == passwordHash
-                       select u;
+            var users = from u in db.Users
+                        where u.username == username
+                        && u.passwordHash == passwordHash
+                        select u;
 
-            if (user.Count() == 1)
+            if (users.Count() == 1)
             {
                 var context = new ApplicationDbContext();
 
-                var appUser = from u in context.Users
-                              where u.UserName == username
-                              select u;
+                var appUsers = from u in context.Users
+                               where u.UserName == username
+                               select u;
 
-                if (appUser.Count() == 1)
+                if (appUsers.Count() == 1)
                 {
                     return 1;
                 }
