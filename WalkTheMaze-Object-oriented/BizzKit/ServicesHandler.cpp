@@ -51,3 +51,14 @@ vector<string> ServicesHandler::getMapsList() {
 	
 	return maps;
 }
+
+int ServicesHandler::score(string user, string level, int score)
+{
+	typedef codecvt_utf8<wchar_t>convert_typeX;
+	wstring_convert<convert_typeX, wchar_t>convertUsername;
+	wstring string1 = convertUsername.from_bytes(user);
+	wchar_t* username = const_cast<wchar_t*>(string1.c_str());
+	int *result;
+	hr = BasicHttpBinding_IService_Score(proxy, username, score, result, heap, NULL, 0, NULL, error);
+	return *result;
+}

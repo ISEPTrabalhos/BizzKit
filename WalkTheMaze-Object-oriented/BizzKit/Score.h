@@ -14,6 +14,6 @@ using namespace std;
 class Score{
 
 public:
-	static int uploadScore(string username, int score);
+	static int uploadScore(string username, string levelName,int score);
 };
 #endif
