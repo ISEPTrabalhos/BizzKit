@@ -34,7 +34,7 @@ public:
 	int signIn(string user, string pass);
 	vector<string> getMapsList();
 	string getSingleMap(int id);
-	
+	int score(string user, string level, int score);
 };
 
 #endif
