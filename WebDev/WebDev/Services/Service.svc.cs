@@ -79,7 +79,7 @@ namespace WebDev.Services
             }
         }
 
-        public string[] ListLevels()
+        public string ListLevels()
         {
             var levels = from l in db.Levels
                          select l;
@@ -91,7 +91,7 @@ namespace WebDev.Services
                 listLevels.Add(level.name);
             }
 
-            return listLevels.ToArray();
+            return string.Join(",", listLevels.ToArray());
         }
 
         public string LoadLevel(string levelName)
