@@ -9,7 +9,7 @@ public:
 
 	// functions
 	static vector<string> getAllMaps();
-	static string getMapById(int id);
+	static string getMapByName(string name);
 };
 
 #endif

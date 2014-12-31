@@ -38,18 +38,54 @@ int ServicesHandler::signIn(string user, string pass) {
 }
 
 vector<string> ServicesHandler::getMapsList() {
+	// receive map list 
+	WCHAR* results;
+	// disabled because method doesnt exist on deployed version yet, only locally
+	//hr = BasicHttpBinding_IService_ListLevels(proxy, &results, heap, NULL, 0, NULL, error); 
+
+	//wprintf(L"%s\n", results);
+
+	// convert wchar_t to string
+	typedef codecvt_utf8<wchar_t> convert_typeX;
+	wstring_convert<convert_typeX, wchar_t> converterX;
+	wstring wstr = results;
+	string resultsMaps = converterX.to_bytes(wstr);
+
+	// split string into vector
 	vector<string> maps;
-	/* it will be something like this, METHODS NOT READY YET
-	Maps m;
-	hr = BasicHttpBinding_IService_AllMaps(
-		proxy, &m, heap, NULL, 0, NULL, error);
-	maps.push_back(m->name); // do this for all maps received
-	*/
-	maps.push_back("Map Name 1");
-	maps.push_back("Map Name 2");
-	maps.push_back("Map Name 3");
-	
+	stringstream ss(resultsMaps);
+	string item;
+	while (getline(ss, item, ',')) {
+		maps.push_back(item);
+	}
+
 	return maps;
+}
+
+string ServicesHandler::getSingleMap(string lvl) {
+	//convert string into wchar
+	typedef codecvt_utf8<wchar_t> convert_typeX;
+	wstring_convert<convert_typeX, wchar_t> converterX;
+	string name = lvl;
+	wstring strLvl = converterX.from_bytes(lvl);
+	wchar_t* levelName = const_cast<wchar_t*>(strLvl.c_str());
+
+	// receive map
+	wchar_t* level;
+	// disabled because method doesnt exist on deployed version yet, only locally
+	//hr = BasicHttpBinding_IService_LoadLevel(proxy, levelName, &level, heap, NULL, 0, NULL, error);
+	//wprintf(L"%s\n", level);
+
+	// save on file
+	wstring wstr = level;
+	string newLevel = converterX.to_bytes(wstr);
+	ofstream newFile;
+	string filename = lvl + ".grafo";
+	newFile.open(filename);
+	newFile << newLevel;
+	newFile.close();
+
+	return newLevel;
 }
 
 int ServicesHandler::score(string user, string level, int score)

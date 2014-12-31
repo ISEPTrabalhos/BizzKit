@@ -70,7 +70,8 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
             break;
 		case 'm':
 		case 'M':
-			status->showMapMenu = !status->showMapMenu;
+			// disabled because methods dont exist on deployed version yet, only locally
+			//status->showMapMenu = !status->showMapMenu;
     }
 }
 

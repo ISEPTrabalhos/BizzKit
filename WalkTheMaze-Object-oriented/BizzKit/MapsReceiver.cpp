@@ -3,12 +3,11 @@
 
 vector<string> MapsReceiver::getAllMaps() {
 	ServicesHandler *service = new ServicesHandler();
-	vector<string> maps;
-	maps = service->getMapsList();
-	return maps;
+	return service->getMapsList();
 }
 
-
-string MapsReceiver::getMapById(int id) {
-	return "MAP";
+string MapsReceiver::getMapByName(string name) {
+	ServicesHandler *service = new ServicesHandler();
+	return  service->getSingleMap(name);
 }
+
