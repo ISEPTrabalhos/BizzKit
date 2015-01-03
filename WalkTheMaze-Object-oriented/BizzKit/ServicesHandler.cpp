@@ -48,16 +48,16 @@ vector<string> ServicesHandler::getMapsList() {
 	// convert wchar_t to string
 	typedef codecvt_utf8<wchar_t> convert_typeX;
 	wstring_convert<convert_typeX, wchar_t> converterX;
-	wstring wstr = results;
-	string resultsMaps = converterX.to_bytes(wstr);
+	//wstring wstr = results;
+	//string resultsMaps = converterX.to_bytes(wstr);
 
 	// split string into vector
 	vector<string> maps;
-	stringstream ss(resultsMaps);
+	/*stringstream ss(resultsMaps);
 	string item;
 	while (getline(ss, item, ',')) {
 		maps.push_back(item);
-	}
+	}*/
 
 	return maps;
 }
@@ -77,15 +77,16 @@ string ServicesHandler::getSingleMap(string lvl) {
 	//wprintf(L"%s\n", level);
 
 	// save on file
-	wstring wstr = level;
-	string newLevel = converterX.to_bytes(wstr);
+	/*wstring wstr = level;
+	string newLevel = converterX.to_bytes(wstr);*/
 	ofstream newFile;
 	string filename = lvl + ".grafo";
 	newFile.open(filename);
-	newFile << newLevel;
+	//newFile << newLevel;
 	newFile.close();
 
-	return newLevel;
+	//return newLevel;
+	return "";
 }
 
 int ServicesHandler::score(string user, string level, int score)
@@ -95,6 +96,7 @@ int ServicesHandler::score(string user, string level, int score)
 	wstring string1 = convertUsername.from_bytes(user);
 	wchar_t* username = const_cast<wchar_t*>(string1.c_str());
 	int *result;
-	hr = BasicHttpBinding_IService_Score(proxy, username, score, result, heap, NULL, 0, NULL, error);
-	return *result;
+	//hr = BasicHttpBinding_IService_Score(proxy, username, score, result, heap, NULL, 0, NULL, error);
+	//return *result;
+	return 0;
 }
