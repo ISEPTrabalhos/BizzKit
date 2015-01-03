@@ -18,6 +18,7 @@ public:
     ALuint		buffer, source;
     ALboolean	tecla_o;
 	GLboolean		top, first;
+	GLboolean up, down, right, left;
 
 	// functions
 	Status();

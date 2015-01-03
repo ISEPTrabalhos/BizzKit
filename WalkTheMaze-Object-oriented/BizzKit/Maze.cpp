@@ -18,6 +18,46 @@ void Maze::Timer(int value) {
         else
             alSourceStop(status->source);   
     }
+
+	GLfloat nx = 0, ny = 0;
+	GLboolean walking = GL_FALSE;
+
+	if (status->up){
+		nx = character->position->x + cosf(character->dir) * CHARACTER_LENGTH * 0.5;
+		ny = character->position->y + sinf(character->dir) * CHARACTER_WIDTH * 0.5;
+		//	Detect colision
+		character->position->x = nx;
+		character->position->y = ny;
+		walking = GL_TRUE;
+	}
+
+	else if (status->down){
+		nx = character->position->x - cosf(character->dir) * CHARACTER_LENGTH * 0.5;
+		ny = character->position->y - sinf(character->dir) * CHARACTER_WIDTH * 0.5;
+		//	Detect colision
+		character->position->x = nx;
+		character->position->y = ny;
+		walking = GL_TRUE;
+	}
+	if (status->left){
+		character->dir += rad(1);
+		status->camera->dir_long = character->dir;
+	}
+	else if (status->right){
+		character->dir -= rad(1);
+		status->camera->dir_long = character->dir;
+	}
+
+	if (walking && character->homer.GetSequence() != 3){
+		character->homer.SetSequence(3);
+
+	}
+	else if (!walking && character->homer.GetSequence() == 3)
+	{
+		character->homer.SetSequence(0);
+	}
+
+
     glutPostRedisplay();
 }
 
@@ -37,7 +77,7 @@ void Maze::Launch(int argc, char **argv){
 		glutReshapeFunc(Graphics::myReshape);
 		glutDisplayFunc(Graphics::display);
 		glutKeyboardFunc(Keyboard::keyboard);
-		//glutKeyboardUpFunc(Keyboard::keyUp);
+		glutSpecialUpFunc(Keyboard::specialKeyUp);
 		glutSpecialFunc(Keyboard::Special);
 		glutMouseFunc(Mouse::mouse);
 		glutTimerFunc(status->timer, Timer, 0);

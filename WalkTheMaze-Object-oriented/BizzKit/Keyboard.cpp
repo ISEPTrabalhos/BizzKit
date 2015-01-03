@@ -76,16 +76,29 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
     }
 }
 
-//void Keyboard::keyUp(unsigned char key, int x, int y)
-//{
-//	switch (key)
-//	{
+void Keyboard::specialKeyUp(int key, int x, int y)
+{
+	switch (key)
+	{
 //	case 'o':
 //	case 'O':
 //		status->tecla_o = AL_FALSE;
 //		break;
-//	}
-//}
+
+	case GLUT_KEY_UP:
+		status->up = GL_FALSE;
+		break;
+	case GLUT_KEY_DOWN:
+		status->down = GL_FALSE;
+		break;
+	case GLUT_KEY_LEFT:
+		status->left = GL_FALSE;
+		break;
+	case GLUT_KEY_RIGHT:
+		status->right = GL_FALSE;
+		break;
+	}
+}
 
 void Keyboard::Special(int key, int x, int y){
     
@@ -134,15 +147,28 @@ void Keyboard::Special(int key, int x, int y){
             addArco(criaArco(4, 6, 1, 1));  // 4 - 6
             glutPostRedisplay();
             break;
-        case GLUT_KEY_UP:
+        /*case GLUT_KEY_UP:
             status->camera->dist -= 1;
             glutPostRedisplay();
             break;
         case GLUT_KEY_DOWN:
             status->camera->dist += 1;
             glutPostRedisplay();
-            break;
-    }
+            break;*/
+
+		case GLUT_KEY_UP: 
+			status->up = GL_TRUE;
+			break;
+		case GLUT_KEY_DOWN: 
+			status->down = GL_TRUE;
+			break;
+		case GLUT_KEY_LEFT: 
+			status->left = GL_TRUE;
+			break;
+		case GLUT_KEY_RIGHT: 
+			status->right = GL_TRUE;
+			break;
+	}
 }
 
 void Keyboard::help(void){

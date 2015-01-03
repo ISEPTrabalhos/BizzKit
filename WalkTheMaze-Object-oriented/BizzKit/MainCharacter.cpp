@@ -8,7 +8,7 @@ MainCharacter::MainCharacter(){
     position->y = -250;
     position->z = 1;
     dir = 0;
-    vel = 1;
+    vel = 0.5;
 }
 
 MainCharacter::~MainCharacter(){}

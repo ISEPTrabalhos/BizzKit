@@ -92,4 +92,8 @@ const GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
 #define EIXO_Y		2
 #define EIXO_Z		3
 
+#define CHARACTER_LENGTH 0.24
+#define CHARACTER_WIDTH 0.24
+#define CHARACTER_HEIGHT 0.4
+
 #endif

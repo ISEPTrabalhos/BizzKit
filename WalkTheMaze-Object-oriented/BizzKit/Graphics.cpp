@@ -1,7 +1,7 @@
 #include "Graphics.h"
 #include "MapsReceiver.h"
 
-#define SCALE_HOMER 0.025
+#define SCALE_HOMER 0.005
 #define GRAUS(x)        (180*(x)/M_PI)
 #define K_CIRCLE 1.0
 #define K_CONNECTION 1.0
@@ -389,12 +389,12 @@ void Graphics::setCamera(){
 		//	set the eye of the camera to a position above the character
 		eye[0] = character->position->x;
 		eye[1] = character->position->y;
-		eye[2] = character->position->z + 5;
+		eye[2] = character->position->z + CHARACTER_HEIGHT * 4;
 	} 
 	else if(status->first){
 
-		status->camera->center[0] = character->position->x + status->camera->dist * cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		status->camera->center[1] = character->position->y + status->camera->dist * sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[0] = character->position->x + cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[1] = character->position->y +  sin(status->camera->dir_long)*cos(status->camera->dir_lat);
 		status->camera->center[2] = 1;
 
 		eye[0] = character->position->x;
@@ -403,17 +403,17 @@ void Graphics::setCamera(){
 	}
 
 	else{
-		/*status->camera->center[0] = character->position->x + status->camera->dist * cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		status->camera->center[1] = character->position->y + status->camera->dist * sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[0] = character->position->x;
+		status->camera->center[1] = character->position->y;
 		status->camera->center[2] = 1;
 
-		eye[0] = character->position->x - 5;
-		eye[1] = character->position->y - 5;
-		eye[2] = 1;*/
+		eye[0] = character->position->x + cos(character->dir);
+		eye[1] = character->position->y + sin(character->dir);
+		eye[2] = 1;
 
-		eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
+		/*eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
 		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);
+		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);*/
 	}
 
     if (status->light){
@@ -438,7 +438,7 @@ void Graphics::display(void){
     
     glPushMatrix();
     glTranslatef(character->position->x ,character->position->y,character->position->z);
-    glRotatef(GRAUS(character->dir),0,1,0);
+    glRotatef(GRAUS(character->dir),0,0,1);
     glScalef(SCALE_HOMER,SCALE_HOMER,SCALE_HOMER);
     mdlviewer_display(character->homer);
     glPopMatrix();
