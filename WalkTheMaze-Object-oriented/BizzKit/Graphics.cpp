@@ -546,6 +546,9 @@ void Graphics::displayMapList(int width, int height) {
 	MapsReceiver *receiver = new MapsReceiver();
 	vector<string> maps = receiver->getAllMaps();
 	
+	/*string map = receiver->getMapByName("quarto1");
+	cout << "-----" << map << "-----" << endl;*/
+
 	for (int i = 0; i < maps.size(); i++) {
 		gap += 50;
 		string str = to_string(i+1) + " - " + maps.at(i);

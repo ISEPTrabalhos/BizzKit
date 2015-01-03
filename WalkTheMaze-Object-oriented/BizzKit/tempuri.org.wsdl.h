@@ -126,6 +126,8 @@ extern "C" {
 
 //     BasicHttpBinding_IService_Login
 //     BasicHttpBinding_IService_Score
+//     BasicHttpBinding_IService_ListLevels
+//     BasicHttpBinding_IService_LoadLevel
 
 // The following server function tables were generated:
 
@@ -178,7 +180,7 @@ HRESULT WINAPI BasicHttpBinding_IService_Login(
     __in WS_SERVICE_PROXY* _serviceProxy,
     __in_opt __nullterminated WCHAR* username, 
     __in_opt __nullterminated WCHAR* password, 
-    __out_opt __deref __nullterminated WCHAR** LoginResult, 
+    __out int* LoginResult, 
     __in WS_HEAP* _heap,
     __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
     __in const ULONG _callPropertyCount,
@@ -189,8 +191,30 @@ HRESULT WINAPI BasicHttpBinding_IService_Login(
 HRESULT WINAPI BasicHttpBinding_IService_Score(
     __in WS_SERVICE_PROXY* _serviceProxy,
     __in_opt __nullterminated WCHAR* username, 
+    __in_opt __nullterminated WCHAR* levelName, 
     __in int score, 
     __out int* ScoreResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_ListLevels
+HRESULT WINAPI BasicHttpBinding_IService_ListLevels(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __out_opt __deref __nullterminated WCHAR** ListLevelsResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_LoadLevel
+HRESULT WINAPI BasicHttpBinding_IService_LoadLevel(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* levelName, 
+    __out_opt __deref __nullterminated WCHAR** LoadLevelResult, 
     __in WS_HEAP* _heap,
     __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
     __in const ULONG _callPropertyCount,
@@ -205,15 +229,29 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IService_LoginCallback) (
     __in const WS_OPERATION_CONTEXT* _context,
     __in_opt __nullterminated WCHAR* username, 
     __in_opt __nullterminated WCHAR* password, 
-    __out_opt __deref __nullterminated WCHAR** LoginResult, 
+    __out int* LoginResult, 
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
 typedef HRESULT (CALLBACK* BasicHttpBinding_IService_ScoreCallback) (
     __in const WS_OPERATION_CONTEXT* _context,
     __in_opt __nullterminated WCHAR* username, 
+    __in_opt __nullterminated WCHAR* levelName, 
     __in int score, 
     __out int* ScoreResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_ListLevelsCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __out_opt __deref __nullterminated WCHAR** ListLevelsResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_LoadLevelCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in_opt __nullterminated WCHAR* levelName, 
+    __out_opt __deref __nullterminated WCHAR** LoadLevelResult, 
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
@@ -222,6 +260,8 @@ typedef struct BasicHttpBinding_IServiceFunctionTable
 {
     BasicHttpBinding_IService_LoginCallback BasicHttpBinding_IService_Login;
     BasicHttpBinding_IService_ScoreCallback BasicHttpBinding_IService_Score;
+    BasicHttpBinding_IService_ListLevelsCallback BasicHttpBinding_IService_ListLevels;
+    BasicHttpBinding_IService_LoadLevelCallback BasicHttpBinding_IService_LoadLevel;
 } BasicHttpBinding_IServiceFunctionTable;
 
 ////////////////////////////////////////////////
@@ -256,6 +296,30 @@ typedef struct _tempuri_org_wsdl
         // messageDescription: tempuri_org_wsdl.messages.IService_Score_OutputMessage
         WS_MESSAGE_DESCRIPTION IService_Score_OutputMessage;
         
+        // message: IService_ListLevels_InputMessage
+        // c type: _ListLevels
+        // action: "http://tempuri.org/IService/ListLevels"
+        // messageDescription: tempuri_org_wsdl.messages.IService_ListLevels_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_ListLevels_InputMessage;
+        
+        // message: IService_ListLevels_OutputMessage
+        // c type: _ListLevelsResponse
+        // action: "http://tempuri.org/IService/ListLevelsResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_ListLevels_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_ListLevels_OutputMessage;
+        
+        // message: IService_LoadLevel_InputMessage
+        // c type: _LoadLevel
+        // action: "http://tempuri.org/IService/LoadLevel"
+        // messageDescription: tempuri_org_wsdl.messages.IService_LoadLevel_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_LoadLevel_InputMessage;
+        
+        // message: IService_LoadLevel_OutputMessage
+        // c type: _LoadLevelResponse
+        // action: "http://tempuri.org/IService/LoadLevelResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_LoadLevel_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_LoadLevel_OutputMessage;
+        
     } messages;
     struct // contracts
     {
@@ -267,6 +331,12 @@ typedef struct _tempuri_org_wsdl
         // operation: BasicHttpBinding_IService_Score
         //     input message: IService_Score_InputMessage
         //     output message: IService_Score_OutputMessage
+        // operation: BasicHttpBinding_IService_ListLevels
+        //     input message: IService_ListLevels_InputMessage
+        //     output message: IService_ListLevels_OutputMessage
+        // operation: BasicHttpBinding_IService_LoadLevel
+        //     input message: IService_LoadLevel_InputMessage
+        //     output message: IService_LoadLevel_OutputMessage
         // contractDescription: tempuri_org_wsdl.contracts.BasicHttpBinding_IService
         WS_CONTRACT_DESCRIPTION BasicHttpBinding_IService;
         

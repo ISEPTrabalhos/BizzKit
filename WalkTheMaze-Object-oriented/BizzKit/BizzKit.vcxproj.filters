@@ -87,15 +87,6 @@
     <ClCompile Include="readjpeg.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tempuri.org.wsdl.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tempuri.org.xsd.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
@@ -104,6 +95,15 @@
     </ClCompile>
     <ClCompile Include="ServicesHandler.cpp">
       <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tempuri.org.wsdl.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tempuri.org.xsd.c">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,15 +158,6 @@
     <ClInclude Include="jmorecfg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tempuri.org.wsdl.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tempuri.org.xsd.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
@@ -175,6 +166,15 @@
     </ClInclude>
     <ClInclude Include="ServicesHandler.h">
       <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.wsdl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tempuri.org.xsd.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

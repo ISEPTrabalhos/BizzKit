@@ -22,14 +22,30 @@ typedef struct _tempuri_org_xsdLocalDefinitions
         struct // _Score
         {
             WS_FIELD_DESCRIPTION username;
+            WS_FIELD_DESCRIPTION levelName;
             WS_FIELD_DESCRIPTION score;
-            WS_FIELD_DESCRIPTION* _ScoreFields [2]; 
+            WS_FIELD_DESCRIPTION* _ScoreFields [3]; 
         } _Scoredescs; // end of _Score
         struct // _ScoreResponse
         {
             WS_FIELD_DESCRIPTION ScoreResult;
             WS_FIELD_DESCRIPTION* _ScoreResponseFields [1]; 
         } _ScoreResponsedescs; // end of _ScoreResponse
+        struct // _ListLevelsResponse
+        {
+            WS_FIELD_DESCRIPTION ListLevelsResult;
+            WS_FIELD_DESCRIPTION* _ListLevelsResponseFields [1]; 
+        } _ListLevelsResponsedescs; // end of _ListLevelsResponse
+        struct // _LoadLevel
+        {
+            WS_FIELD_DESCRIPTION levelName;
+            WS_FIELD_DESCRIPTION* _LoadLevelFields [1]; 
+        } _LoadLeveldescs; // end of _LoadLevel
+        struct // _LoadLevelResponse
+        {
+            WS_FIELD_DESCRIPTION LoadLevelResult;
+            WS_FIELD_DESCRIPTION* _LoadLevelResponseFields [1]; 
+        } _LoadLevelResponsedescs; // end of _LoadLevelResponse
     } globalElements;  // end of global elements
     struct // XML dictionary
     {
@@ -42,9 +58,16 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_XML_STRING _LoginResponseTypeName;  // LoginResponse
             WS_XML_STRING _LoginResponseLoginResultLocalName;  // LoginResult
             WS_XML_STRING _ScoreTypeName;  // Score
+            WS_XML_STRING _ScorelevelNameLocalName;  // levelName
             WS_XML_STRING _ScorescoreLocalName;  // score
             WS_XML_STRING _ScoreResponseTypeName;  // ScoreResponse
             WS_XML_STRING _ScoreResponseScoreResultLocalName;  // ScoreResult
+            WS_XML_STRING _ListLevelsTypeName;  // ListLevels
+            WS_XML_STRING _ListLevelsResponseTypeName;  // ListLevelsResponse
+            WS_XML_STRING _ListLevelsResponseListLevelsResultLocalName;  // ListLevelsResult
+            WS_XML_STRING _LoadLevelTypeName;  // LoadLevel
+            WS_XML_STRING _LoadLevelResponseTypeName;  // LoadLevelResponse
+            WS_XML_STRING _LoadLevelResponseLoadLevelResultLocalName;  // LoadLevelResult
         } xmlStrings; // end of XML string list
         WS_XML_DICTIONARY dict;  
     } dictionary;  // end of XML dictionary
@@ -87,10 +110,10 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_ELEMENT_FIELD_MAPPING,
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginResponseLoginResultLocalName, // LoginResult
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
-            WS_WSZ_TYPE,
+            WS_INT32_TYPE,
             0,
             WsOffsetOf(_LoginResponse, LoginResult),
-             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+             WS_FIELD_OPTIONAL,
             0,
             0xffffffff
             },    // end of field description for LoginResult
@@ -110,6 +133,17 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             0,
             0xffffffff
             },    // end of field description for username
+            { // field description for levelName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScorelevelNameLocalName, // levelName
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_Score, levelName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for levelName
             { // field description for score
             WS_ELEMENT_FIELD_MAPPING,
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScorescoreLocalName, // score
@@ -123,6 +157,7 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             },    // end of field description for score
             {    // fields description for _Score
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs.username,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs.levelName,
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs.score,
             },
         },    // _Score
@@ -142,6 +177,54 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs.ScoreResult,
             },
         },    // _ScoreResponse
+        {   // _ListLevelsResponse
+            { // field description for ListLevelsResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ListLevelsResponseListLevelsResultLocalName, // ListLevelsResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_ListLevelsResponse, ListLevelsResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for ListLevelsResult
+            {    // fields description for _ListLevelsResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._ListLevelsResponsedescs.ListLevelsResult,
+            },
+        },    // _ListLevelsResponse
+        {   // _LoadLevel
+            { // field description for levelName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScorelevelNameLocalName, // levelName
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_LoadLevel, levelName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for levelName
+            {    // fields description for _LoadLevel
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._LoadLeveldescs.levelName,
+            },
+        },    // _LoadLevel
+        {   // _LoadLevelResponse
+            { // field description for LoadLevelResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoadLevelResponseLoadLevelResultLocalName, // LoadLevelResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_LoadLevelResponse, LoadLevelResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for LoadLevelResult
+            {    // fields description for _LoadLevelResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._LoadLevelResponsedescs.LoadLevelResult,
+            },
+        },    // _LoadLevelResponse
     }, // end of global elements
     {    // dictionary 
         { // xmlStrings
@@ -152,16 +235,23 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("LoginResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 4),
             WS_XML_STRING_DICTIONARY_VALUE("LoginResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 5),
             WS_XML_STRING_DICTIONARY_VALUE("Score",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 6),
-            WS_XML_STRING_DICTIONARY_VALUE("score",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 7),
-            WS_XML_STRING_DICTIONARY_VALUE("ScoreResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 8),
-            WS_XML_STRING_DICTIONARY_VALUE("ScoreResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 9),
+            WS_XML_STRING_DICTIONARY_VALUE("levelName",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 7),
+            WS_XML_STRING_DICTIONARY_VALUE("score",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 8),
+            WS_XML_STRING_DICTIONARY_VALUE("ScoreResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 9),
+            WS_XML_STRING_DICTIONARY_VALUE("ScoreResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 10),
+            WS_XML_STRING_DICTIONARY_VALUE("ListLevels",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 11),
+            WS_XML_STRING_DICTIONARY_VALUE("ListLevelsResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 12),
+            WS_XML_STRING_DICTIONARY_VALUE("ListLevelsResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 13),
+            WS_XML_STRING_DICTIONARY_VALUE("LoadLevel",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 14),
+            WS_XML_STRING_DICTIONARY_VALUE("LoadLevelResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 15),
+            WS_XML_STRING_DICTIONARY_VALUE("LoadLevelResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 16),
         },  // end of xmlStrings
         
         {   // tempuri_org_xsddictionary
-        // 3b26968b-d1dc-4912-86f9-534084b0f840 
-        { 0x3b26968b, 0xd1dc, 0x4912, { 0x86, 0xf9, 0x53,0x40, 0x84, 0xb0, 0xf8, 0x40 } },
+        // eaca1b4e-f710-4205-a434-2baad8643b52 
+        { 0xeaca1b4e, 0xf710, 0x4205, { 0xa4, 0x34, 0x2b,0xaa, 0xd8, 0x64, 0x3b, 0x52 } },
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings,
-        10,
+        17,
         TRUE,
         },
     },   //  end of dictionary
@@ -193,6 +283,30 @@ const _tempuri_org_xsd tempuri_org_xsd =
             (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
             WS_STRUCT_TYPE,
             (void*)&tempuri_org_xsd.externallyReferencedTypes.ScoreResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ListLevelsTypeName, // ListLevels
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.ListLevels,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ListLevelsResponseTypeName, // ListLevelsResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.ListLevelsResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoadLevelTypeName, // LoadLevel
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.LoadLevel,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoadLevelResponseTypeName, // LoadLevelResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.LoadLevelResponse,
         },
     }, // globalElements
     {  // begin of externallyReferencedTypes
@@ -240,5 +354,49 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         0,
         },   // end of struct description for _ScoreResponse
+        {
+        0,
+        1,
+        0,
+        0,
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ListLevelsTypeName, // ListLevels
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _ListLevels
+        {
+        sizeof(_ListLevelsResponse),
+        __alignof(_ListLevelsResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._ListLevelsResponsedescs._ListLevelsResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._ListLevelsResponsedescs._ListLevelsResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ListLevelsResponseTypeName, // ListLevelsResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _ListLevelsResponse
+        {
+        sizeof(_LoadLevel),
+        __alignof(_LoadLevel),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._LoadLeveldescs._LoadLevelFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._LoadLeveldescs._LoadLevelFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoadLevelTypeName, // LoadLevel
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _LoadLevel
+        {
+        sizeof(_LoadLevelResponse),
+        __alignof(_LoadLevelResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._LoadLevelResponsedescs._LoadLevelResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._LoadLevelResponsedescs._LoadLevelResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoadLevelResponseTypeName, // LoadLevelResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _LoadLevelResponse
     }, // end of externallyReferencedTypes;
 }; // end of _tempuri_org_xsd

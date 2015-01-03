@@ -71,7 +71,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 		case 'm':
 		case 'M':
 			// disabled because methods dont exist on deployed version yet, only locally
-			//status->showMapMenu = !status->showMapMenu;
+			status->showMapMenu = !status->showMapMenu;
 			break;
     }
 }

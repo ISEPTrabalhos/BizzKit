@@ -8,7 +8,8 @@ ServicesHandler::ServicesHandler(){
 	address = {};
 	templ = {};
 	// endereço do serviço
-	url = WS_STRING_VALUE(L"http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc");
+	url = WS_STRING_VALUE(L"http://localhost:43492/Services/Service.svc?wsdl");
+	//http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc
 	address.url = url;
 	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
 
@@ -29,35 +30,36 @@ int ServicesHandler::signIn(string user, string pass) {
 	wchar_t* username = const_cast<wchar_t*>(str1.c_str());
 	wstring str2 = converterX.from_bytes(pass);
 	wchar_t*  password = const_cast<wchar_t*>(str2.c_str());
-	WCHAR* idResult;
+	//WCHAR* idResult;
+	int id;
 	hr = BasicHttpBinding_IService_Login(
-		proxy, username, password, &idResult, heap, NULL, 0, NULL, error);
+		proxy, username, password, &id, heap, NULL, 0, NULL, error);
 	//wprintf(L"%s\n", idResult);
 
-	return _wtoi(idResult);
+	//return _wtoi(idResult);
+	return id;
 }
 
 vector<string> ServicesHandler::getMapsList() {
 	// receive map list 
 	WCHAR* results;
 	// disabled because method doesnt exist on deployed version yet, only locally
-	//hr = BasicHttpBinding_IService_ListLevels(proxy, &results, heap, NULL, 0, NULL, error); 
+	hr = BasicHttpBinding_IService_ListLevels(proxy, &results, heap, NULL, 0, NULL, error); 
 
 	//wprintf(L"%s\n", results);
 
 	// convert wchar_t to string
 	typedef codecvt_utf8<wchar_t> convert_typeX;
 	wstring_convert<convert_typeX, wchar_t> converterX;
-	//wstring wstr = results;
-	//string resultsMaps = converterX.to_bytes(wstr);
-
+	wstring wstr = results;
+	string resultsMaps = converterX.to_bytes(wstr);
 	// split string into vector
 	vector<string> maps;
-	/*stringstream ss(resultsMaps);
+	stringstream ss(resultsMaps);
 	string item;
 	while (getline(ss, item, ',')) {
 		maps.push_back(item);
-	}*/
+	}
 
 	return maps;
 }
@@ -73,20 +75,19 @@ string ServicesHandler::getSingleMap(string lvl) {
 	// receive map
 	wchar_t* level;
 	// disabled because method doesnt exist on deployed version yet, only locally
-	//hr = BasicHttpBinding_IService_LoadLevel(proxy, levelName, &level, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_LoadLevel(proxy, levelName, &level, heap, NULL, 0, NULL, error);
 	//wprintf(L"%s\n", level);
 
 	// save on file
-	/*wstring wstr = level;
-	string newLevel = converterX.to_bytes(wstr);*/
-	ofstream newFile;
-	string filename = lvl + ".grafo";
-	newFile.open(filename);
-	//newFile << newLevel;
-	newFile.close();
+	wstring wstr = level;
+	string newLevel = converterX.to_bytes(wstr);
+	//ofstream newFile;
+	//string filename = lvl + ".grafo";
+	//newFile.open(filename);
+	////newFile << newLevel;
+	//newFile.close();
 
-	//return newLevel;
-	return "";
+	return newLevel;
 }
 
 int ServicesHandler::score(string user, string level, int score)

@@ -45,6 +45,10 @@ extern "C" {
 //     struct _LoginResponse;
 //     struct _Score;
 //     struct _ScoreResponse;
+//     struct _ListLevels;
+//     struct _ListLevelsResponse;
+//     struct _LoadLevel;
+//     struct _LoadLevelResponse;
 
 // The following header files must be included in this order before this one
 
@@ -64,13 +68,14 @@ typedef struct _Login
 // typeDescription: n/a
 typedef struct _LoginResponse 
 {
-    WCHAR* LoginResult; // optional
+    int LoginResult;
 } _LoginResponse;
 
 // typeDescription: n/a
 typedef struct _Score 
 {
     WCHAR* username; // optional
+    WCHAR* levelName; // optional
     int score;
 } _Score;
 
@@ -79,6 +84,26 @@ typedef struct _ScoreResponse
 {
     int ScoreResult;
 } _ScoreResponse;
+
+typedef struct _ListLevels _ListLevels;
+
+// typeDescription: n/a
+typedef struct _ListLevelsResponse 
+{
+    WCHAR* ListLevelsResult; // optional
+} _ListLevelsResponse;
+
+// typeDescription: n/a
+typedef struct _LoadLevel 
+{
+    WCHAR* levelName; // optional
+} _LoadLevel;
+
+// typeDescription: n/a
+typedef struct _LoadLevelResponse 
+{
+    WCHAR* LoadLevelResult; // optional
+} _LoadLevelResponse;
 
 ////////////////////////////////////////////////
 // Global web service descriptions.
@@ -108,6 +133,26 @@ typedef struct _tempuri_org_xsd
         // elementDescription: tempuri_org_xsd.globalElements.ScoreResponse
         WS_ELEMENT_DESCRIPTION ScoreResponse;
         
+        // xml element: ListLevels ("http://tempuri.org/")
+        // c type: _ListLevels
+        // elementDescription: tempuri_org_xsd.globalElements.ListLevels
+        WS_ELEMENT_DESCRIPTION ListLevels;
+        
+        // xml element: ListLevelsResponse ("http://tempuri.org/")
+        // c type: _ListLevelsResponse
+        // elementDescription: tempuri_org_xsd.globalElements.ListLevelsResponse
+        WS_ELEMENT_DESCRIPTION ListLevelsResponse;
+        
+        // xml element: LoadLevel ("http://tempuri.org/")
+        // c type: _LoadLevel
+        // elementDescription: tempuri_org_xsd.globalElements.LoadLevel
+        WS_ELEMENT_DESCRIPTION LoadLevel;
+        
+        // xml element: LoadLevelResponse ("http://tempuri.org/")
+        // c type: _LoadLevelResponse
+        // elementDescription: tempuri_org_xsd.globalElements.LoadLevelResponse
+        WS_ELEMENT_DESCRIPTION LoadLevelResponse;
+        
     } globalElements;
     struct // externallyReferencedTypes
     {
@@ -115,6 +160,10 @@ typedef struct _tempuri_org_xsd
         WS_STRUCT_DESCRIPTION LoginResponse;
         WS_STRUCT_DESCRIPTION Score;
         WS_STRUCT_DESCRIPTION ScoreResponse;
+        WS_STRUCT_DESCRIPTION ListLevels;
+        WS_STRUCT_DESCRIPTION ListLevelsResponse;
+        WS_STRUCT_DESCRIPTION LoadLevel;
+        WS_STRUCT_DESCRIPTION LoadLevelResponse;
     } externallyReferencedTypes;
 } _tempuri_org_xsd;
 
