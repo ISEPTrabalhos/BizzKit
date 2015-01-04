@@ -37,6 +37,12 @@
     <Filter Include="Header Files\Input">
       <UniqueIdentifier>{3d620429-4bda-48b3-a036-1892658913a6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\libs">
+      <UniqueIdentifier>{3ffab49a-da31-43d4-affd-af95bf6a19e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\libs">
+      <UniqueIdentifier>{38eb0f07-7fe7-41c0-b326-dd2ff6ebea86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Launcher.cpp">
@@ -66,26 +72,8 @@
     <ClCompile Include="Mouse.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="math.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="mdlviewer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="studio_render.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="studio_utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MainCharacter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Login.cpp">
       <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="readjpeg.c">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Score.cpp">
       <Filter>Source Files\Logic</Filter>
@@ -96,14 +84,32 @@
     <ClCompile Include="ServicesHandler.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
+    <ClCompile Include="math.cpp">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="mdlviewer.cpp">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="readjpeg.c">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
     <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="studio_render.cpp">
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="studio_utils.cpp">
+      <Filter>Source Files\libs</Filter>
     </ClCompile>
     <ClCompile Include="tempuri.org.wsdl.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\libs</Filter>
     </ClCompile>
     <ClCompile Include="tempuri.org.xsd.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\libs</Filter>
+    </ClCompile>
+    <ClCompile Include="MainCharacter.cpp">
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -134,29 +140,8 @@
     <ClInclude Include="Mouse.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="mathlib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="mdlviewer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="studio.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MainCharacter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Login.h">
       <Filter>Header Files\Logic</Filter>
-    </ClInclude>
-    <ClInclude Include="jpeglib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="jconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="jmorecfg.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Score.h">
       <Filter>Header Files\Logic</Filter>
@@ -167,14 +152,35 @@
     <ClInclude Include="ServicesHandler.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
+    <ClInclude Include="jconfig.h">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jmorecfg.h">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="jpeglib.h">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="mathlib.h">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="mdlviewer.h">
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
     <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="studio.h">
+      <Filter>Header Files\libs</Filter>
     </ClInclude>
     <ClInclude Include="tempuri.org.wsdl.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\libs</Filter>
     </ClInclude>
     <ClInclude Include="tempuri.org.xsd.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="MainCharacter.h">
+      <Filter>Header Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

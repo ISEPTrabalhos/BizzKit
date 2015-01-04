@@ -104,10 +104,10 @@ void Keyboard::Special(int key, int x, int y){
     
     switch (key){
         case GLUT_KEY_F1:
-            gravaGrafo();
+            gravaGrafo(status->mapfile);
             break;
         case GLUT_KEY_F2:
-            leGrafo();
+			leGrafo(status->mapfile);
             glutPostRedisplay();
             break;
 

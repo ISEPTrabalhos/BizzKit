@@ -1,8 +1,4 @@
 #include "Grafo.h"
-#include <iostream>
-#include <fstream>
-
-#define __GRAFO__FILE__ "quarto1.grafo"
 
 No nos[_MAX_NOS_GRAFO];
 Arco arcos[_MAX_ARCOS_GRAFO];
@@ -83,12 +79,12 @@ Arco criaArco(int noi, int nof, float peso, float largura){
 	return arco;
 }
 
-void gravaGrafo(){
+void gravaGrafo(string file){
 	ofstream myfile;
 
-	myfile.open(__GRAFO__FILE__, ios::out);
+	myfile.open(file, ios::out);
 	if (!myfile.is_open()) {
-		cout << "Erro ao abrir " << __GRAFO__FILE__ << "para escrever" << endl;
+		cout << "Erro ao abrir " << file << "para escrever" << endl;
 		exit(1);
 	}
 	myfile << numNos << endl;
@@ -99,12 +95,12 @@ void gravaGrafo(){
 		myfile << arcos[i].noi << " " << arcos[i].nof << " " << arcos[i].peso << " " << arcos[i].largura << endl;
 	myfile.close();
 }
-void leGrafo(){
+void leGrafo(string file){
 	ifstream myfile;
 
-	myfile.open(__GRAFO__FILE__, ios::in);
+	myfile.open(file, ios::in);
 	if (!myfile.is_open()) {
-		cout << "Erro ao abrir " << __GRAFO__FILE__ << "para ler" << endl;
+		cout << "Erro ao abrir " << file << "para ler" << endl;
 		exit(1);
 	}
 	myfile >> numNos;

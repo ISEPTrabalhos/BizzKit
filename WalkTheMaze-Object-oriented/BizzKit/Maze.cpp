@@ -109,7 +109,7 @@ void Maze::Launch(int argc, char **argv){
 			alutInit(&argc, argv);
 			status->InitAudio();
 
-			leGrafo();
+			leGrafo(status->mapfile);
 
 			Keyboard::help();
 

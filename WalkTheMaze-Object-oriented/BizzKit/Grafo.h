@@ -8,6 +8,12 @@
 #define ESTE_OESTE	1
 #define PLANO		2
 
+#include <string>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
 typedef struct No{
 	float x, y, z, largura;
 }No;
@@ -33,7 +39,7 @@ void imprimeArco(Arco);
 void listArcos();
 Arco criaArco(int, int, float, float);
 
-void gravaGrafo();
-void leGrafo();
+void gravaGrafo(string file);
+void leGrafo(string file);
 
 #endif
