@@ -10,7 +10,7 @@ public:
 	int xMouse, yMouse;
 	GLboolean light;
 	GLboolean apresentaNormais;
-	GLboolean showMapMenu;
+	//GLboolean showMapMenu;
 	GLint lightViewer;
 	GLint eixoTranslaccao;
 	GLdouble eixo[3];

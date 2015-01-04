@@ -64,7 +64,7 @@ vector<string> ServicesHandler::getMapsList() {
 	return maps;
 }
 
-string ServicesHandler::getSingleMap(string lvl) {
+void ServicesHandler::saveSingleMap(string lvl) {
 	//convert string into wchar
 	typedef codecvt_utf8<wchar_t> convert_typeX;
 	wstring_convert<convert_typeX, wchar_t> converterX;
@@ -79,15 +79,14 @@ string ServicesHandler::getSingleMap(string lvl) {
 	//wprintf(L"%s\n", level);
 
 	// save on file
-	wstring wstr = level;
+	//  comment this because some maps havent been updated
+	/*wstring wstr = level;
 	string newLevel = converterX.to_bytes(wstr);
-	//ofstream newFile;
-	//string filename = lvl + ".grafo";
-	//newFile.open(filename);
-	////newFile << newLevel;
-	//newFile.close();
-
-	return newLevel;
+	ofstream newFile;
+	string filename = lvl + ".grafo";
+	newFile.open(filename);
+	newFile << newLevel;
+	newFile.close();*/
 }
 
 int ServicesHandler::score(string user, string level, int score)

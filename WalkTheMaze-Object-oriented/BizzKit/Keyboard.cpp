@@ -68,11 +68,11 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
         case 'O':
 			status->tecla_o =!status->tecla_o;
             break;
-		case 'm':
-		case 'M':
-			// disabled because methods dont exist on deployed version yet, only locally
-			status->showMapMenu = !status->showMapMenu;
-			break;
+		// maybe can be used later
+		//case 'm':
+		//case 'M':
+		//	//status->showMapMenu = !status->showMapMenu;
+		//	break;
     }
 }
 

@@ -9,7 +9,9 @@ public:
 
 	// functions
 	static vector<string> getAllMaps();
-	static string getMapByName(string name);
+	static void getMapByName(string name);
+	static string showChooseMapMenu();
+	static string chooseMap();
 };
 
 #endif
