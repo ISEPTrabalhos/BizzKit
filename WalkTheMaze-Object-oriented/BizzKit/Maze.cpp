@@ -70,6 +70,8 @@ void Maze::Launch(int argc, char **argv){
 		MapsReceiver *receiver = new MapsReceiver();
 		string mapName = receiver->chooseMap();
 		if (!mapName.empty()) {
+			//set choosen map
+			status->mapfile = mapName + ".grafo";
 			glutInit(&argc, argv);
 
 			/* need both double buffering and z buffer */

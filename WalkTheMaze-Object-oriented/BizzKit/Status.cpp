@@ -19,7 +19,7 @@ Status::Status(){
 	first = top = GL_FALSE;
     eixoTranslaccao = 0;
 	up = down = left = right = GL_FALSE;
-	mapfile = "quarto1.grafo";
+	mapfile = "exemplo.grafo"; // set 'default' map
 }
 
 Status::~Status(){}

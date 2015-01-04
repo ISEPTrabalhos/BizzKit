@@ -79,14 +79,13 @@ void ServicesHandler::saveSingleMap(string lvl) {
 	//wprintf(L"%s\n", level);
 
 	// save on file
-	//  comment this because some maps havent been updated
-	/*wstring wstr = level;
+	wstring wstr = level;
 	string newLevel = converterX.to_bytes(wstr);
 	ofstream newFile;
 	string filename = lvl + ".grafo";
 	newFile.open(filename);
 	newFile << newLevel;
-	newFile.close();*/
+	newFile.close();
 }
 
 int ServicesHandler::score(string user, string level, int score)
