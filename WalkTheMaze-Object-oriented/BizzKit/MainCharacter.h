@@ -10,6 +10,7 @@ public:
     Point *position;
     GLfloat  dir;
     GLfloat  vel;
+	GLint health;
     
     MainCharacter();
     ~MainCharacter();

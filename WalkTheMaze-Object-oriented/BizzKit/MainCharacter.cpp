@@ -9,6 +9,7 @@ MainCharacter::MainCharacter(){
     position->z = 1;
     dir = 0;
     vel = 0.5;
+	health = 100;
 }
 
 MainCharacter::~MainCharacter(){}
