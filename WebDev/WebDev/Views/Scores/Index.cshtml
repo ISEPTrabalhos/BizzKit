@@ -1,26 +1,22 @@
 ﻿@model IEnumerable<WebDev.Models.Score>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Leaderboard";
 }
 
-<h2>Index</h2>
+<h2>Leaderboard</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.username)
+            Player
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Level.name)
+            Level
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.score)
+            Score
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -33,11 +29,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.score)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
 }
