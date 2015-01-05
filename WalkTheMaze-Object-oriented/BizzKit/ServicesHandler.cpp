@@ -98,11 +98,11 @@ int ServicesHandler::score(string user, string level, int score)
 	wchar_t* username = const_cast<wchar_t*>(string1.c_str());
 
 	wstring string2 = convertString.from_bytes(level);
-	wchar_t*levelName = const_cast<wchar_t*>(string2.c_str());
+	wchar_t* levelName = const_cast<wchar_t*>(string2.c_str());
 
 	//upload score
-	int *result;
+	int *result=0;
 	hr = BasicHttpBinding_IService_Score(proxy, username,levelName, score, result, heap, NULL, 0, NULL, error);
-	//return *result;
-	return 0;
+	return *result;
+	//return 0;
 }
