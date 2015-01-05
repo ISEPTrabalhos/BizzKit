@@ -22,14 +22,10 @@ ServicesHandler::ServicesHandler(){
 ServicesHandler::~ServicesHandler(){}
 
 int ServicesHandler::signIn(string user, string pass) {
-	/*wchar_t myuser[100] = L"admin";
-	wchar_t mypass[100] = L"Admin_123";*/
-	typedef codecvt_utf8<wchar_t> convert_typeX;
-	wstring_convert<convert_typeX, wchar_t> converterX;
-	wstring str1 = converterX.from_bytes(user);
-	wchar_t* username = const_cast<wchar_t*>(str1.c_str());
-	wstring str2 = converterX.from_bytes(pass);
-	wchar_t*  password = const_cast<wchar_t*>(str2.c_str());
+	wstring u = convertStringToWstring(user);
+	wstring p = convertStringToWstring(pass);
+	wchar_t*  username = const_cast<wchar_t*>(u.c_str()); 
+	wchar_t*  password = const_cast<wchar_t*>(p.c_str());
 	//WCHAR* idResult;
 	int id;
 	hr = BasicHttpBinding_IService_Login(
@@ -43,16 +39,11 @@ int ServicesHandler::signIn(string user, string pass) {
 vector<string> ServicesHandler::getMapsList() {
 	// receive map list 
 	WCHAR* results;
-	// disabled because method doesnt exist on deployed version yet, only locally
 	hr = BasicHttpBinding_IService_ListLevels(proxy, &results, heap, NULL, 0, NULL, error); 
 
 	//wprintf(L"%s\n", results);
 
-	// convert wchar_t to string
-	typedef codecvt_utf8<wchar_t> convert_typeX;
-	wstring_convert<convert_typeX, wchar_t> converterX;
-	wstring wstr = results;
-	string resultsMaps = converterX.to_bytes(wstr);
+	string resultsMaps = convertWcharToString(results);
 	// split string into vector
 	vector<string> maps;
 	stringstream ss(resultsMaps);
@@ -66,21 +57,17 @@ vector<string> ServicesHandler::getMapsList() {
 
 void ServicesHandler::saveSingleMap(string lvl) {
 	//convert string into wchar
-	typedef codecvt_utf8<wchar_t> convert_typeX;
-	wstring_convert<convert_typeX, wchar_t> converterX;
-	string name = lvl;
-	wstring strLvl = converterX.from_bytes(lvl);
+	wstring strLvl = convertStringToWstring(lvl);
 	wchar_t* levelName = const_cast<wchar_t*>(strLvl.c_str());
 
 	// receive map
 	wchar_t* level;
-	// disabled because method doesnt exist on deployed version yet, only locally
 	hr = BasicHttpBinding_IService_LoadLevel(proxy, levelName, &level, heap, NULL, 0, NULL, error);
 	//wprintf(L"%s\n", level);
 
 	// save on file
-	wstring wstr = level;
-	string newLevel = converterX.to_bytes(wstr);
+	//wstring wstr = level;
+	string newLevel = convertWcharToString(level);
 	ofstream newFile;
 	string filename = lvl + ".grafo";
 	newFile.open(filename);
@@ -90,19 +77,29 @@ void ServicesHandler::saveSingleMap(string lvl) {
 
 int ServicesHandler::score(string user, string level, int score)
 {
-	//convert string to wchar
-	typedef codecvt_utf8<wchar_t>convert_typeX;
-	wstring_convert<convert_typeX, wchar_t>convertString;
-
-	wstring string1 = convertString.from_bytes(user);
+	wstring string1 = convertStringToWstring(user);
 	wchar_t* username = const_cast<wchar_t*>(string1.c_str());
 
-	wstring string2 = convertString.from_bytes(level);
+	wstring string2 = convertStringToWstring(level);
 	wchar_t* levelName = const_cast<wchar_t*>(string2.c_str());
 
 	//upload score
 	int *result=0;
 	hr = BasicHttpBinding_IService_Score(proxy, username,levelName, score, result, heap, NULL, 0, NULL, error);
 	return *result;
-	//return 0;
+}
+
+wstring ServicesHandler::convertStringToWstring(string source) {
+	//convert string into wstring
+	typedef codecvt_utf8<wchar_t> convert_typeX;
+	wstring_convert<convert_typeX, wchar_t> converterX;
+	return converterX.from_bytes(source);
+}
+
+string ServicesHandler::convertWcharToString(wchar_t* src) {
+	//convert wchar to string
+	typedef codecvt_utf8<wchar_t> convert_typeX;
+	wstring_convert<convert_typeX, wchar_t> converterX;
+	wstring wstr = src;
+	return converterX.to_bytes(wstr);
 }

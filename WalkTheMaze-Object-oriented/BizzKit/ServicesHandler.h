@@ -35,6 +35,10 @@ public:
 	vector<string> getMapsList();
 	void saveSingleMap(string lvl);
 	int score(string user, string level, int score);
+
+	//usefull functions
+	wstring convertStringToWstring(string source);
+	string convertWcharToString(wchar_t* source);
 };
 
 #endif
