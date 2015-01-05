@@ -90,12 +90,19 @@ void ServicesHandler::saveSingleMap(string lvl) {
 
 int ServicesHandler::score(string user, string level, int score)
 {
+	//convert string to wchar
 	typedef codecvt_utf8<wchar_t>convert_typeX;
-	wstring_convert<convert_typeX, wchar_t>convertUsername;
-	wstring string1 = convertUsername.from_bytes(user);
+	wstring_convert<convert_typeX, wchar_t>convertString;
+
+	wstring string1 = convertString.from_bytes(user);
 	wchar_t* username = const_cast<wchar_t*>(string1.c_str());
-	int *result;
-	//hr = BasicHttpBinding_IService_Score(proxy, username, score, result, heap, NULL, 0, NULL, error);
-	//return *result;
-	return 0;
+
+	wstring string2 = convertString.from_bytes(level);
+	wchar_t* levelName = const_cast<wchar_t*>(string2.c_str());
+
+	//upload score
+	int *result=0;
+	hr = BasicHttpBinding_IService_Score(proxy, username,levelName, score, result, heap, NULL, 0, NULL, error);
+	return *result;
+	//return 0;
 }
