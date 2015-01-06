@@ -9,18 +9,14 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->showMapMenu) {
 		switch (key) {
 		case'1':
-			cout << "Ler mundo 1" << endl;
 			status->mapfile = "mundo1.grafo";
 			leGrafo(status->mapfile);
 			glutPostRedisplay();
-			cout << "Ler mundo 1" << endl;
 			break;
 		case '2':
-			cout << "Ler mundo 2" << endl;
 			status->mapfile = "quarto1.grafo";
 			leGrafo(status->mapfile);
 			glutPostRedisplay();
-			cout << "Ler mundo 2" << endl;
 			break;
 		}
 		status->showMapMenu = false;
