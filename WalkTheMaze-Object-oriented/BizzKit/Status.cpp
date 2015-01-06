@@ -14,12 +14,12 @@ Status::Status(){
 	apresentaNormais = GL_FALSE;
 	lightViewer = 1;
   
-	//showMapMenu = GL_FALSE;
+	showMapMenu = GL_FALSE;
 
 	first = top = GL_FALSE;
     eixoTranslaccao = 0;
 	up = down = left = right = GL_FALSE;
-	mapfile = "exemplo.grafo"; // set 'default' map
+	mapfile = "quarto1.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
 }
 
 Status::~Status(){}
