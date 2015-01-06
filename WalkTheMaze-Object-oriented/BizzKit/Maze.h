@@ -15,6 +15,7 @@ public:
 	// functions
     static void Launch(int argc, char **argv);
     static void Timer(int value);
+	static bool Collision(GLfloat nx, GLfloat ny);
 };
 
 #endif

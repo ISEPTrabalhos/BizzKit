@@ -26,19 +26,23 @@ void Maze::Timer(int value) {
 	if (status->up){
 		nx = character->position->x + cosf(character->dir) * CHARACTER_LENGTH * 0.5;
 		ny = character->position->y + sinf(character->dir) * CHARACTER_WIDTH * 0.5;
-		//	Detect colision
-		character->position->x = nx;
-		character->position->y = ny;
-		walking = GL_TRUE;
+
+		if (!Maze::Collision((GLfloat)nx, (GLfloat)ny)){
+			character->position->x = nx;
+			character->position->y = ny;
+			walking = GL_TRUE;
+		}
 	}
 
 	else if (status->down){
 		nx = character->position->x - cosf(character->dir) * CHARACTER_LENGTH * 0.5;
 		ny = character->position->y - sinf(character->dir) * CHARACTER_WIDTH * 0.5;
-		//	Detect colision
-		character->position->x = nx;
-		character->position->y = ny;
-		walking = GL_TRUE;
+		
+		if (!Maze::Collision((GLfloat)nx, (GLfloat)ny)){
+			character->position->x = nx;
+			character->position->y = ny;
+			walking = GL_TRUE;
+		}
 	}
 	if (status->left){
 		character->dir += rad(1);
@@ -60,6 +64,18 @@ void Maze::Timer(int value) {
 
 
     glutPostRedisplay();
+}
+
+bool Maze::Collision(GLfloat nx, GLfloat ny) {
+	bool flag = false;
+	for (int i = 0; i<numNos; i++){
+		if (
+				(nx <= (nos[i].x + 2) && nx >= (nos[i].x - 2)) ||
+				(ny <= (nos[i].y + 2) && ny >= (nos[i].y - 2))
+			)
+			flag = true;
+	}
+	return flag;
 }
 
 
