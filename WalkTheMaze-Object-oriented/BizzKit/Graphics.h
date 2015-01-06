@@ -32,8 +32,7 @@ public:
 	static void displayMapList(int width, int height);
 	static void drawText(string src, int posX, int posY);
 
-	static void setTopCamera();
-	static void firstPersonCamera();
+	static void displayHealth(int width, int height);
 
 };
 

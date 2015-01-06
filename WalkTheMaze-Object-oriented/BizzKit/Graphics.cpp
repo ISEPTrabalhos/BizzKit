@@ -499,6 +499,8 @@ void Graphics::display(void){
 		Graphics::displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	}
 
+	displayHealth(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
     glFlush();
     glutSwapBuffers();
     
@@ -610,6 +612,25 @@ void Graphics::displayMapList(int width, int height) {
 	}
 
 	Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+}
+
+void Graphics::displayHealth(int width, int height){
+	glViewport(width * 0.75, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-width, width, -height, height, -100, 100);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	int posX = -width + 50, gap = 0;
+
+	material(brass);
+	gap += 50;
+	string str = "Health: " + to_string(character->health);
+	drawText(str, posX, height - gap);
+	
+
+	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 }
 void Graphics::drawText(string src, int posX, int posY)
 {
