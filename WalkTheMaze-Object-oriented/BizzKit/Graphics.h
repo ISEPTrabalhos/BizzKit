@@ -33,6 +33,7 @@ public:
 	static void drawText(string src, int posX, int posY);
 
 	static void displayHealth(int width, int height);
+	static void showScore(int width, int height);
 
 };
 

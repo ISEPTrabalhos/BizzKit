@@ -493,6 +493,8 @@ void Graphics::display(void){
         Graphics::drawDragPlane(status->eixoTranslaccao);
     }
     
+	Graphics::showScore(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
     Graphics::drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     
 	if (status->showMapMenu) {
@@ -632,6 +634,19 @@ void Graphics::displayHealth(int width, int height){
 
 	myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 }
+void Graphics::showScore(int width, int height) {
+	glViewport(width * 0.45, 0, width, height);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-width, width, -height, height, -100, 100);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	material(brass);
+	string score = "Score: " + to_string(10);
+	Graphics::drawText(score, -width + 150, height - 50);
+}
+
 void Graphics::drawText(string src, int posX, int posY)
 {
 	char text[50];
