@@ -407,8 +407,8 @@ void Graphics::setCamera(){
 		status->camera->center[1] = character->position->y;
 		status->camera->center[2] = 1;
 
-		eye[0] = character->position->x + cos(character->dir);
-		eye[1] = character->position->y + sin(character->dir);
+		eye[0] = character->position->x - cos(character->dir);
+		eye[1] = character->position->y - sin(character->dir);
 		eye[2] = 1;
 
 		/*eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
