@@ -113,9 +113,13 @@ void Graphics::drawNode(int no){
 			glRotatef(alpha, 0.0, 0.0, 1.0);
 			glTranslatef(comp * 0.5, 0.0, 0.0);
 			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);
 			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.0);
 			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.25);
 			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.0, 0.25);
 			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
 			glEnd();
 			glPopMatrix();
@@ -128,15 +132,23 @@ void Graphics::drawNode(int no){
 			glBegin(GL_QUADS);
 
 			//	1
+			glTexCoord2f(0.0, 0.0);
 			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.0);
 			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.25);
 			glVertex3f(comp * 0.5, -arco.largura * 0.5, noI->z);
+			glTexCoord2f(0.0, 0.25);
 			glVertex3f(-comp * 0.5, -arco.largura * 0.5, noI->z);
 
 			//	2
+			glTexCoord2f(0.0, 0.0);
 			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.0);
 			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.25);
 			glVertex3f(-comp * 0.5, arco.largura * 0.5, noI->z);
+			glTexCoord2f(0.0, 0.25);
 			glVertex3f(comp * 0.5, arco.largura * 0.5, noI->z);
 
 			glEnd();
@@ -156,9 +168,13 @@ void Graphics::drawNode(int no){
 			glRotatef(alpha, 0.0, 0.0, 1.0);
 			glTranslatef(comp * 0.5, 0.0, 0.0);
 			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);
 			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.0);
 			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.25);
 			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.0, 0.25);
 			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
 			glEnd();
 			glPopMatrix();
@@ -171,15 +187,23 @@ void Graphics::drawNode(int no){
 			glBegin(GL_QUADS);
 
 			//	1
+			glTexCoord2f(0.0, 0.0);
 			glVertex3f(-comp * 0.5, -arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.0);
 			glVertex3f(comp * 0.5, -arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.25);
 			glVertex3f(comp * 0.5, -arco.largura * 0.5, noI->z);
+			glTexCoord2f(0.0, 0.25);
 			glVertex3f(-comp * 0.5, -arco.largura * 0.5, noI->z);
 
 			//	2
+			glTexCoord2f(0.0, 0.0);
 			glVertex3f(comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.0);
 			glVertex3f(-comp * 0.5, arco.largura * 0.5, 0.0);
+			glTexCoord2f(0.25, 0.25);
 			glVertex3f(-comp * 0.5, arco.largura * 0.5, noI->z);
+			glTexCoord2f(0.0, 0.25);
 			glVertex3f(comp * 0.5, arco.largura * 0.5, noI->z);
 
 			glEnd();
@@ -211,9 +235,13 @@ void Graphics::drawArc(Arco arco){
 	glRotatef(-inclination, 0.0, 1.0, 0.0);
 	glTranslatef(length * 0.5, 0.0, 0.0);
 	glBegin(GL_QUADS);
+	glTexCoord2f(0, 0);
 	glVertex3f(-length * 0.5, arco.largura * 0.5, 0);
+	glTexCoord2f(0.25, 0);
 	glVertex3f(length * 0.5, arco.largura * 0.5, 0);
+	glTexCoord2f(0.25, 0.25);
 	glVertex3f(length * 0.5, -arco.largura * 0.5, 0);
+	glTexCoord2f(0, 0.25);
 	glVertex3f(-length * 0.5, -arco.largura * 0.5, 0);
 	glEnd();
 	glPopMatrix();
@@ -225,36 +253,46 @@ void Graphics::drawArc(Arco arco){
 
 	//	1
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
 	glVertex3f(0.0, -arco.largura * 0.5, 0.0);
+	glTexCoord2f(0.25, 0.0);
 	glVertex3f(projLength, -arco.largura * 0.5, 0.0);
+	glTexCoord2f(0.25, 0.25);
 	glVertex3f(projLength, -arco.largura * 0.5, nof->z);
+	glTexCoord2f(0.0, 0.25);
 	glVertex3f(0.0, -arco.largura * 0.5, noi->z);
 	glEnd();
 
 	//	2
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0, 0.0);
 	glVertex3f(projLength, arco.largura * 0.5, 0.0);
+	glTexCoord2f(0.25, 0.0);
 	glVertex3f(0.0, arco.largura * 0.5, 0.0);
+	glTexCoord2f(0.25, 0.25);
 	glVertex3f(0.0, arco.largura * 0.5, noi->z);
+	glTexCoord2f(0.0, 0.25);
 	glVertex3f(projLength, arco.largura * 0.5, nof->z);
 	glEnd();
 	glPopMatrix();
+
 }
 
 void Graphics::drawMaze(){
+
 	glPushMatrix();
 	glTranslatef(0, 0, 0.05);
 	glScalef(5, 5, 5);
-	Graphics::material(red_plastic);
+	//Graphics::material(red_plastic);
 	for (int i = 0; i<numNos; i++){
 		glPushMatrix();
-		Graphics::material(preto);
+		//Graphics::material(preto);
 		glTranslatef(nos[i].x, nos[i].y, nos[i].z + 0.25);
 		//glutSolidCube(0.5);
 		glPopMatrix();
 		Graphics::drawNode(i);
 	}
-	Graphics::material(emerald);
+	//Graphics::material(emerald);
 	for (int i = 0; i<numArcos; i++)
 		Graphics::drawArc(arcos[i]);
 	glPopMatrix();
@@ -431,10 +469,10 @@ void Graphics::display(void){
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glLoadIdentity();
-    Graphics::setCamera();
+    setCamera();
     
     Graphics::material(slate);
-    Graphics::drawGround(model->texID[0]);
+    drawGround(model->texID[0]);
     
     glPushMatrix();
     glTranslatef(character->position->x ,character->position->y,character->position->z);
@@ -443,9 +481,11 @@ void Graphics::display(void){
     mdlviewer_display(character->homer);
     glPopMatrix();
     
-    Graphics::drawAxes();
-    
-    Graphics::drawMaze();
+    drawAxes();
+	material(slate);
+	glBindTexture(GL_TEXTURE_2D, model->texID[1]);
+    drawMaze();
+	glBindTexture(GL_TEXTURE_2D, NULL);
     
     if (status->eixoTranslaccao) {
         // desenha plano de translacÁ„o
@@ -487,7 +527,7 @@ void Graphics::createTextures(GLuint texID[]) {
     char *image;
     int w, h, bpp;
     
-    glGenTextures(1,texID);
+    glGenTextures(2,texID);
     
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
     
@@ -499,9 +539,25 @@ void Graphics::createTextures(GLuint texID[]) {
         glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
         gluBuild2DMipmaps(GL_TEXTURE_2D, 3, w, h, GL_RGB, GL_UNSIGNED_BYTE, image);
     }else{
-        printf("Textura %s not Found\n",FLOOR_TEXTURE);
+        printf("Texture %s not Found\n",FLOOR_TEXTURE);
         exit(0);
     }
+
+	if (read_JPEG_file("Wall.jpg", &image, &w, &h, &bpp))
+	{
+		// Create MipMapped Texture
+		glBindTexture(GL_TEXTURE_2D, texID[1]);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+
+		gluBuild2DMipmaps(GL_TEXTURE_2D, 3, w, h, GL_RGB, GL_UNSIGNED_BYTE, image);
+	}
+
+	else
+	{
+		printf("Texture %s not Found\n", "Wall.jpg");
+		exit(0);
+	}
     glBindTexture(GL_TEXTURE_2D, NULL);
 }
 
