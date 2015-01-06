@@ -32,6 +32,9 @@ int ServicesHandler::signIn(string user, string pass) {
 	//wprintf(L"%s\n", idResult);
 
 	//return _wtoi(idResult);
+
+	//int x = ServicesHandler::score("admin", "quarto1", 10);
+	//cout << "--> " << x << endl;
 	return id;
 }
 
@@ -83,7 +86,7 @@ int ServicesHandler::score(string user, string level, int score)
 	wchar_t* levelName = const_cast<wchar_t*>(string2.c_str());
 
 	//upload score
-	int *result=0;
+	int *result = 0;
 	hr = BasicHttpBinding_IService_Score(proxy, username,levelName, score, result, heap, NULL, 0, NULL, error);
 	return *result;
 }
