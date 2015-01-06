@@ -76,6 +76,8 @@ bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
 		No nf = nos[arcos[i].nof];
 
 		// colide with node
+		if (pow(nx - (ni.x * 5), 2) + pow(ny - (ni.y * 5), 2) <= pow((ni.largura / 2) * 5, 2)) return true;
+		if (pow(nx - (nf.x * 5), 2) + pow(ny - (nf.y * 5), 2) <= pow((nf.largura / 2) * 5, 2)) return true;
 
 		// collide with vertical wall
 		if (ni.x == nf.x)
