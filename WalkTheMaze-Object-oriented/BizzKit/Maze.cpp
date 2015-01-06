@@ -83,6 +83,9 @@ bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
 				if (nx <= 5.0 * (ni.x + (ni.largura * 0.5)) && nx >= 5.0 * (ni.x - (ni.largura * 0.5))) return true;
 
 		// collide with horizontal wall
+		if (ni.y == nf.y)
+			if ((nx >= (ni.x * 5) && nx <= (nf.x * 5)) || (nx <= (ni.x * 5) && nx >= (nf.x * 5)))
+				if (ny <= 5.0 * (ni.y + (ni.largura * 0.5)) && ny >= 5.0 * (ni.y - (ni.largura * 0.5))) return true;
 
 		// collide with diagonal wall
 	}
@@ -92,13 +95,13 @@ bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
 
 void Maze::Launch(int argc, char **argv){
 
-	/*Login *login = new Login();
+	Login *login = new Login();
 	if (login->ShowSignInMenu()) {
 		MapsReceiver *receiver = new MapsReceiver();
 		string mapName = receiver->chooseMap();
 		if (!mapName.empty()) {
 			//set choosen map
-			status->mapfile = mapName + ".grafo";*/
+			status->mapfile = mapName + ".grafo";
 			glutInit(&argc, argv);
 
 			/* need both double buffering and z buffer */
@@ -143,9 +146,9 @@ void Maze::Launch(int argc, char **argv){
 			Keyboard::help();
 
 			glutMainLoop();
-		//}
+		}
 
 		
-	//}
+	}
 	
 }
