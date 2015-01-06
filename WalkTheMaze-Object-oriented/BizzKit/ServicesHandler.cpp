@@ -8,8 +8,7 @@ ServicesHandler::ServicesHandler(){
 	address = {};
 	templ = {};
 	// endereço do serviço
-	url = WS_STRING_VALUE(L"http://localhost:43492/Services/Service.svc?wsdl");
-	//http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc
+	url = WS_STRING_VALUE(L"http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc");
 	address.url = url;
 	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
 
