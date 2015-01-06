@@ -26,8 +26,8 @@ void Maze::Timer(int value) {
 	GLboolean walking = GL_FALSE;
 
 	if (status->up){
-		nx = character->position->x - cosf(character->dir) * CHARACTER_LENGTH * character->vel;
-		ny = character->position->y - sinf(character->dir) * CHARACTER_WIDTH * character->vel;
+		nx = character->position->x + cosf(character->dir) * CHARACTER_LENGTH * character->vel;
+		ny = character->position->y + sinf(character->dir) * CHARACTER_WIDTH * character->vel;
 
 		if (!Maze::Collision((GLfloat)nx, (GLfloat)ny, character->position->z)){
 			character->position->x = nx;
@@ -37,8 +37,8 @@ void Maze::Timer(int value) {
 	}
 
 	else if (status->down){
-		nx = character->position->x + cosf(character->dir) * CHARACTER_LENGTH * character->vel;
-		ny = character->position->y + sinf(character->dir) * CHARACTER_WIDTH * character->vel;
+		nx = character->position->x - cosf(character->dir) * CHARACTER_LENGTH * character->vel;
+		ny = character->position->y - sinf(character->dir) * CHARACTER_WIDTH * character->vel;
 		
 		if (!Maze::Collision((GLfloat)nx, (GLfloat)ny, character->position->z)){
 			character->position->x = nx;
@@ -47,11 +47,11 @@ void Maze::Timer(int value) {
 		}
 	}
 	if (status->left){
-		character->dir += rad(5);
+		character->dir += rad(2);
 		status->camera->dir_long = character->dir;
 	}
 	else if (status->right){
-		character->dir -= rad(5);
+		character->dir -= rad(2);
 		status->camera->dir_long = character->dir;
 	}
 
@@ -95,13 +95,13 @@ bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
 
 void Maze::Launch(int argc, char **argv){
 
-	Login *login = new Login();
+	/*Login *login = new Login();
 	if (login->ShowSignInMenu()) {
 		MapsReceiver *receiver = new MapsReceiver();
 		string mapName = receiver->chooseMap();
 		if (!mapName.empty()) {
 			//set choosen map
-			status->mapfile = mapName + ".grafo";
+			status->mapfile = mapName + ".grafo";*/
 			glutInit(&argc, argv);
 
 			/* need both double buffering and z buffer */
@@ -146,9 +146,9 @@ void Maze::Launch(int argc, char **argv){
 			Keyboard::help();
 
 			glutMainLoop();
-		}
+		//}
 
 		
-	}
+	//}
 	
 }
