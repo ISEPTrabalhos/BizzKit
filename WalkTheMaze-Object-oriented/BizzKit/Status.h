@@ -20,6 +20,7 @@ public:
 	GLboolean		top, first;
 	GLboolean up, down, right, left;
 	string mapfile;
+	int score;
 
 	// functions
 	Status();

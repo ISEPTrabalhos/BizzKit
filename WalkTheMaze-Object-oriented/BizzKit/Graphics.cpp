@@ -643,7 +643,7 @@ void Graphics::showScore(int width, int height) {
 	glLoadIdentity();
 
 	material(brass);
-	string score = "Score: " + to_string(10);
+	string score = "Score: " + to_string(status->score);
 	Graphics::drawText(score, -width + 150, height - 50);
 }
 

@@ -20,6 +20,8 @@ Status::Status(){
     eixoTranslaccao = 0;
 	up = down = left = right = GL_FALSE;
 	mapfile = "quarto1.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
+
+	score = 0;
 }
 
 Status::~Status(){}
