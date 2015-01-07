@@ -89,6 +89,16 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 		case 'M':
 			status->showMapMenu = !status->showMapMenu;
 			break;
+		case 'd':
+		case 'D':
+			status->daynight = GL_FALSE;
+			if (status->main_light == white_light) {
+				status->main_light = (GLfloat*)night_light;
+			}
+			else {
+				status->main_light = (GLfloat*)white_light;
+			}
+			break;
     }
 }
 
@@ -199,6 +209,7 @@ void Keyboard::help(void){
     printf("p,P - PolygonMode Point \n");
     printf("c,C - Liga/Desliga Cull Face \n");
 	printf("n,N - Liga/Desliga apresentaÁ„o das normais \n");
+	printf("d,D - Alternar entre dia / noite\n");
 	printf("******* Mundos ******* \n");
 	printf("m,M - Seleccionar mundo \n");
     printf("******* grafos ******* \n");

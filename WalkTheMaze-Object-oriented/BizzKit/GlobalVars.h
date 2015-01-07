@@ -87,6 +87,7 @@ const GLfloat red_light[] = { 1.0, 0.0, 0.0, 1.0 };
 const GLfloat green_light[] = { 0.0, 1.0, 0.0, 1.0 };
 const GLfloat blue_light[] = { 0.0, 0.0, 1.0, 1.0 };
 const GLfloat white_light[] = { 1.0, 1.0, 1.0, 1.0 };
+const GLfloat night_light[] = { 0.30, 0.30, 0.30, 1.0 };
 
 #define EIXO_X		1
 #define EIXO_Y		2
