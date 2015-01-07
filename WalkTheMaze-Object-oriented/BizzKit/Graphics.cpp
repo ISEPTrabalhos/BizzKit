@@ -444,11 +444,11 @@ void Graphics::setCamera(){
 	else{
 		status->camera->center[0] = character->position->x;
 		status->camera->center[1] = character->position->y;
-		status->camera->center[2] = 1;
+		status->camera->center[2] = CHARACTER_HEIGHT * 0.5 + character->position->z;
 
 		eye[0] = character->position->x - cos(character->dir) * 5;
 		eye[1] = character->position->y - sin(character->dir) * 5;
-		eye[2] = 1;
+		eye[2] = CHARACTER_HEIGHT * 0.5 + character->position->z;
 
 		/*eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
 		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
