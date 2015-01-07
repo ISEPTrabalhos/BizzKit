@@ -31,7 +31,6 @@ void Maze::Timer(int value) {
 	if (status->tecla_o) status->background_music->toggle();
 
 	GLfloat nx = 0, ny = 0;
-	GLboolean walking = GL_FALSE;
 
 
 	if (status->up){
@@ -41,6 +40,7 @@ void Maze::Timer(int value) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = CHARACTER_HEIGHT * 0.5;
+			status->walking = GL_TRUE;
 		}
 	}
 	else if (status->down){
@@ -50,8 +50,12 @@ void Maze::Timer(int value) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = CHARACTER_HEIGHT * 0.5;
+			status->walking = GL_TRUE;
 		}
 	}
+	else
+		status->walking = GL_FALSE;
+
 	if (status->left){
 		character->dir += rad(2);
 		status->camera->dir_long = character->dir;
@@ -61,11 +65,11 @@ void Maze::Timer(int value) {
 		status->camera->dir_long = character->dir;
 	}
 
-	if (walking && character->homer.GetSequence() != 3){
+	if (status->walking && character->homer.GetSequence() != 3){
 		character->homer.SetSequence(3);
 
 	}
-	else if (!walking && character->homer.GetSequence() == 3)
+	else if (!status->walking && character->homer.GetSequence() == 3)
 	{
 		character->homer.SetSequence(0);
 	}

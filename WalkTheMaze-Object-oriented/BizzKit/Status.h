@@ -24,6 +24,7 @@ public:
 	int score;
 	GLfloat* main_light;
 	GLboolean daynight;
+	GLboolean walking;
 
 	// functions
 	Status();

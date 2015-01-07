@@ -19,7 +19,7 @@ Status::Status(){
 	first = top = GL_FALSE;
     eixoTranslaccao = 0;
 	up = down = left = right = GL_FALSE;
-	mapfile = "quarto1.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
+	mapfile = "quarto3.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
 
 	/* SET UP THE MUSIC */
 	background_music = new Music("The_Simpsons.wav");
@@ -28,6 +28,8 @@ Status::Status(){
 	score = 0;
 	main_light = (GLfloat*)white_light;
 	daynight = true;
+
+	walking = GL_FALSE;
 }
 
 Status::~Status(){}
