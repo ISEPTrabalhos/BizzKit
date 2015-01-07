@@ -6,7 +6,7 @@ MainCharacter::MainCharacter(){
     mdlviewer_init("homer.mdl", homer);
     position->x = -250;
     position->y = -250;
-    position->z = 1;
+    position->z = CHARACTER_HEIGHT * 0.5;
     dir = 0;
     vel = 0.5;
 	health = 100;

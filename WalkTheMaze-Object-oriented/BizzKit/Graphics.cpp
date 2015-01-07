@@ -1,7 +1,7 @@
 #include "Graphics.h"
 #include "MapsReceiver.h"
 
-#define SCALE_HOMER 0.005
+#define SCALE_HOMER 0.02
 #define GRAUS(x)        (180*(x)/M_PI)
 #define K_CIRCLE 1.0
 #define K_CONNECTION 1.0
@@ -420,19 +420,19 @@ void Graphics::setCamera(){
 	if (status->top){
 
 		//	set the camera center to the character
-		status->camera->center[0] = character->position->x + cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		status->camera->center[1] = character->position->y + sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[0] = character->position->x + cos(character->dir);
+		status->camera->center[1] = character->position->y + sin(character->dir);
 		status->camera->center[2] = character->position->z;
 
 		//	set the eye of the camera to a position above the character
 		eye[0] = character->position->x;
 		eye[1] = character->position->y;
-		eye[2] = character->position->z + CHARACTER_HEIGHT * 4;
+		eye[2] = 7;
 	} 
 	else if(status->first){
 
-		status->camera->center[0] = character->position->x + cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		status->camera->center[1] = character->position->y +  sin(status->camera->dir_long)*cos(status->camera->dir_lat);
+		status->camera->center[0] = character->position->x + cos(character->dir);
+		status->camera->center[1] = character->position->y + sin(character->dir);
 		status->camera->center[2] = 1;
 
 		eye[0] = character->position->x;
@@ -445,8 +445,8 @@ void Graphics::setCamera(){
 		status->camera->center[1] = character->position->y;
 		status->camera->center[2] = 1;
 
-		eye[0] = character->position->x - cos(character->dir);
-		eye[1] = character->position->y - sin(character->dir);
+		eye[0] = character->position->x - cos(character->dir) * 5;
+		eye[1] = character->position->y - sin(character->dir) * 5;
 		eye[2] = 1;
 
 		/*eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
