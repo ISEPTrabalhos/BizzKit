@@ -124,7 +124,7 @@ bool Maze::Walk(int direction) {
 		ly = ((ny - ni.y * MAP_COOR_SCALE) * cosf(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sinf(alpha));
 
 
-		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura / 2) * MAP_COOR_SCALE, 2)) {
+		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
 			character->position->x = nx;
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
@@ -162,7 +162,7 @@ bool Maze::Walk(int direction) {
 		ly = ((ny - ni.y * MAP_COOR_SCALE) * cosf(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sinf(alpha));
 
 
-		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura / 2) * MAP_COOR_SCALE, 2)) {
+		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
 			character->position->x = nx;
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
