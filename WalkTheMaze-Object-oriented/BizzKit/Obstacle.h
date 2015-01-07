@@ -11,8 +11,6 @@ public:
     
 	Obstacle();
 	~Obstacle();
-
-	void draw();
 };
 
 #endif

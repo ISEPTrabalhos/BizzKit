@@ -11,9 +11,4 @@ Obstacle::Obstacle()
 	position->z = size / 2.0;
 }
 
-void Obstacle::draw()
-{
-
-}
-
 Obstacle::~Obstacle(){}

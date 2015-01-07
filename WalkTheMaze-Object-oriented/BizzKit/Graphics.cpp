@@ -11,6 +11,7 @@ extern Status *status;
 extern Model *model;
 extern MainCharacter *character;
 extern EnemyCharacter *enemy;
+extern Obstacle *obstacle;
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
@@ -484,6 +485,56 @@ void Graphics::drawCharacter(){
 	glPopMatrix();
 }
 
+void Graphics::drawCube(float size)
+{
+	GLfloat xMin, xMax;
+	GLfloat yMin, yMax;
+	GLfloat zMin, zMax;
+
+	xMin = yMin = zMin = -size / 2.0;
+	xMax = yMax = zMax = size / 2.0;
+
+	GLfloat vert[][3] = {
+		{ xMin, yMin, zMin },
+		{ xMax, yMin, zMin },
+		{ xMax, yMax, zMin },
+		{ xMin, yMax, zMin },
+		{ xMin, yMin, zMax },
+		{ xMax, yMin, zMax },
+		{ xMax, yMax, zMax },
+		{ xMin, yMax, zMax }
+	};
+
+	glColor3f(1.0, 0.0, 0.0);
+	drawFace(vert[0], vert[1], vert[2], vert[3]);
+	drawFace(vert[4], vert[5], vert[6], vert[7]);
+	drawFace(vert[0], vert[1], vert[5], vert[4]);
+	drawFace(vert[3], vert[2], vert[6], vert[7]);
+	drawFace(vert[3], vert[0], vert[4], vert[7]);
+	drawFace(vert[2], vert[1], vert[5], vert[6]);
+}
+
+void Graphics::drawFace(GLfloat *v1, GLfloat *v2, GLfloat *v3, GLfloat *v4)
+{
+	glBegin(GL_POLYGON);
+	{
+		glVertex3fv(v1);
+		glVertex3fv(v2);
+		glVertex3fv(v3);
+		glVertex3fv(v4);
+	}
+	glEnd();
+}
+
+void Graphics::drawObstacle()
+{
+	glPushMatrix();
+	glTranslatef(0.0, 0.0, INFINITESIMO);
+	glTranslatef(obstacle->position->x, obstacle->position->y, obstacle->position->z);
+	drawCube(obstacle->size);
+	glPopMatrix();
+}
+
 void Graphics::display(void){
     
     
@@ -496,6 +547,7 @@ void Graphics::display(void){
     
 	drawCharacter();
 	drawEnemy();
+	drawObstacle();
     
     drawAxes();
 	material(slate);
