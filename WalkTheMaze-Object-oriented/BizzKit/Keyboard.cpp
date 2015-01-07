@@ -11,15 +11,12 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 		case'1':
 			status->mapfile = "mundo1.grafo";
 			leGrafo(status->mapfile);
-			glutPostRedisplay();
 			break;
 		case '2':
 			status->mapfile = "quarto1.grafo";
 			leGrafo(status->mapfile);
-			glutPostRedisplay();
 			break;
 		}
-		status->showMapMenu = false;
 	}
 
     switch (key){
