@@ -12,14 +12,16 @@ Status *status = new Status();
 MainCharacter *character = new MainCharacter();
 EnemyCharacter *enemy = new EnemyCharacter();
 int counter = 0;
-double lightComponent, factor = 3.0;
+double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
 void Maze::Timer(int value) {
-	counter++;
-	lightComponent = cos((counter / 1000.0) * (2.0 * M_PI)) / factor + (factor - 1.0) / factor;
-	GLfloat light[] = { lightComponent, lightComponent, lightComponent, 1.0 };
-	//status->main_light = (GLfloat*)light;
-	if (counter > 1000) {
-		counter = 0;
+	if (status->daynight) {
+		counter++;
+		lightComponent = cos((counter / duration) * (2.0 * M_PI)) / factor + (factor - 1.0) / factor;
+		GLfloat light[] = { lightComponent, lightComponent, lightComponent, 1.0 };
+		status->main_light = (GLfloat*)light;
+		if (counter > duration) {
+			counter = 0;
+		}
 	}
 
     ALint state;

@@ -22,6 +22,7 @@ public:
 	string mapfile;
 	int score;
 	GLfloat* main_light;
+	GLboolean daynight;
 
 	// functions
 	Status();

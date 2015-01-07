@@ -23,6 +23,7 @@ Status::Status(){
 
 	score = 0;
 	main_light = (GLfloat*)white_light;
+	daynight = true;
 }
 
 Status::~Status(){}
