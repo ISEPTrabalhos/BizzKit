@@ -3,6 +3,7 @@
 
 #include "GlobalVars.h"
 #include "Camera.h"
+#include "Music.h"
 
 class Status {
 public:
@@ -15,7 +16,7 @@ public:
 	GLint eixoTranslaccao;
 	GLdouble eixo[3];
     GLint		timer;
-    ALuint		buffer, source;
+    Music *background_music;
     ALboolean	tecla_o;
 	GLboolean		top, first;
 	GLboolean up, down, right, left;
@@ -27,7 +28,6 @@ public:
 	// functions
 	Status();
 	~Status();
-	void InitAudio();
 };
 
 #endif

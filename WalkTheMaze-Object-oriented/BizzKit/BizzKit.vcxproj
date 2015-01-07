@@ -102,6 +102,7 @@
     <ClCompile Include="mdlviewer.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="readjpeg.c" />
     <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c" />
     <ClCompile Include="Score.cpp" />
@@ -130,6 +131,7 @@
     <ClInclude Include="mdlviewer.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="ServicesHandler.h" />

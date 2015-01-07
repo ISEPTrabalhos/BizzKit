@@ -21,17 +21,13 @@ Status::Status(){
 	up = down = left = right = GL_FALSE;
 	mapfile = "quarto1.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
 
+	/* SET UP THE MUSIC */
+	background_music = new Music("The_Simpsons.wav");
+	background_music->play();
+
 	score = 0;
 	main_light = (GLfloat*)white_light;
 	daynight = true;
 }
 
 Status::~Status(){}
-
-void Status::InitAudio()
-{
-	buffer = alutCreateBufferFromFile("The_Simpsons.wav");
-	alGenSources(1, &source);
-	alSourcei(source, AL_BUFFER, buffer);
-	tecla_o = AL_TRUE;
-}

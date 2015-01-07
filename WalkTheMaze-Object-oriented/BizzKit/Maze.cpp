@@ -7,12 +7,13 @@
 
 #define MAP_COOR_SCALE 5
 
-Model *model = new Model();
-Status *status = new Status();
-MainCharacter *character = new MainCharacter();
-EnemyCharacter *enemy = new EnemyCharacter();
+Model *model;
+Status *status;
+MainCharacter *character;
+EnemyCharacter *enemy;
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
+
 void Maze::Timer(int value) {
 	if (status->daynight) {
 		counter++;
@@ -24,16 +25,10 @@ void Maze::Timer(int value) {
 		}
 	}
 
-    ALint state;
     glutTimerFunc(status->timer, Timer, 0);
-    alGetSourcei(status->source, AL_SOURCE_STATE, &state);
-    if (status->tecla_o)
-    {
-        if (state != AL_PLAYING)
-            alSourcePlay(status->source);
-        else
-            alSourceStop(status->source);   
-    }
+
+
+	if (status->tecla_o) status->background_music->toggle();
 
 	GLfloat nx = 0, ny = 0;
 	GLboolean walking = GL_FALSE;
@@ -230,6 +225,12 @@ void Maze::Launch(int argc, char **argv){
 			//set choosen map
 			status->mapfile = mapName + ".grafo";*/
 			glutInit(&argc, argv);
+			alutInit(&argc, argv);
+
+			model = new Model();
+			status = new Status();
+			character = new MainCharacter();
+			enemy = new EnemyCharacter();
 
 			/* need both double buffering and z buffer */
 
@@ -264,9 +265,6 @@ void Maze::Launch(int argc, char **argv){
 			model->quad = gluNewQuadric();
 			gluQuadricDrawStyle(model->quad, GLU_FILL);
 			gluQuadricNormals(model->quad, GLU_OUTSIDE);
-
-			alutInit(&argc, argv);
-			status->InitAudio();
 
 			leGrafo(status->mapfile);
 

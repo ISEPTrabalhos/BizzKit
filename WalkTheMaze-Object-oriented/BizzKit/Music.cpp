@@ -13,8 +13,7 @@ ALboolean Music::choseMusic(string file){
 	alGenSources(1, &source);
 	alSourcei(source, AL_BUFFER, buffer);
 
-	// Play
-	alSourcePlay(source);
+	status = AL_FALSE;
 
 	return (alGetError() != AL_NO_ERROR) ? AL_FALSE : AL_TRUE;
 }
