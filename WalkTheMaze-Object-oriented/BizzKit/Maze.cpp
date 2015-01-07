@@ -17,7 +17,7 @@ void Maze::Timer(int value) {
 	counter++;
 	lightComponent = cos((counter / 1000.0) * (2.0 * M_PI)) / factor + (factor - 1.0) / factor;
 	GLfloat light[] = { lightComponent, lightComponent, lightComponent, 1.0 };
-	status->main_light = (GLfloat*)light;
+	//status->main_light = (GLfloat*)light;
 	if (counter > 1000) {
 		counter = 0;
 	}
@@ -101,15 +101,15 @@ void Maze::Timer(int value) {
 }
 
 bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
-	cout << "POS(X,Y): " << nx << ", " << ny << endl;
+	//cout << "POS(X,Y): " << nx << ", " << ny << endl;
 
 	for (int i = 0; i<numArcos; i++){
 		No ni = nos[arcos[i].noi];
 		No nf = nos[arcos[i].nof];
 
 		// colide with node
-		if (pow(nx - (ni.x * 5), 2) + pow(ny - (ni.y * 5), 2) <= pow((ni.largura / 2) * 5, 2)) return true;
-		if (pow(nx - (nf.x * 5), 2) + pow(ny - (nf.y * 5), 2) <= pow((nf.largura / 2) * 5, 2)) return true;
+		if (pow(nx - (ni.x * 5), 2) + pow(ny - (ni.y * 5), 2) <= pow((ni.largura / 2) * 5, 2) && ni.z + nz > 1.0) return true;
+		if (pow(nx - (nf.x * 5), 2) + pow(ny - (nf.y * 5), 2) <= pow((nf.largura / 2) * 5, 2) && nf.z + nz > 1.0) return true;
 
 		// collide with vertical wall
 		if (ni.x == nf.x)
