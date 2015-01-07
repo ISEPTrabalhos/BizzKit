@@ -22,6 +22,7 @@ Status::Status(){
 	mapfile = "quarto1.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
 
 	score = 0;
+	main_light = (GLfloat*)white_light;
 }
 
 Status::~Status(){}
