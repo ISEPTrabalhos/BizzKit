@@ -464,6 +464,16 @@ void Graphics::setCamera(){
     }
 }
 
+void Graphics::drawEnemy(){
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, NULL);
+	glTranslatef(enemy->position->x, enemy->position->y, enemy->position->z);
+	glRotatef(GRAUS(enemy->dir), 0, 0, 1);
+	glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+	mdlviewer_display(enemy->model);
+	glPopMatrix();
+}
+
 void Graphics::display(void){
     
     

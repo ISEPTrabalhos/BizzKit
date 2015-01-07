@@ -35,6 +35,8 @@ public:
 	static void displayHealth(int width, int height);
 	static void showScore(int width, int height);
 
+	static void Graphics::drawEnemy();
+
 };
 
 #endif
