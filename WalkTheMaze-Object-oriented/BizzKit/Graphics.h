@@ -5,6 +5,7 @@
 #include "Status.h"
 #include "Model.h"
 #include "MainCharacter.h"
+#include "EnemyCharacter.h"
 
 class Graphics{
 public:
@@ -35,7 +36,8 @@ public:
 	static void displayHealth(int width, int height);
 	static void showScore(int width, int height);
 
-	static void Graphics::drawEnemy();
+	static void drawEnemy();
+	static void drawCharacter();
 
 };
 

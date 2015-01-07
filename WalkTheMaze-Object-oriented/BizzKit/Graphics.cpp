@@ -475,6 +475,15 @@ void Graphics::drawEnemy(){
 	glPopMatrix();
 }
 
+void Graphics::drawCharacter(){
+	glPushMatrix();
+	glTranslatef(character->position->x, character->position->y, character->position->z);
+	glRotatef(GRAUS(character->dir), 0, 0, 1);
+	glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+	mdlviewer_display(character->homer);
+	glPopMatrix();
+}
+
 void Graphics::display(void){
     
     
@@ -482,15 +491,11 @@ void Graphics::display(void){
     glLoadIdentity();
     setCamera();
     
-    Graphics::material(slate);
+    material(slate);
     drawGround(model->texID[0]);
     
-    glPushMatrix();
-    glTranslatef(character->position->x ,character->position->y,character->position->z);
-    glRotatef(GRAUS(character->dir),0,0,1);
-    glScalef(SCALE_HOMER,SCALE_HOMER,SCALE_HOMER);
-    mdlviewer_display(character->homer);
-    glPopMatrix();
+	drawCharacter();
+	drawEnemy();
     
     drawAxes();
 	material(slate);
@@ -501,15 +506,15 @@ void Graphics::display(void){
     if (status->eixoTranslaccao) {
         // desenha plano de translacÁ„o
         cout << "Translate... " << status->eixoTranslaccao << endl;
-        Graphics::drawDragPlane(status->eixoTranslaccao);
+        drawDragPlane(status->eixoTranslaccao);
     }
     
-	Graphics::showScore(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	showScore(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 
-    Graphics::drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+    drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
     
 	if (status->showMapMenu) {
-		Graphics::displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 	}
 
 	displayHealth(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
