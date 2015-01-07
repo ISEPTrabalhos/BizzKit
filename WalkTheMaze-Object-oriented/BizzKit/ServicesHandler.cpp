@@ -70,11 +70,13 @@ void ServicesHandler::saveSingleMap(string lvl) {
 	// save on file
 	//wstring wstr = level;
 	string newLevel = convertWcharToString(level);
-	ofstream newFile;
+	// there is a NEW BUG on receving the maps, dont know why , ISSUE 47
+	// dont save file because of the bug
+	/*ofstream newFile; 
 	string filename = lvl + ".grafo";
 	newFile.open(filename);
 	newFile << newLevel;
-	newFile.close();
+	newFile.close();*/
 }
 
 int ServicesHandler::score(string user, string level, int score)

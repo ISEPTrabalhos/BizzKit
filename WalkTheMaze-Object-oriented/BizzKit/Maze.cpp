@@ -242,13 +242,14 @@ bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 
 void Maze::Launch(int argc, char **argv){
 
-	/*Login *login = new Login();
+	Login *login = new Login();
 	if (login->ShowSignInMenu()) {
-		MapsReceiver *receiver = new MapsReceiver();
-		string mapName = receiver->chooseMap();
-		if (!mapName.empty()) {
-			//set choosen map
-			status->mapfile = mapName + ".grafo";*/
+		// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
+		//MapsReceiver *receiver = new MapsReceiver();
+		//string mapName = receiver->chooseMap();
+		//if (!mapName.empty()) {
+		//	//set choosen map
+		//	status->mapfile = mapName + ".grafo";
 			glutInit(&argc, argv);
 			alutInit(&argc, argv);
 
@@ -297,9 +298,9 @@ void Maze::Launch(int argc, char **argv){
 			Keyboard::help();
 
 			glutMainLoop();
-		//}
+	/*	}*/
 
 		
-	//}
+	}
 	
 }
