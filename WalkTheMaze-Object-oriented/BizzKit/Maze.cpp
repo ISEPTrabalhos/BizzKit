@@ -33,11 +33,24 @@ void Maze::Timer(int value) {
 	GLfloat nx = 0, ny = 0;
 	GLboolean walking = GL_FALSE;
 
+
 	if (status->up){
-		Walk(1);
+		if (Walk(1)) {
+			nx = character->position->x + character->vel * cosf(character->dir);
+			ny = character->position->y + character->vel * sinf(character->dir);
+			character->position->x = nx;
+			character->position->y = ny;
+			character->position->z = CHARACTER_HEIGHT * 0.5;
+		}
 	}
 	else if (status->down){
-		Walk(-1);
+		if (Walk(-1)) {
+			nx = character->position->x - character->vel * cosf(character->dir);
+			ny = character->position->y - character->vel * sinf(character->dir);
+			character->position->x = nx;
+			character->position->y = ny;
+			character->position->z = CHARACTER_HEIGHT * 0.5;
+		}
 	}
 	if (status->left){
 		character->dir += rad(2);
@@ -87,7 +100,7 @@ void Maze::Timer(int value) {
     glutPostRedisplay();
 }
 
-void Maze::Walk(int direction) {
+bool Maze::Walk(int direction) {
 	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap;
 
 
@@ -112,23 +125,22 @@ void Maze::Walk(int direction) {
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			return false;
 		}
 		else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			return false;
 		}
 		else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+			return false;
 		}
-		else {
-			character->position->x = nx;
-			character->position->y = ny;
-
-		}
+		
 	}
 	for (int i = 0; i < numArcos; i++) {
 
@@ -148,24 +160,24 @@ void Maze::Walk(int direction) {
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			return false;
 		}
 		else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			return false;
 		}
 		else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-		}
-		else {
-			character->position->x = nx;
-			character->position->y = ny;
-
+			return false;
 		}
 	}
+
+	return true;
 }
 
 bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
