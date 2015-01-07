@@ -17,6 +17,7 @@ public:
     static void Timer(int value);
 	static bool Collision(GLfloat nx, GLfloat ny, GLfloat nz);
 	static void Walk(int direction);
+	static bool CollisionEnemy(GLfloat x, GLfloat y, GLfloat z);
 };
 
 #endif

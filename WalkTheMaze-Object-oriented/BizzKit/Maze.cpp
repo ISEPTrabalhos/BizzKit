@@ -84,6 +84,11 @@ void Maze::Timer(int value) {
 	//	}
 	//}
 
+	if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
+	{
+		character->health = 0;
+	}
+
     glutPostRedisplay();
 }
 
@@ -192,6 +197,26 @@ bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
 		// collide with diagonal wall
 	}
 	return false;
+}
+
+bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
+{
+	GLfloat xMin, xMax;
+	GLfloat yMin, yMax;
+	GLfloat zMin, zMax;
+
+	xMin = enemy->position->x - CHARACTER_WIDTH / 2;
+	xMax = enemy->position->x + CHARACTER_WIDTH / 2;
+
+	yMin = enemy->position->y - CHARACTER_LENGTH / 2;
+	yMax = enemy->position->y + CHARACTER_LENGTH / 2;
+
+	zMin = enemy->position->z - CHARACTER_HEIGHT / 2;
+	zMax = enemy->position->z + CHARACTER_HEIGHT / 2;
+
+	return x >= xMin && x <= xMax &&
+		y >= yMin && y <= yMax &&
+		z >= zMin && z <= zMax;
 }
 
 
