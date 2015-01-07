@@ -4,6 +4,7 @@
 #include "Status.h"
 #include "MapsReceiver.h"
 #include "EnemyCharacter.h"
+#include "Obstacle.h"
 
 #define MAP_COOR_SCALE 5
 
@@ -11,6 +12,8 @@ Model *model;
 Status *status;
 MainCharacter *character;
 EnemyCharacter *enemy;
+Obstacle *obstacle;
+
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
 
@@ -253,6 +256,7 @@ void Maze::Launch(int argc, char **argv){
 			status = new Status();
 			character = new MainCharacter();
 			enemy = new EnemyCharacter();
+			obstacle = new Obstacle();
 
 			/* need both double buffering and z buffer */
 
