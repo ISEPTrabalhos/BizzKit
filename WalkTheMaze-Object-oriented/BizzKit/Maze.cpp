@@ -129,6 +129,7 @@ bool Maze::Walk(int direction) {
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			status->walking = GL_TRUE;
 			return false;
 		}
 		else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
@@ -136,12 +137,14 @@ bool Maze::Walk(int direction) {
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			status->walking = GL_TRUE;
 			return false;
 		}
 		else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+			status->walking = GL_TRUE;
 			return false;
 		}
 		
@@ -164,6 +167,7 @@ bool Maze::Walk(int direction) {
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			status->walking = GL_TRUE;
 			return false;
 		}
 		else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
@@ -171,12 +175,14 @@ bool Maze::Walk(int direction) {
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
+			status->walking = GL_TRUE;
 			return false;
 		}
 		else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+			status->walking = GL_TRUE;
 			return false;
 		}
 	}
