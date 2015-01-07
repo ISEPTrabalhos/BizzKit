@@ -457,10 +457,10 @@ void Graphics::setCamera(){
 
     if (status->light){
         gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
-        Graphics::putLights((GLfloat*)white_light);
+        Graphics::putLights(status->main_light);//(GLfloat*)white_light
     }
     else{
-        Graphics::putLights((GLfloat*)white_light);
+        Graphics::putLights(status->main_light);//(GLfloat*)white_light
         gluLookAt(eye[0], eye[1], eye[2], status->camera->center[0], status->camera->center[1], status->camera->center[2], 0, 0, 1);
     }
 }

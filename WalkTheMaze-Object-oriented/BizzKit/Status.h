@@ -21,6 +21,7 @@ public:
 	GLboolean up, down, right, left;
 	string mapfile;
 	int score;
+	GLfloat* main_light;
 
 	// functions
 	Status();
