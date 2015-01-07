@@ -64,6 +64,27 @@ void Maze::Timer(int value) {
 		character->homer.SetSequence(0);
 	}
 
+	if (status->mapfile == "quarto1.grafo")
+	{
+		if (character->position->x > 0.331 && character->position->x<11.43 && character->position->y>292.529 && character->position->y < 292.605)
+		{
+			status->mapfile = "quarto2.grafo";
+		}
+		/*else if (character->position->x &&character->position->y){
+			status->mapfile = "quarto3.grafo";
+		}*/
+	}
+	else if (status->mapfile == "quarto2.grafo")
+	{
+		if (character->position->x>-137.506 && character->position->x<-134.058 && character->position->y>-266.794 && character->position->y<-256.512){
+			status->mapfile = "quarto1.grafo";
+		}
+	}
+	//else {
+	//	if (character->position->x &&character->position->y){
+	//		status->mapfile = "quarto1.grafo";
+	//	}
+	//}
 
     glutPostRedisplay();
 }
