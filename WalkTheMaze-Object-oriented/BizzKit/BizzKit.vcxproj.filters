@@ -117,6 +117,9 @@
     <ClCompile Include="Music.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -192,6 +195,9 @@
       <Filter>Header Files\Model</Filter>
     </ClInclude>
     <ClInclude Include="Music.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
