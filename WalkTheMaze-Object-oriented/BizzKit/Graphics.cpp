@@ -10,6 +10,7 @@
 extern Status *status;
 extern Model *model;
 extern MainCharacter *character;
+extern EnemyCharacter *enemy;
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10

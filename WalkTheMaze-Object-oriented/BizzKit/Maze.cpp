@@ -3,12 +3,14 @@
 #include "Login.h"
 #include "Status.h"
 #include "MapsReceiver.h"
+#include "EnemyCharacter.h"
 
 #define MAP_COOR_SCALE 5
 
 Model *model = new Model();
 Status *status = new Status();
 MainCharacter *character = new MainCharacter();
+EnemyCharacter *enemy = new EnemyCharacter();
 
 void Maze::Timer(int value) {
     ALint state;
