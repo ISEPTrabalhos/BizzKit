@@ -111,6 +111,9 @@
     <ClCompile Include="tempuri.org.xsd.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyCharacter.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -181,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="tempuri.org.xsd.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyCharacter.h">
+      <Filter>Header Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

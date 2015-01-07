@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="Grafo.cpp" />
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Keyboard.cpp" />
@@ -113,6 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="EnemyCharacter.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Grafo.h" />
     <ClInclude Include="Graphics.h" />
