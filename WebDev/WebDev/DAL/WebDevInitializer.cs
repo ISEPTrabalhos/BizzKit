@@ -99,6 +99,18 @@ namespace WebDev.DAL
 
             scores.ForEach(s => context.Scores.Add(s));
             context.SaveChanges();
+
+            var downloads = new List<Downloads>
+            {
+                new Downloads {
+                    ID = 1,
+                    fileName = "app",
+                    quantity = 200
+                }
+            };
+
+            downloads.ForEach(s => context.Downloads.Add(s));
+            context.SaveChanges();
         }
     }
 }

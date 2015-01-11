@@ -20,5 +20,7 @@ namespace WebDev.DAL
         public DbSet<Level> Levels { get; set; }
 
         public DbSet<Score> Scores { get; set; }
+
+        public DbSet<Downloads> Downloads { get; set; }
     }
 }
