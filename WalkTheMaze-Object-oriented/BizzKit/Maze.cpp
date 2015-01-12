@@ -7,6 +7,7 @@
 #include "Obstacle.h"
 
 #define MAP_COOR_SCALE 5
+#define GAP 0.1
 
 Model *model;
 Status *status;
@@ -22,7 +23,7 @@ void Maze::Timer(int value) {
 		counter++;
 		lightComponent = cos((counter / duration) * (2.0 * M_PI)) / factor + (factor - 1.0) / factor;
 		GLfloat light[] = { lightComponent, lightComponent, lightComponent, 1.0 };
-		status->main_light = (GLfloat*)light;
+		//status->main_light = (GLfloat*)light;
 		if (counter > duration) {
 			counter = 0;
 		}
@@ -128,69 +129,85 @@ bool Maze::Walk(int direction) {
 
 
 		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
+			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz - character->position->z > GAP)
+				return false;
+
+			character->position->x = nx;
+			character->position->y = ny;
+			character->position->z = nz;
+			status->walking = GL_TRUE;
+			cout << "Node colision" << endl;
+			return false;
+		}
+		if (pow(nx - (nf.x * MAP_COOR_SCALE), 2) + pow(ny - (nf.y * MAP_COOR_SCALE), 2) <= pow((nf.largura * 0.5) * MAP_COOR_SCALE, 2)){
+			nz = nf.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz - character->position->z > GAP)
+				return false;
+			character->position->x = nx;
+			character->position->y = ny;
+			
+			character->position->z = nz;
+			status->walking = GL_TRUE;
+			cout << "Node colision" << endl;
+			return false;
+		}
+		/*else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
 			status->walking = GL_TRUE;
+			cout << "Connection element colision" << endl;
 			return false;
-		}
-		else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
-			character->position->x = nx;
-			character->position->y = ny;
-			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
-			character->position->z = nz;
-			status->walking = GL_TRUE;
-			return false;
-		}
-		else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
-			character->position->x = nx;
-			character->position->y = ny;
-			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-			status->walking = GL_TRUE;
-			return false;
-		}
+		}*/
 		
-	}
-	for (int i = 0; i < numArcos; i++) {
 
-		No nf = nos[arcos[i].noi];
-		No ni = nos[arcos[i].nof];
-		si = ni.largura * 0.5;
-		gap = nf.z * MAP_COOR_SCALE - ni.z * MAP_COOR_SCALE;
-		sf = nf.largura * 0.5;
-		projLength = sqrtf(powf(nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE, 2) + powf(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, 2)) - si - sf;
-		alpha = graus(atan2(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE));
-		lx = ((nx - ni.x * MAP_COOR_SCALE) * cosf(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sinf(alpha));
-		ly = ((ny - ni.y * MAP_COOR_SCALE) * cosf(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sinf(alpha));
+		if (ni.x == nf.x) {
 
+			if ((ny >= (ni.y * MAP_COOR_SCALE) && ny <= (nf.y * MAP_COOR_SCALE)) || (ny <= (ni.y * MAP_COOR_SCALE) && ny >= (nf.y * MAP_COOR_SCALE)))
+				if (nx <= MAP_COOR_SCALE * (ni.x + (ni.largura * 0.5)) && nx >= MAP_COOR_SCALE * (ni.x - (ni.largura * 0.5))) {
+						nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+						if (nz - character->position->z < GAP)
+							return false;
 
-		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
-			character->position->x = nx;
-			character->position->y = ny;
-			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
-			character->position->z = nz;
-			status->walking = GL_TRUE;
-			return false;
+						character->position->x = nx;
+						character->position->y = ny;
+						character->position->z = nz;
+						status->walking = GL_TRUE;
+						cout << "Arch colision" << endl;
+						return false;
+					}
 		}
-		else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
-			character->position->x = nx;
-			character->position->y = ny;
-			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
-			character->position->z = nz;
-			status->walking = GL_TRUE;
-			return false;
-		}
-		else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
+
+
+		/*else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
 			status->walking = GL_TRUE;
+			cout << "Arch colision" << endl;
 			return false;
+		}*/
+
+
+		if ((ni.y == nf.y)) {
+
+			if ((nx >= (ni.x * MAP_COOR_SCALE) && nx <= (nf.x * 5)) || (nx <= (ni.x * MAP_COOR_SCALE) && nx >= (nf.x * MAP_COOR_SCALE)))
+				if (ny <= MAP_COOR_SCALE * (ni.y + (ni.largura * 0.5)) && ny >= MAP_COOR_SCALE * (ni.y - (ni.largura * 0.5))){
+					nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+					if (nz - character->position->z < GAP)
+						return false;
+
+					character->position->x = nx;
+					character->position->y = ny;
+					character->position->z = nz;
+					status->walking = GL_TRUE;
+					cout << "Arch colision" << endl;
+					return false;
+				}
 		}
 	}
-
-	return true;
 }
 
 bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
@@ -201,8 +218,8 @@ bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
 		No nf = nos[arcos[i].nof];
 
 		// colide with node
-		if (pow(nx - (ni.x * 5), 2) + pow(ny - (ni.y * 5), 2) <= pow((ni.largura / 2) * 5, 2) && ni.z + nz > 1.0) return true;
-		if (pow(nx - (nf.x * 5), 2) + pow(ny - (nf.y * 5), 2) <= pow((nf.largura / 2) * 5, 2) && nf.z + nz > 1.0) return true;
+		if (pow(nx - (ni.x * 5), 2) + pow(ny - (ni.y * 5), 2) <= pow((ni.largura / 2) * 5, 2)) return true;
+		if (pow(nx - (nf.x * 5), 2) + pow(ny - (nf.y * 5), 2) <= pow((nf.largura / 2) * 5, 2)) return true;
 
 		// collide with vertical wall
 		if (ni.x == nf.x)
@@ -242,14 +259,14 @@ bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 
 void Maze::Launch(int argc, char **argv){
 
-	Login *login = new Login();
+	/*Login *login = new Login();
 	if (login->ShowSignInMenu()) {
 		// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
 		//MapsReceiver *receiver = new MapsReceiver();
 		//string mapName = receiver->chooseMap();
 		//if (!mapName.empty()) {
 		//	//set choosen map
-		//	status->mapfile = mapName + ".grafo";
+		//	status->mapfile = mapName + ".grafo";*/
 			glutInit(&argc, argv);
 			alutInit(&argc, argv);
 
@@ -301,6 +318,6 @@ void Maze::Launch(int argc, char **argv){
 	/*	}*/
 
 		
-	}
+	//}
 	
 }
