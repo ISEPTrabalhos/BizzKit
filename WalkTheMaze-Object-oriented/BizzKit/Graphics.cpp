@@ -604,7 +604,10 @@ void  Graphics::loginDisplay(void){
 		glColor3f(255, 255, 255);
 		displayMyText((char*)status->passwd.c_str(), -50, 100, 0);
 	}
-
+	if (!status->loginErrorMessage.empty()) {
+		glColor3f(255, 0, 0);
+		displayMyText((char*)status->loginErrorMessage.c_str(), -200, -300, 0);
+	}
 	glutSwapBuffers();
 	
 }

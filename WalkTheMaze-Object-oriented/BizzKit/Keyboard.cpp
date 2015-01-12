@@ -1,15 +1,31 @@
 #include "Keyboard.h"
+#include "Login.h"
 
 extern Status *status;
 extern Model *model;
 
 void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 	cout << "KEY: " << key << endl;
-	if (status->nextInput) { // in passwod
-		if (key == 13) { // if enter pressed 
-			cout << "SUBMIT DATA";
+	if (key == 27) {
+		exit(0);
+	}
+	if (status->nextInput) { // enter in passwod
+		if (key == 13) { 
+			Login *login = new Login();
+			int id = login->LoginUser(status->username, status->password);
+			int x = 1;
+			if (id > 1) { // valid user
+				// show other window
+			}
+			else {
+				status->username = "";
+				status->password = "";
+				status->passwd = "";
+				status->nextInput = false;
+				status->loginErrorMessage = "Invalid user, try again !!";
+			}
 		}
-		else if (key == 8) {
+		else if (key == 8) { // backspace
 			status->password.pop_back();
 			status->passwd.pop_back();
 		} else {
@@ -21,13 +37,13 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 		}
 	}
 	else {
-		if (key == 13) { // in username 
+		if (key == 13) {  // enter in username 
 			status->nextInput = true; // go to password
 		}
-		else if (key == 8) {
+		else if (key == 8) { // backspace
 			status->username.pop_back();
 		} else {
-			if (key > 33 && key < 126) {
+			if (key > 33 && key < 126) { 
 				status->username.push_back(key);
 				cout << "Username: " << status->username << endl;
 			}

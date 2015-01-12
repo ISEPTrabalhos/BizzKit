@@ -26,7 +26,7 @@ public:
 	GLboolean daynight;
 	GLboolean walking;
 
-	string username, password, passwd;
+	string username, password, passwd, loginErrorMessage;
 	bool nextInput;
 
 	// functions

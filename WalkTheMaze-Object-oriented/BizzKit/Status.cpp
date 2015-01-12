@@ -34,6 +34,7 @@ Status::Status(){
 	username = "";
 	password = "";
 	passwd = "";
+	loginErrorMessage = "";
 	nextInput = false;
 }
 
