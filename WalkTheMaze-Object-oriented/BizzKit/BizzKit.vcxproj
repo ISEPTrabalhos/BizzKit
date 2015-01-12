@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Upload.cpp" />
     <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="Grafo.cpp" />
     <ClCompile Include="Graphics.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="studio.h" />
     <ClInclude Include="tempuri.org.wsdl.h" />
     <ClInclude Include="tempuri.org.xsd.h" />
+    <ClInclude Include="Upload.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

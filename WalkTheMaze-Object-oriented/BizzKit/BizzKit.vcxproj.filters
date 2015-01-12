@@ -120,6 +120,9 @@
     <ClCompile Include="Obstacle.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Upload.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="Obstacle.h">
       <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Upload.h">
+      <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

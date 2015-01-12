@@ -107,3 +107,13 @@ string ServicesHandler::convertWcharToString(wchar_t* src) {
 	wstring wstr = src;
 	return converterX.to_bytes(wstr);
 }
+
+int ServicesHandler::uploadRoute(string user, int positions [])
+{
+	wstring string1 = convertStringToWstring(user);
+	wchar_t *username = const_cast<wchar_t*>(string1.c_str());
+
+	int *result = 0;
+	//hr = BasicHttp_Binding_IService_UploadRoute(proxy, username, positions, result, NULL, 0, NULL, error);
+	return *result;
+}
