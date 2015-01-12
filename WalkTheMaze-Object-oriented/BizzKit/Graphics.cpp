@@ -576,6 +576,38 @@ void Graphics::display(void){
     
 }
 
+void  Graphics::loginDisplay(void){ 
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	double w = glutGet(GLUT_WINDOW_WIDTH);
+	double h = glutGet(GLUT_WINDOW_HEIGHT);
+	
+	// switch to 2D for text overlay
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-w, w, -h, h, -1, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glColor3f(0, 1, 0);
+	displayMyText("Sign in to play ", -100, 300, 0);
+	//displayMyText("Write username, press ENTER, write password, presse ENTER again", -250, 260, 0);
+	
+	glutSwapBuffers();
+	
+}
+
+void Graphics::displayMyText(char *string, float x, float y, float z) {
+	char *c;
+	glRasterPos3f(x, y, z);
+
+	for (c = string; *c != '\0'; c++)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *c);
+	}
+
+}
 void Graphics::setProjection(int x, int y, GLboolean picking){
     glLoadIdentity();
     if (picking) { // esta no modo picking
@@ -594,7 +626,6 @@ void Graphics::myReshape(int w, int h){
     Graphics::setProjection(0, 0, GL_FALSE);
     glMatrixMode(GL_MODELVIEW);
 }
-
 void Graphics::createTextures(GLuint texID[]) {
     char *image;
     int w, h, bpp;

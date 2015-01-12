@@ -256,9 +256,18 @@ bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 		z >= zMin && z <= zMax;
 }
 
+void Maze::showLoginWindow() {
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(350, 350);
+	glutCreateWindow("Login");
+	glutDisplayFunc(Graphics::loginDisplay);
+	glutKeyboardFunc(Keyboard::loginKeyboard);
+	glutMainLoop();
+}
 
 void Maze::Launch(int argc, char **argv){
-
+	status = new Status();
+	showLoginWindow();
 	/*Login *login = new Login();
 	if (login->ShowSignInMenu()) {
 		// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
@@ -267,54 +276,54 @@ void Maze::Launch(int argc, char **argv){
 		//if (!mapName.empty()) {
 		//	//set choosen map
 		//	status->mapfile = mapName + ".grafo";*/
-			glutInit(&argc, argv);
-			alutInit(&argc, argv);
+			//glutInit(&argc, argv);
+			//alutInit(&argc, argv);
 
-			model = new Model();
-			status = new Status();
-			character = new MainCharacter();
-			enemy = new EnemyCharacter();
-			obstacle = new Obstacle();
+			//model = new Model();
+			////status = new Status();
+			//character = new MainCharacter();
+			//enemy = new EnemyCharacter();
+			//obstacle = new Obstacle();
 
-			/* need both double buffering and z buffer */
+			///* need both double buffering and z buffer */
 
-			glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-			glutInitWindowSize(640, 480);
-			glutCreateWindow("OpenGL");
-			glutReshapeFunc(Graphics::myReshape);
-			glutDisplayFunc(Graphics::display);
-			glutKeyboardFunc(Keyboard::keyboard);
-			glutSpecialUpFunc(Keyboard::specialKeyUp);
-			glutSpecialFunc(Keyboard::Special);
-			glutMouseFunc(Mouse::mouse);
-			glutTimerFunc(status->timer, Timer, 0);
+			//glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+			//glutInitWindowSize(640, 480);
+			//glutCreateWindow("OpenGL");
+			//glutReshapeFunc(Graphics::myReshape);
+			//glutDisplayFunc(Graphics::display);
+			//glutKeyboardFunc(Keyboard::keyboard);
+			//glutSpecialUpFunc(Keyboard::specialKeyUp);
+			//glutSpecialFunc(Keyboard::Special);
+			//glutMouseFunc(Mouse::mouse);
+			//glutTimerFunc(status->timer, Timer, 0);
 
-			GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
-			Graphics::createTextures(model->texID);
+			//GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
+			//Graphics::createTextures(model->texID);
 
-			glClearColor(0.0, 0.0, 0.0, 0.0);
+			//glClearColor(0.0, 0.0, 0.0, 0.0);
 
-			glEnable(GL_SMOOTH); /*enable smooth shading */
-			glEnable(GL_LIGHTING); /* enable lighting */
-			glEnable(GL_DEPTH_TEST); /* enable z buffer */
-			glEnable(GL_NORMALIZE);
-			glEnable(GL_TEXTURE_2D);
+			//glEnable(GL_SMOOTH); /*enable smooth shading */
+			//glEnable(GL_LIGHTING); /* enable lighting */
+			//glEnable(GL_DEPTH_TEST); /* enable z buffer */
+			//glEnable(GL_NORMALIZE);
+			//glEnable(GL_TEXTURE_2D);
 
-			glDepthFunc(GL_LESS);
+			//glDepthFunc(GL_LESS);
 
-			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
-			glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
-			glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+			//glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
+			//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
+			//glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
-			model->quad = gluNewQuadric();
-			gluQuadricDrawStyle(model->quad, GLU_FILL);
-			gluQuadricNormals(model->quad, GLU_OUTSIDE);
+			//model->quad = gluNewQuadric();
+			//gluQuadricDrawStyle(model->quad, GLU_FILL);
+			//gluQuadricNormals(model->quad, GLU_OUTSIDE);
 
-			leGrafo(status->mapfile);
+			//leGrafo(status->mapfile);
 
-			Keyboard::help();
+			//Keyboard::help();
 
-			glutMainLoop();
+			//glutMainLoop();
 	/*	}*/
 
 		

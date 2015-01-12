@@ -43,6 +43,10 @@ public:
 
 	static void drawCube(float size);
 	static void drawFace(GLfloat *v1, GLfloat *v2, GLfloat *v3, GLfloat *v4);
+
+	// functions for new login window
+	static void loginDisplay(void);
+	static void displayMyText(char *string, float x, float y, float z);
 };
 
 #endif
