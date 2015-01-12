@@ -9,19 +9,28 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 		if (key == 13) { // if enter pressed 
 			cout << "SUBMIT DATA";
 		}
-		else {
-			status->password.push_back(key);
-			status->passwd.push_back('*');
-			cout << "Password: " << status->password << endl;
+		else if (key == 8) {
+			status->password.pop_back();
+			status->passwd.pop_back();
+		} else {
+			if (key > 33 && key < 126) {
+				status->password.push_back(key);
+				status->passwd.push_back('*');
+				cout << "Password: " << status->password << endl;
+			}
 		}
 	}
 	else {
 		if (key == 13) { // in username 
 			status->nextInput = true; // go to password
 		}
-		else {
-			status->username.push_back(key);
-			cout << "Username: " << status->username << endl;
+		else if (key == 8) {
+			status->username.pop_back();
+		} else {
+			if (key > 33 && key < 126) {
+				status->username.push_back(key);
+				cout << "Username: " << status->username << endl;
+			}
 		}
 	}
 
