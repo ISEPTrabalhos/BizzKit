@@ -168,8 +168,8 @@ bool Maze::Walk(int direction) {
 			if ((ny >= (ni.y * MAP_COOR_SCALE) && ny <= (nf.y * MAP_COOR_SCALE)) || (ny <= (ni.y * MAP_COOR_SCALE) && ny >= (nf.y * MAP_COOR_SCALE)))
 				if (nx <= MAP_COOR_SCALE * (ni.x + (ni.largura * 0.5)) && nx >= MAP_COOR_SCALE * (ni.x - (ni.largura * 0.5))) {
 						nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-						if (nz - character->position->z < GAP)
-							return false;
+						/*if (nz - character->position->z < GAP)
+							return false;*/
 
 						character->position->x = nx;
 						character->position->y = ny;
@@ -196,8 +196,8 @@ bool Maze::Walk(int direction) {
 			if ((nx >= (ni.x * MAP_COOR_SCALE) && nx <= (nf.x * 5)) || (nx <= (ni.x * MAP_COOR_SCALE) && nx >= (nf.x * MAP_COOR_SCALE)))
 				if (ny <= MAP_COOR_SCALE * (ni.y + (ni.largura * 0.5)) && ny >= MAP_COOR_SCALE * (ni.y - (ni.largura * 0.5))){
 					nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-					if (nz - character->position->z < GAP)
-						return false;
+					/*if (nz - character->position->z < GAP)
+						return false;*/
 
 					character->position->x = nx;
 					character->position->y = ny;
