@@ -3,6 +3,31 @@
 extern Status *status;
 extern Model *model;
 
+void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
+	cout << "KEY: " << key << endl;
+	if (status->nextInput) { // in passwod
+		if (key == 13) { // if enter pressed 
+			cout << "SUBMIT DATA";
+		}
+		else {
+			status->password.push_back(key);
+			status->passwd.push_back('*');
+			cout << "Password: " << status->password << endl;
+		}
+	}
+	else {
+		if (key == 13) { // in username 
+			status->nextInput = true; // go to password
+		}
+		else {
+			status->username.push_back(key);
+			cout << "Username: " << status->username << endl;
+		}
+	}
+
+	glutPostRedisplay();
+
+}
 void Keyboard::keyboard(unsigned char key, int x, int y){
     
 	// in case wordls menu is visible

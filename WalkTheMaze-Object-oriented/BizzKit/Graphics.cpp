@@ -594,6 +594,17 @@ void  Graphics::loginDisplay(void){
 	displayMyText("Sign in to play ", -100, 300, 0);
 	//displayMyText("Write username, press ENTER, write password, presse ENTER again", -250, 260, 0);
 	
+	glColor3f(255, 0, 0);
+	displayMyText("Username: ", -250, 200, 0);
+	glColor3f(255, 255, 255);
+	displayMyText((char*)status->username.c_str(), -50, 200, 0);
+	if (status->nextInput) {
+		glColor3f(255, 0, 0);
+		displayMyText("Password: ", -250, 100, 0);
+		glColor3f(255, 255, 255);
+		displayMyText((char*)status->passwd.c_str(), -50, 100, 0);
+	}
+
 	glutSwapBuffers();
 	
 }

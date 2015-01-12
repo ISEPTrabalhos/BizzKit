@@ -34,7 +34,6 @@ using namespace std;
 #define rad(X)   (double)((X)*M_PI/180)
 
 #define FLOOR_TEXTURE "floor.jpg"
-
 extern "C" int read_JPEG_file(char *, char **, int *, int *, int *);
 
 // luzes e materiais

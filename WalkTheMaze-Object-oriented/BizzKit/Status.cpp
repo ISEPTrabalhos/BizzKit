@@ -30,6 +30,11 @@ Status::Status(){
 	daynight = true;
 
 	walking = GL_FALSE;
+
+	username = "";
+	password = "";
+	passwd = "";
+	nextInput = false;
 }
 
 Status::~Status(){}
