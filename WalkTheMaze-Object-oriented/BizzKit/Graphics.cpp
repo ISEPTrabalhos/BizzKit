@@ -429,17 +429,17 @@ void Graphics::setCamera(){
 		//	set the eye of the camera to a position above the character
 		eye[0] = character->position->x;
 		eye[1] = character->position->y;
-		eye[2] = 7;
+		eye[2] = character->position->z + 7;
 	} 
 	else if(status->first){
 
 		status->camera->center[0] = character->position->x + cos(character->dir);
 		status->camera->center[1] = character->position->y + sin(character->dir);
-		status->camera->center[2] = 1;
+		status->camera->center[2] = character->position->z;
 
 		eye[0] = character->position->x;
 		eye[1] = character->position->y;
-		eye[2] = 1;
+		eye[2] = character->position->z;
 	}
 
 	else{
