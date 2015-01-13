@@ -7,7 +7,7 @@
 #include "Obstacle.h"
 
 #define MAP_COOR_SCALE 5
-#define GAP 0.1
+#define GAP_CLIMB 0.1
 
 Model *model;
 Status *status;
@@ -34,7 +34,7 @@ void Maze::Timer(int value) {
 
 	if (status->tecla_o) status->background_music->toggle();
 
-	GLfloat nx = 0, ny = 0;
+	GLfloat nx = 0, ny = 0, z = character->position->z;
 
 
 	if (status->up){
@@ -45,6 +45,10 @@ void Maze::Timer(int value) {
 			character->position->y = ny;
 			character->position->z = CHARACTER_HEIGHT * 0.5;
 			status->walking = GL_TRUE;
+			
+			//	Check if the character has fallen and drains some life
+			if (character->position->z - z < -0.5)
+				character->health -= 10;
 		}
 	}
 	else if (status->down){
@@ -55,6 +59,11 @@ void Maze::Timer(int value) {
 			character->position->y = ny;
 			character->position->z = CHARACTER_HEIGHT * 0.5;
 			status->walking = GL_TRUE;
+
+			//	Check if the character has fallen and drains some life
+			if (character->position->z - z < -0.5)
+				character->health -= 10;
+		
 		}
 	}
 	else
@@ -109,103 +118,82 @@ void Maze::Timer(int value) {
 }
 
 bool Maze::Walk(int direction) {
-	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap;
+	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
 
 
 	nx = character->position->x + (direction * character->vel) * cosf(character->dir);
 	ny = character->position->y + (direction * character->vel) * sinf(character->dir);
 
+	for (int n = 0; n < numNos; n++){
+		No ni = nos[n];
+
+		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
+			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			character->position->x = nx;
+			character->position->y = ny;
+			character->position->z = nz;
+			status->walking = GL_TRUE;
+			cout << "Node" << " NZ: " << nz << " Z: " << character->position->z << endl;
+			return false;
+		}
+	}
+
 	for (int i = 0; i < numArcos; i++) {
 
 		No ni = nos[arcos[i].noi];
 		No nf = nos[arcos[i].nof];
-		si = ni.largura * 0.5;
+		si = ni.largura * 0.5 * MAP_COOR_SCALE;
 		gap = nf.z * MAP_COOR_SCALE - ni.z * MAP_COOR_SCALE;
-		sf = nf.largura * 0.5;
+		sf = nf.largura * 0.5 * MAP_COOR_SCALE;
 		projLength = sqrtf(powf(nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE, 2) + powf(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, 2)) - si - sf;
-		alpha = graus(atan2(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE));
+		alpha = atan2(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE);
 		lx = ((nx - ni.x * MAP_COOR_SCALE) * cosf(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sinf(alpha));
 		ly = ((ny - ni.y * MAP_COOR_SCALE) * cosf(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sinf(alpha));
+		nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 
+		nxx = (nx - ni.x * MAP_COOR_SCALE) * cos(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sin(alpha);
+		nyy = (ny - ni.y * MAP_COOR_SCALE) * cos(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sin(alpha);
 
-		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
+		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha);
+		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha);
+
+		if (0.0 <= nxx 
+			&& nxx <= si 
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy 
+			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
+
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
-			if (nz - character->position->z > GAP)
-				return false;
-
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
-			status->walking = GL_TRUE;
-			cout << "Node colision" << endl;
+			cout << "Connection " << "si: " << si << " nxx: " << nxx << " nyy: " << nyy << endl;
 			return false;
 		}
-		if (pow(nx - (nf.x * MAP_COOR_SCALE), 2) + pow(ny - (nf.y * MAP_COOR_SCALE), 2) <= pow((nf.largura * 0.5) * MAP_COOR_SCALE, 2)){
+		//	Needs FIX
+		if (0.0 <= nfxx
+			&& nfxx <= sf
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nfyy
+			&& nfyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
+
 			nz = nf.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
-			if (nz - character->position->z > GAP)
-				return false;
 			character->position->x = nx;
 			character->position->y = ny;
-			
 			character->position->z = nz;
-			status->walking = GL_TRUE;
-			cout << "Node colision" << endl;
+			cout << "Connection " << "sf: " << sf << " nxx: " << nfxx << " nyy: " << nfyy << endl;
 			return false;
 		}
-		/*else if (0.0 <= lx && lx <= si && -arcos[i].largura * 0.5 <= ly  && ly <= arcos[i].largura * 0.5) {
+
+		if (si < nxx 
+			&& nxx < si + projLength 
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy 
+			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
+
+			nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
 			character->position->x = nx;
 			character->position->y = ny;
-			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
 			character->position->z = nz;
-			status->walking = GL_TRUE;
-			cout << "Connection element colision" << endl;
+			cout << "Arch" << "SI : " << si << "PROJLENGTH: " << projLength << "nxx: " << ni.x << "ni.y: " << ni.y <<  endl;
 			return false;
-		}*/
-		
-
-		if (ni.x == nf.x) {
-
-			if ((ny >= (ni.y * MAP_COOR_SCALE) && ny <= (nf.y * MAP_COOR_SCALE)) || (ny <= (ni.y * MAP_COOR_SCALE) && ny >= (nf.y * MAP_COOR_SCALE)))
-				if (nx <= MAP_COOR_SCALE * (ni.x + (ni.largura * 0.5)) && nx >= MAP_COOR_SCALE * (ni.x - (ni.largura * 0.5))) {
-						nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-						/*if (nz - character->position->z < GAP)
-							return false;*/
-
-						character->position->x = nx;
-						character->position->y = ny;
-						character->position->z = nz;
-						status->walking = GL_TRUE;
-						cout << "Arch colision" << endl;
-						return false;
-					}
-		}
-
-
-		/*else if (si < lx && lx < si + projLength && -arcos[i].largura * 0.5 <= ly && ly <= arcos[i].largura * 0.5) {
-			character->position->x = nx;
-			character->position->y = ny;
-			character->position->z = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-			status->walking = GL_TRUE;
-			cout << "Arch colision" << endl;
-			return false;
-		}*/
-
-
-		if ((ni.y == nf.y)) {
-
-			if ((nx >= (ni.x * MAP_COOR_SCALE) && nx <= (nf.x * 5)) || (nx <= (ni.x * MAP_COOR_SCALE) && nx >= (nf.x * MAP_COOR_SCALE)))
-				if (ny <= MAP_COOR_SCALE * (ni.y + (ni.largura * 0.5)) && ny >= MAP_COOR_SCALE * (ni.y - (ni.largura * 0.5))){
-					nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
-					/*if (nz - character->position->z < GAP)
-						return false;*/
-
-					character->position->x = nx;
-					character->position->y = ny;
-					character->position->z = nz;
-					status->walking = GL_TRUE;
-					cout << "Arch colision" << endl;
-					return false;
-				}
 		}
 	}
 }
