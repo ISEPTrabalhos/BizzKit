@@ -111,14 +111,20 @@ void Maze::Timer(int value) {
 
 	if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
 	{
-		character->health = 0;
+		character->Die();
 	}
 
     glutPostRedisplay();
 }
 
 bool Maze::Walk(int direction) {
-	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
+
+	if (!character->IsDead())
+	{
+		// TODO: stop moving
+	}
+
+GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
 
 
 	nx = character->position->x + (direction * character->vel) * cosf(character->dir);

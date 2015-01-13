@@ -35,7 +35,7 @@ public:
 	vector<string> getMapsList();
 	void saveSingleMap(string lvl);
 	int score(string user, string level, int score);
-	int uploadRoute(string user,int positions[]);
+	int uploadRoute(string user, int score, int pos_x, int pos_y);
 
 	//usefull functions
 	wstring convertStringToWstring(string source);
