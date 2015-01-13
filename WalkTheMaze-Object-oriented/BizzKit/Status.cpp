@@ -36,6 +36,7 @@ Status::Status(){
 	passwd = "";
 	loginErrorMessage = "";
 	nextInput = false;
+	loggedIn = false;
 }
 
 Status::~Status(){}

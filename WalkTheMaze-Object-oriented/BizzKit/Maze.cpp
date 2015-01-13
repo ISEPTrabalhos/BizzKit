@@ -243,62 +243,53 @@ void Maze::showLoginWindow() {
 
 void Maze::Launch(int argc, char **argv){
 	status = new Status();
-	//showLoginWindow(); // do not show yet, not 100% ready
-	// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
-	//MapsReceiver *receiver = new MapsReceiver();
-	//string mapName = receiver->chooseMap();
-	//if (!mapName.empty()) {
-	//	//set choosen map
-	//	status->mapfile = mapName + ".grafo";
-		glutInit(&argc, argv);
-		alutInit(&argc, argv);
+	glutInit(&argc, argv);
+	alutInit(&argc, argv);
+	model = new Model();
+	character = new MainCharacter();
+	enemy = new EnemyCharacter();
+	obstacle = new Obstacle();
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(640, 480);
+	int loginWindow = glutCreateWindow("OpenGL");
+	glutReshapeFunc(Graphics::myReshape);
+	glutDisplayFunc(Graphics::display);
+	glutKeyboardFunc(Keyboard::keyboard);
+	glutSpecialUpFunc(Keyboard::specialKeyUp);
+	glutSpecialFunc(Keyboard::Special);
+	glutMouseFunc(Mouse::mouse);
+	glutTimerFunc(status->timer, Timer, 0);
 
-		model = new Model();
-		//status = new Status();
-		character = new MainCharacter();
-		enemy = new EnemyCharacter();
-		obstacle = new Obstacle();
+	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
+	Graphics::createTextures(model->texID);
 
-		/* need both double buffering and z buffer */
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 
-		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-		glutInitWindowSize(640, 480);
-		glutCreateWindow("OpenGL");
-		glutReshapeFunc(Graphics::myReshape);
-		glutDisplayFunc(Graphics::display);
-		glutKeyboardFunc(Keyboard::keyboard);
-		glutSpecialUpFunc(Keyboard::specialKeyUp);
-		glutSpecialFunc(Keyboard::Special);
-		glutMouseFunc(Mouse::mouse);
-		glutTimerFunc(status->timer, Timer, 0);
+	glEnable(GL_SMOOTH); /*enable smooth shading */
+	glEnable(GL_LIGHTING); /* enable lighting */
+	glEnable(GL_DEPTH_TEST); /* enable z buffer */
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_TEXTURE_2D);
 
-		GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
-		Graphics::createTextures(model->texID);
+	glDepthFunc(GL_LESS);
 
-		glClearColor(0.0, 0.0, 0.0, 0.0);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
-		glEnable(GL_SMOOTH); /*enable smooth shading */
-		glEnable(GL_LIGHTING); /* enable lighting */
-		glEnable(GL_DEPTH_TEST); /* enable z buffer */
-		glEnable(GL_NORMALIZE);
-		glEnable(GL_TEXTURE_2D);
+	model->quad = gluNewQuadric();
+	gluQuadricDrawStyle(model->quad, GLU_FILL);
+	gluQuadricNormals(model->quad, GLU_OUTSIDE);
 
-		glDepthFunc(GL_LESS);
+	leGrafo(status->mapfile);
 
-		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
-		glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
-		glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glutMainLoop();
 
-		model->quad = gluNewQuadric();
-		gluQuadricDrawStyle(model->quad, GLU_FILL);
-		gluQuadricNormals(model->quad, GLU_OUTSIDE);
+	//	// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
+	//	//MapsReceiver *receiver = new MapsReceiver();
+	//	//string mapName = receiver->chooseMap();
+	//	//if (!mapName.empty()) {
+	//	//	//set choosen map
+	//	//	status->mapfile = mapName + ".grafo";
 
-		leGrafo(status->mapfile);
-
-		Keyboard::help();
-
-		glutMainLoop();
-/*	}*/
-
-	
 }
