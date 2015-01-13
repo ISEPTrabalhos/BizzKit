@@ -190,6 +190,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
+			status->walking = GL_TRUE;
 			return false;
 		}
 
