@@ -174,7 +174,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			status->walking = GL_TRUE;
 			return false;
 		}
-		
+		//	NEEDS FIX
 		if (0.0 <= nfxx
 			&& nfxx <= sf
 			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nfyy
