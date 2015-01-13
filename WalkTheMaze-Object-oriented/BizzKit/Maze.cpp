@@ -169,8 +169,8 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 		nxx = (nx - ni.x * MAP_COOR_SCALE) * cos(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sin(alpha);
 		nyy = (ny - ni.y * MAP_COOR_SCALE) * cos(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sin(alpha);
 
-		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha);
-		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha);
+		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha + M_PI) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha + M_PI);
+		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha + M_PI) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha + M_PI);
 
 		if (0.0 <= nxx 
 			&& nxx <= si 
@@ -187,7 +187,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			status->walking = GL_TRUE;
 			return false;
 		}
-		//	NEEDS FIX
+		
 		if (0.0 <= nfxx
 			&& nfxx <= sf
 			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nfyy
@@ -197,6 +197,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
+			status->walking = GL_TRUE;
 			return false;
 		}
 
@@ -269,63 +270,54 @@ void Maze::showLoginWindow() {
 
 void Maze::Launch(int argc, char **argv){
 	status = new Status();
-	//showLoginWindow(); // do not show yet, not 100% ready
-	// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
-	//MapsReceiver *receiver = new MapsReceiver();
-	//string mapName = receiver->chooseMap();
-	//if (!mapName.empty()) {
-	//	//set choosen map
-	//	status->mapfile = mapName + ".grafo";
-		glutInit(&argc, argv);
-		alutInit(&argc, argv);
+	glutInit(&argc, argv);
+	alutInit(&argc, argv);
+	model = new Model();
+	character = new MainCharacter();
+	enemy = new EnemyCharacter();
+	obstacle = new Obstacle();
+	trap = new Trap();
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+	glutInitWindowSize(640, 480);
+	int loginWindow = glutCreateWindow("OpenGL");
+	glutReshapeFunc(Graphics::myReshape);
+	glutDisplayFunc(Graphics::display);
+	glutKeyboardFunc(Keyboard::keyboard);
+	glutSpecialUpFunc(Keyboard::specialKeyUp);
+	glutSpecialFunc(Keyboard::Special);
+	glutMouseFunc(Mouse::mouse);
+	glutTimerFunc(status->timer, Timer, 0);
 
-		model = new Model();
-		//status = new Status();
-		character = new MainCharacter();
-		enemy = new EnemyCharacter();
-		obstacle = new Obstacle();
-		trap = new Trap();
+	GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
+	Graphics::createTextures(model->texID);
 
-		/* need both double buffering and z buffer */
+	glClearColor(0.0, 0.0, 0.0, 0.0);
 
-		glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-		glutInitWindowSize(640, 480);
-		glutCreateWindow("OpenGL");
-		glutReshapeFunc(Graphics::myReshape);
-		glutDisplayFunc(Graphics::display);
-		glutKeyboardFunc(Keyboard::keyboard);
-		glutSpecialUpFunc(Keyboard::specialKeyUp);
-		glutSpecialFunc(Keyboard::Special);
-		glutMouseFunc(Mouse::mouse);
-		glutTimerFunc(status->timer, Timer, 0);
+	glEnable(GL_SMOOTH); /*enable smooth shading */
+	glEnable(GL_LIGHTING); /* enable lighting */
+	glEnable(GL_DEPTH_TEST); /* enable z buffer */
+	glEnable(GL_NORMALIZE);
+	glEnable(GL_TEXTURE_2D);
 
-		GLfloat LuzAmbiente[] = { 0.5, 0.5, 0.5, 0.0 };
-		Graphics::createTextures(model->texID);
+	glDepthFunc(GL_LESS);
 
-		glClearColor(0.0, 0.0, 0.0, 0.0);
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
-		glEnable(GL_SMOOTH); /*enable smooth shading */
-		glEnable(GL_LIGHTING); /* enable lighting */
-		glEnable(GL_DEPTH_TEST); /* enable z buffer */
-		glEnable(GL_NORMALIZE);
-		glEnable(GL_TEXTURE_2D);
+	model->quad = gluNewQuadric();
+	gluQuadricDrawStyle(model->quad, GLU_FILL);
+	gluQuadricNormals(model->quad, GLU_OUTSIDE);
 
-		glDepthFunc(GL_LESS);
+	leGrafo(status->mapfile);
 
-		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LuzAmbiente);
-		glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
-		glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
+	glutMainLoop();
 
-		model->quad = gluNewQuadric();
-		gluQuadricDrawStyle(model->quad, GLU_FILL);
-		gluQuadricNormals(model->quad, GLU_OUTSIDE);
+	//	// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
+	//	//MapsReceiver *receiver = new MapsReceiver();
+	//	//string mapName = receiver->chooseMap();
+	//	//if (!mapName.empty()) {
+	//	//	//set choosen map
+	//	//	status->mapfile = mapName + ".grafo";
 
-		leGrafo(status->mapfile);
-
-		Keyboard::help();
-
-		glutMainLoop();
-/*	}*/
-
-	
 }
