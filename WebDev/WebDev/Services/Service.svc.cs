@@ -115,23 +115,54 @@ namespace WebDev.Services
             }
         }
 
-        public string downloadTextures(string textureName)
+        public string getTexturesList()
         {
-            var texture = from t in db.Downloads
-                           where t.fileName==textureName
+            var textures = from t in db.Textures
+                         select t;
+
+            List<string> listTextures = new List<string>();
+
+            foreach (var texture in textures)
+            {
+                listTextures.Add(texture.name);
+            }
+
+            return string.Join(",", listTextures.ToArray());
+        }
+
+        public string downloadTexture(string textureName)
+        {
+            var url = from t in db.Textures
+                           where t.name==textureName
                            select t;
 
 
-            return "";
+            return url.First().url;
         }
 
-        public string downloadSounds(string soundName)
+        public string getSoundsList()
         {
-            var sound = from s in db.Downloads
-                        where s.fileName == soundName
-                        select s;
+            var sounds = from s in db.Sounds
+                           select s;
 
-            return "";
+            List<string> listSounds = new List<string>();
+
+            foreach (var sound in sounds)
+            {
+                listSounds.Add(sound.name);
+            }
+
+            return string.Join(",", listSounds.ToArray());
+        }
+
+        public string downloadSound(string soundName)
+        {
+            var url = from s in db.Sounds
+                      where s.name == soundName
+                      select s;
+
+
+            return url.First().url;
         }
     }
 }
