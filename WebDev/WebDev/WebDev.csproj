@@ -176,6 +176,8 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\GameModels.cs" />
+    <Compile Include="Models\Sounds.cs" />
+    <Compile Include="Models\Textures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="Services\Service.svc.cs">

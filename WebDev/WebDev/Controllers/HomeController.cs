@@ -10,6 +10,9 @@ namespace WebDev.Controllers
     {
         public ActionResult Index()
         {
+            //WebDev.DAL.WebDevContext db = new WebDev.DAL.WebDevContext();
+            //var s = from u in db.Sounds select u;
+            //var t = from u in db.Textures select u;
             return View();
         }
 
