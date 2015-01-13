@@ -12,6 +12,7 @@ extern Model *model;
 extern MainCharacter *character;
 extern EnemyCharacter *enemy;
 extern Obstacle *obstacle;
+extern Trap *trap;
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
@@ -535,6 +536,15 @@ void Graphics::drawObstacle()
 	glPopMatrix();
 }
 
+void Graphics::drawTrap()
+{
+	glPushMatrix();
+	glTranslatef(trap->position->x, trap->position->y, trap->position->z);
+	glScalef(1.0, 1.0, INFINITESIMO);
+	drawCube(obstacle->size);
+	glPopMatrix();
+}
+
 void Graphics::display(void){
 	if (status->loggedIn) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -777,5 +787,4 @@ void Graphics::drawText(string src, int posX, int posY)
 	for (int i = 0; text[i] != '\0'; i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
 }
-
 

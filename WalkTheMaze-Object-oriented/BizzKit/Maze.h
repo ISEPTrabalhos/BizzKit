@@ -18,6 +18,7 @@ public:
 	static bool Collision(GLfloat nx, GLfloat ny, GLfloat nz);
 	static bool Walk(int direction);
 	static bool CollisionEnemy(GLfloat x, GLfloat y, GLfloat z);
+	static bool DetectTrap(GLfloat x, GLfloat y, GLfloat z);
 	static void showLoginWindow();
 };
 
