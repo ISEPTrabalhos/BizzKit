@@ -108,7 +108,7 @@ string ServicesHandler::convertWcharToString(wchar_t* src) {
 	return converterX.to_bytes(wstr);
 }
 
-int ServicesHandler::uploadRoute(string user, int score, GLfloat pos_x, GLfloat pos_y)
+int ServicesHandler::uploadRoute(string user, int score, int pos_x, int pos_y)
 {
 	wstring string1 = convertStringToWstring(user);
 	wchar_t *username = const_cast<wchar_t*>(string1.c_str());
