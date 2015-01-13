@@ -162,8 +162,8 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 		nxx = (nx - ni.x * MAP_COOR_SCALE) * cos(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sin(alpha);
 		nyy = (ny - ni.y * MAP_COOR_SCALE) * cos(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sin(alpha);
 
-		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha);
-		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha);
+		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha + M_PI) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha + M_PI);
+		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha + M_PI) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha + M_PI);
 
 		if (0.0 <= nxx 
 			&& nxx <= si 
@@ -180,7 +180,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			status->walking = GL_TRUE;
 			return false;
 		}
-		//	NEEDS FIX
+		
 		if (0.0 <= nfxx
 			&& nfxx <= sf
 			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nfyy
