@@ -557,6 +557,7 @@ void Graphics::display(void){
 		drawCharacter();
 		drawEnemy();
 		drawObstacle();
+		drawTrap();
 
 		drawAxes();
 		material(slate);
@@ -579,6 +580,14 @@ void Graphics::display(void){
 		}
 
 		displayHealth(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+
+		// barra de energia para o jogador; testado apenas na terceira pessoa; comentado, ja existe em numeracao no canto superior direito
+		//GLfloat c1[3] = { 0.2, 0.8, 0.2 };
+		//drawToolTip(0.5, 0.5, 0.67, c1);
+		GLfloat c2[3] = { 0.9, 0.1, 0.1 };
+		drawToolTip(0.01, 0.01, (float) enemy->health / 100.0, c2);
+
 
 		glFlush();
 		glutSwapBuffers();
@@ -694,6 +703,66 @@ void Graphics::createTextures(GLuint texID[]) {
 		exit(0);
 	}
     glBindTexture(GL_TEXTURE_2D, NULL);
+}
+
+void Graphics::drawToolTip(float x, float y, float hp, GLfloat *c)
+{
+	float width = 180.0;
+	float height = 18.0;
+	hp = (hp > 1.0 || hp < 0.0) ? 0.0 : hp;
+
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glLoadIdentity();
+	glOrtho(0, glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT), 0, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glDisable(GL_LIGHTING);
+
+	glClear(GL_DEPTH_BUFFER_BIT);
+
+	glPushMatrix();
+	{	// TODO: posicionar a barra de energia sobre o inimigo; para ja fica posicionada nas coordenadas X,Y
+		//glTranslatef(-width / 2.0, -height / 2.0, 0.0);
+		glTranslatef(x / 1.0 * ((float)glutGet(GLUT_WINDOW_WIDTH)), y / 1.0 * ((float)glutGet(GLUT_WINDOW_HEIGHT)), 0.0);
+		glBegin(GL_QUADS);
+		{
+			glColor3f(0.0, 0.0, 0.0);
+			glVertex2f(0.0, 0.0);
+			glVertex2f(width, 0.0);
+			glVertex2f(width, height);
+			glVertex2f(0.0, height);
+
+			glColor3f(1.0, 1.0, 1.0);
+			glVertex2f(1.0, 1.0);
+			glVertex2f(width - 1.0, 1.0);
+			glVertex2f(width - 1.0, height - 1.0);
+			glVertex2f(1.0, height - 1.0);
+
+			glColor3f(0.0, 0.0, 0.0);
+			glVertex2f(2.0, 2.0);
+			glVertex2f(width - 2.0, 2.0);
+			glVertex2f(width - 2.0, height - 2.0);
+			glVertex2f(2.0, height - 2.0);
+
+			glColor3fv(c);
+			glVertex2f(3.0, 3.0);
+			glVertex2f((width - 6.0) * hp + 3.0, 3.0);
+			glVertex2f((width - 6.0) * hp + 3.0, height - 3.0);
+			glVertex2f(3.0, height - 3.0);
+		}
+		glEnd();
+	}
+	glPopMatrix();
+
+	glEnable(GL_LIGHTING);
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+
+	Graphics::myReshape(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 }
 
 void Graphics::drawMiniMap(int width, int height) {
