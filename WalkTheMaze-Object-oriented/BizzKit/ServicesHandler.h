@@ -35,7 +35,7 @@ public:
 	vector<string> getMapsList();
 	void saveSingleMap(string lvl);
 	int score(string user, string level, int score);
-	int uploadRoute(string user,int positions[]);
+	int uploadRoute(string user, int score, GLfloat pos_x, GLfloat pos_y);
 
 	//usefull functions
 	wstring convertStringToWstring(string source);
