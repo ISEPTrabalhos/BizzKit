@@ -12,6 +12,7 @@ extern Model *model;
 extern MainCharacter *character;
 extern EnemyCharacter *enemy;
 extern Obstacle *obstacle;
+extern Trap *trap;
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
@@ -535,45 +536,56 @@ void Graphics::drawObstacle()
 	glPopMatrix();
 }
 
+void Graphics::drawTrap()
+{
+	glPushMatrix();
+	glTranslatef(trap->position->x, trap->position->y, trap->position->z);
+	glScalef(1.0, 1.0, INFINITESIMO);
+	drawCube(obstacle->size);
+	glPopMatrix();
+}
+
 void Graphics::display(void){
-    
-    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glLoadIdentity();
-    setCamera();
-    
-    material(slate);
-    drawGround(model->texID[0]);
-    
-	drawCharacter();
-	drawEnemy();
-	drawObstacle();
-    
-    drawAxes();
-	material(slate);
-	glBindTexture(GL_TEXTURE_2D, model->texID[1]);
-    drawMaze();
-	glBindTexture(GL_TEXTURE_2D, NULL);
-    
-    if (status->eixoTranslaccao) {
-        // desenha plano de translacÁ„o
-        cout << "Translate... " << status->eixoTranslaccao << endl;
-        drawDragPlane(status->eixoTranslaccao);
-    }
-    
-	showScore(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+	if (status->loggedIn) {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glLoadIdentity();
+		setCamera();
 
-    drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
-    
-	if (status->showMapMenu) {
-		displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		material(slate);
+		drawGround(model->texID[0]);
+
+		drawCharacter();
+		drawEnemy();
+		drawObstacle();
+
+		drawAxes();
+		material(slate);
+		glBindTexture(GL_TEXTURE_2D, model->texID[1]);
+		drawMaze();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+
+		if (status->eixoTranslaccao) {
+			// desenha plano de translacÁ„o
+			cout << "Translate... " << status->eixoTranslaccao << endl;
+			drawDragPlane(status->eixoTranslaccao);
+		}
+
+		showScore(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+		drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+		if (status->showMapMenu) {
+			displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		}
+
+		displayHealth(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+
+		glFlush();
+		glutSwapBuffers();
 	}
-
-	displayHealth(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
-
-    glFlush();
-    glutSwapBuffers();
-    
+	else {
+		loginDisplay();
+	}
 }
 
 void  Graphics::loginDisplay(void){ 
@@ -590,24 +602,27 @@ void  Graphics::loginDisplay(void){
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
+	glDisable(GL_LIGHTING);
 	glColor3f(0, 1, 0);
-	displayMyText("Sign in to play ", -100, 300, 0);
-	//displayMyText("Write username, press ENTER, write password, presse ENTER again", -250, 260, 0);
+	displayMyText("SIGN IN TO PLAY", -100, 400, 0);
+	glColor3f(255, 255, 255);
+	displayMyText("username -> ENTER -> password -> ENTER", -325, 240, 0);
 	
 	glColor3f(255, 0, 0);
-	displayMyText("Username: ", -250, 200, 0);
+	displayMyText("Username: ", -250, 140, 0);
 	glColor3f(255, 255, 255);
-	displayMyText((char*)status->username.c_str(), -50, 200, 0);
+	displayMyText((char*)status->username.c_str(), -50, 140, 0);
 	if (status->nextInput) {
 		glColor3f(255, 0, 0);
-		displayMyText("Password: ", -250, 100, 0);
+		displayMyText("Password: ", -250, 40, 0);
 		glColor3f(255, 255, 255);
-		displayMyText((char*)status->passwd.c_str(), -50, 100, 0);
+		displayMyText((char*)status->passwd.c_str(), -50, 40, 0);
 	}
 	if (!status->loginErrorMessage.empty()) {
 		glColor3f(255, 0, 0);
 		displayMyText((char*)status->loginErrorMessage.c_str(), -200, -300, 0);
 	}
+	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
 	
 }
@@ -635,10 +650,13 @@ void Graphics::setProjection(int x, int y, GLboolean picking){
 }
 
 void Graphics::myReshape(int w, int h){
-    glViewport(0, 0, w, h);
-    glMatrixMode(GL_PROJECTION);
-    Graphics::setProjection(0, 0, GL_FALSE);
-    glMatrixMode(GL_MODELVIEW);
+	if (status->loggedIn) {
+		glViewport(0, 0, w, h);
+		glMatrixMode(GL_PROJECTION);
+		Graphics::setProjection(0, 0, GL_FALSE);
+		glMatrixMode(GL_MODELVIEW);
+	}
+    
 }
 void Graphics::createTextures(GLuint texID[]) {
     char *image;
@@ -769,5 +787,4 @@ void Graphics::drawText(string src, int posX, int posY)
 	for (int i = 0; text[i] != '\0'; i++)
 		glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
 }
-
 

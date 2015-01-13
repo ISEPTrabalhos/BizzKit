@@ -8,6 +8,7 @@ class Trap {
 public:
     Point *position;
 	float size;
+	float height;
     
 	Trap();
 	~Trap();

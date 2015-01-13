@@ -27,7 +27,7 @@ public:
 	GLboolean walking;
 
 	string username, password, passwd, loginErrorMessage;
-	bool nextInput;
+	bool nextInput, loggedIn;
 
 	// functions
 	Status();
