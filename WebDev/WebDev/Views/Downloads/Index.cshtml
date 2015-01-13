@@ -1,1 +1,26 @@
-﻿@Html.ActionLink("Download", "Download");
+﻿@model IEnumerable<WebDev.Models.Downloads>
+
+@Html.ActionLink("Download", "Download");
+
+<h2>Downloads</h2>
+
+<table id="table">
+    <tr>
+        <th>
+            File Name
+        </th>
+    
+        <th>
+            Link to Download
+        </th>
+    </tr>
+
+@*@foreach (var item in Model)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.fileName)</td>
+
+    </tr>
+}*@
+</table>
+

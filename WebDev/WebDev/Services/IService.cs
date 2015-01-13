@@ -24,8 +24,8 @@ namespace WebDev.Services
         string LoadLevel(string levelName);
 
         [OperationContract]
-        int downloadTextures(string textureName);
+        string downloadTextures(string textureName);
 
-        int downloadSounds(string soundName);
+        string downloadSounds(string soundName);
     }
 }

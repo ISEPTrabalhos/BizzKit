@@ -115,23 +115,23 @@ namespace WebDev.Services
             }
         }
 
-        public int downloadTextures(string textureName)
+        public string downloadTextures(string textureName)
         {
             var texture = from t in db.Downloads
                            where t.fileName==textureName
                            select t;
 
 
-            return 1;
+            return "";
         }
 
-        public int downloadSounds(string soundName)
+        public string downloadSounds(string soundName)
         {
             var sound = from s in db.Downloads
                         where s.fileName == soundName
                         select s;
 
-            return 1;
+            return "";
         }
     }
 }
