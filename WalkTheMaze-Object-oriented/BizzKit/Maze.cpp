@@ -5,6 +5,7 @@
 #include "MapsReceiver.h"
 #include "EnemyCharacter.h"
 #include "Obstacle.h"
+#include "Trap.h"
 
 #define MAP_COOR_SCALE 5
 #define GAP_CLIMB 0.1
@@ -14,6 +15,7 @@ Status *status;
 MainCharacter *character;
 EnemyCharacter *enemy;
 Obstacle *obstacle;
+Trap *trap;
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
@@ -110,6 +112,11 @@ void Maze::Timer(int value) {
 	//}
 
 	if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
+	{
+		character->Die();
+	}
+
+	if (DetectTrap(character->position->x, character->position->y, character->position->z))
 	{
 		character->Die();
 	}
@@ -211,6 +218,26 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 	}
 }
 
+bool Maze::DetectTrap(GLfloat x, GLfloat y, GLfloat z)
+{
+	GLfloat xMin, xMax;
+	GLfloat yMin, yMax;
+	GLfloat zMin, zMax;
+
+	xMin = trap->position->x - trap->size / 2;
+	xMax = trap->position->x + trap->size / 2;
+
+	yMin = trap->position->y - trap->size / 2;
+	yMax = trap->position->y + trap->size / 2;
+
+	zMin = trap->position->z;
+	zMax = trap->position->z + trap->height;
+
+	return x >= xMin && x <= xMax &&
+		y >= yMin && y <= yMax &&
+		z >= zMin && z <= zMax;
+}
+
 bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 {
 	GLfloat xMin, xMax;
@@ -257,6 +284,7 @@ void Maze::Launch(int argc, char **argv){
 		character = new MainCharacter();
 		enemy = new EnemyCharacter();
 		obstacle = new Obstacle();
+		trap = new Trap();
 
 		/* need both double buffering and z buffer */
 
