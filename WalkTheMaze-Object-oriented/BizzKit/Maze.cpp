@@ -211,32 +211,6 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 	}
 }
 
-bool Maze::Collision(GLfloat nx, GLfloat ny, GLfloat nz) {
-	//cout << "POS(X,Y): " << nx << ", " << ny << endl;
-
-	for (int i = 0; i<numArcos; i++){
-		No ni = nos[arcos[i].noi];
-		No nf = nos[arcos[i].nof];
-
-		// colide with node
-		if (pow(nx - (ni.x * 5), 2) + pow(ny - (ni.y * 5), 2) <= pow((ni.largura / 2) * 5, 2)) return true;
-		if (pow(nx - (nf.x * 5), 2) + pow(ny - (nf.y * 5), 2) <= pow((nf.largura / 2) * 5, 2)) return true;
-
-		// collide with vertical wall
-		if (ni.x == nf.x)
-			if ((ny >= (ni.y * 5) && ny <= (nf.y * 5)) || (ny <= (ni.y * 5) && ny >= (nf.y * 5)))
-				if (nx <= 5.0 * (ni.x + (ni.largura * 0.5)) && nx >= 5.0 * (ni.x - (ni.largura * 0.5))) return true;
-
-		// collide with horizontal wall
-		if (ni.y == nf.y)
-			if ((nx >= (ni.x * 5) && nx <= (nf.x * 5)) || (nx <= (ni.x * 5) && nx >= (nf.x * 5)))
-				if (ny <= 5.0 * (ni.y + (ni.largura * 0.5)) && ny >= 5.0 * (ni.y - (ni.largura * 0.5))) return true;
-
-		// collide with diagonal wall
-	}
-	return false;
-}
-
 bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 {
 	GLfloat xMin, xMax;
