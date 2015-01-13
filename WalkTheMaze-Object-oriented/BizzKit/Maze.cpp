@@ -135,6 +135,9 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 
 		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2)) {
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz > character->position->z && nz - character->position->z > 1)
+				return false;
+
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
@@ -168,6 +171,9 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
 
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz > character->position->z && nz - character->position->z > 1)
+				return false;
+
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
@@ -193,6 +199,9 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
 
 			nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+			if (nz > character->position->z && nz - character->position->z > 1)
+				return false;
+
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
