@@ -7,6 +7,7 @@
 #include "MainCharacter.h"
 #include "EnemyCharacter.h"
 #include "Obstacle.h"
+#include "Trap.h"
 
 class Graphics{
 public:
@@ -40,6 +41,7 @@ public:
 	static void drawEnemy();
 	static void drawCharacter();
 	static void drawObstacle();
+	static void drawTrap();
 
 	static void drawCube(float size);
 	static void drawFace(GLfloat *v1, GLfloat *v2, GLfloat *v3, GLfloat *v4);

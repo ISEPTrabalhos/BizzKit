@@ -12,6 +12,7 @@ extern Model *model;
 extern MainCharacter *character;
 extern EnemyCharacter *enemy;
 extern Obstacle *obstacle;
+extern Trap *trap;
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
@@ -535,6 +536,15 @@ void Graphics::drawObstacle()
 	glPopMatrix();
 }
 
+void Graphics::drawTrap()
+{
+	glPushMatrix();
+	glTranslatef(trap->position->x, trap->position->y, trap->position->z);
+	glScalef(1.0, 1.0, INFINITESIMO);
+	drawCube(obstacle->size);
+	glPopMatrix();
+}
+
 void Graphics::display(void){
     
     
@@ -548,6 +558,7 @@ void Graphics::display(void){
 	drawCharacter();
 	drawEnemy();
 	drawObstacle();
+	drawTrap();
     
     drawAxes();
 	material(slate);
