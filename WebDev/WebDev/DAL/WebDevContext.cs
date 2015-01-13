@@ -22,5 +22,9 @@ namespace WebDev.DAL
         public DbSet<Score> Scores { get; set; }
 
         public DbSet<Downloads> Downloads { get; set; }
+
+        public DbSet<Sounds> Sounds { get; set; }
+
+        public DbSet<Textures> Textures { get; set; }
     }
 }

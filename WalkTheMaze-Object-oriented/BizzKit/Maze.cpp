@@ -194,6 +194,9 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			&& nfyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
 
 			nz = nf.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz > character->position->z && nz - character->position->z > 1)
+				return false;
+
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;

@@ -110,6 +110,44 @@ namespace WebDev.DAL
             };
 
             downloads.ForEach(s => context.Downloads.Add(s));
+
+            var sounds = new List<Sounds>
+            {
+                new Sounds {
+                    ID = 1,
+                    name = "Background music",
+                    url = "http://localhost:43492/assets/sounds/The_Simpsons.wav",
+                },
+                new Sounds {
+                    ID = 2,
+                    name = "Against the wall",
+                    url = "http://localhost:43492/assets/sounds/wall.wav"
+                },
+                new Sounds {
+                    ID = 3,
+                    name = "Falling",
+                    url = "http://localhost:43492/assets/sounds/falling.wav"
+                }
+            };
+
+            sounds.ForEach(s => context.Sounds.Add(s));
+
+            var textures = new List<Textures>
+            {
+                new Textures {
+                    ID = 1,
+                    name = "Floor texture",
+                    url = "http://localhost:43492/assets/textures/floor.jpg"
+                },
+                new Textures {
+                    ID = 2,
+                    name = "Walls texture",
+                    url = "http://localhost:43492/assets/textures/Wall.jpg"
+                }
+            };
+
+            textures.ForEach(s => context.Textures.Add(s));
+
             context.SaveChanges();
         }
     }
