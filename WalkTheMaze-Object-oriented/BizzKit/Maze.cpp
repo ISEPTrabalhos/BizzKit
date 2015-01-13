@@ -47,7 +47,7 @@ void Maze::Timer(int value) {
 			status->walking = GL_TRUE;
 			
 			//	Check if the character has fallen and drains some life
-			if (character->position->z - z < -0.5)
+			if (character->position->z - z < -4.0)
 				character->health -= 10;
 		}
 	}
@@ -61,7 +61,7 @@ void Maze::Timer(int value) {
 			status->walking = GL_TRUE;
 
 			//	Check if the character has fallen and drains some life
-			if (character->position->z - z < -0.5)
+			if (character->position->z - z < -4.0)
 				character->health -= 10;
 		
 		}
@@ -133,7 +133,6 @@ bool Maze::Walk(int direction) {
 			character->position->y = ny;
 			character->position->z = nz;
 			status->walking = GL_TRUE;
-			cout << "Node" << " NZ: " << nz << " Z: " << character->position->z << endl;
 			return false;
 		}
 	}
@@ -166,7 +165,7 @@ bool Maze::Walk(int direction) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
-			cout << "Connection " << "si: " << si << " nxx: " << nxx << " nyy: " << nyy << endl;
+			status->walking = GL_TRUE;
 			return false;
 		}
 		//	Needs FIX
@@ -192,7 +191,7 @@ bool Maze::Walk(int direction) {
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
-			cout << "Arch" << "SI : " << si << "PROJLENGTH: " << projLength << "nxx: " << ni.x << "ni.y: " << ni.y <<  endl;
+			status->walking = GL_TRUE;
 			return false;
 		}
 	}
