@@ -15,6 +15,8 @@ public:
     MainCharacter();
     ~MainCharacter();
 
+	bool IsDead();
+	void Die();
 };
 
 #endif
