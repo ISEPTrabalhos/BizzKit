@@ -36,105 +36,111 @@ void Maze::Timer(int value) {
 
 	if (status->tecla_o) status->background_music->toggle();
 
+	if (!character->IsDead()){
+		if (!status->falling){
+			GLfloat nx = 0, ny = 0, z = character->position->z;
 
-	if (!status->falling){
-		GLfloat nx = 0, ny = 0, z = character->position->z;
 
+			if (status->up){
+				if (Walk(1)) {
+					nx = character->position->x + character->vel * cosf(character->dir);
+					ny = character->position->y + character->vel * sinf(character->dir);
+					character->position->x = nx;
+					character->position->y = ny;
+					character->position->z = CHARACTER_HEIGHT * 0.5;
+					status->walking = GL_TRUE;
 
-		if (status->up){
-			if (Walk(1)) {
-				nx = character->position->x + character->vel * cosf(character->dir);
-				ny = character->position->y + character->vel * sinf(character->dir);
-				character->position->x = nx;
-				character->position->y = ny;
-				character->position->z = CHARACTER_HEIGHT * 0.5;
-				status->walking = GL_TRUE;
+					//	Check if the character has fallen and drains some life
+					if (character->position->z - z < -4.0) {
+						character->health -= 10;
+						Music *f = new Music("falling.wav");
+						f->play();
+					}
 
-				//	Check if the character has fallen and drains some life
-				if (character->position->z - z < -4.0) {
-					character->health -= 10;
-					Music *f = new Music("falling.wav");
-					f->play();
-				}
-
-			}
-		}
-		else if (status->down){
-			if (Walk(-1)) {
-				nx = character->position->x - character->vel * cosf(character->dir);
-				ny = character->position->y - character->vel * sinf(character->dir);
-				character->position->x = nx;
-				character->position->y = ny;
-				character->position->z = CHARACTER_HEIGHT * 0.5;
-				status->walking = GL_TRUE;
-
-				//	Check if the character has fallen and drains some life
-				if (character->position->z - z < -4.0) {
-					character->health -= 10;
-					Music *f = new Music("falling.wav");
-					f->play();
 				}
 			}
-		}
-		else
-			status->walking = GL_FALSE;
+			else if (status->down){
+				if (Walk(-1)) {
+					nx = character->position->x - character->vel * cosf(character->dir);
+					ny = character->position->y - character->vel * sinf(character->dir);
+					character->position->x = nx;
+					character->position->y = ny;
+					character->position->z = CHARACTER_HEIGHT * 0.5;
+					status->walking = GL_TRUE;
 
-		if (status->left){
-			character->dir += rad(2);
-			status->camera->dir_long = character->dir;
+					//	Check if the character has fallen and drains some life
+					if (character->position->z - z < -4.0) {
+						character->health -= 10;
+						Music *f = new Music("falling.wav");
+						f->play();
+					}
+				}
+			}
+			else
+				status->walking = GL_FALSE;
+
+			if (status->left){
+				character->dir += rad(2);
+				status->camera->dir_long = character->dir;
+			}
+			else if (status->right){
+				character->dir -= rad(2);
+				status->camera->dir_long = character->dir;
+			}
+
+			if (status->walking && character->homer.GetSequence() != 3){
+				character->homer.SetSequence(3);
+
+			}
+			else if (!status->walking && character->homer.GetSequence() == 3)
+			{
+				character->homer.SetSequence(0);
+			}
 		}
-		else if (status->right){
-			character->dir -= rad(2);
-			status->camera->dir_long = character->dir;
+		else{
+			character->homer.SetSequence(20);
+			status->falling = GL_FALSE;
+			//Timer(10);
 		}
 
-		if (status->walking && character->homer.GetSequence() != 3){
-			character->homer.SetSequence(3);
-
-		}
-		else if (!status->walking && character->homer.GetSequence() == 3)
+		if (status->mapfile == "quarto1.grafo")
 		{
-			character->homer.SetSequence(0);
+			if (character->position->x > 0.331 && character->position->x<11.43 && character->position->y>292.529 && character->position->y < 292.605)
+			{
+				status->mapfile = "quarto2.grafo";
+			}
+			/*else if (character->position->x &&character->position->y){
+				status->mapfile = "quarto3.grafo";
+				}*/
 		}
-	}
-	else{
-		character->homer.SetSequence(20);
-		status->falling = GL_FALSE;
-		//Timer(10);
-	}
-
-	if (status->mapfile == "quarto1.grafo")
-	{
-		if (character->position->x > 0.331 && character->position->x<11.43 && character->position->y>292.529 && character->position->y < 292.605)
+		else if (status->mapfile == "quarto2.grafo")
 		{
-			status->mapfile = "quarto2.grafo";
+			if (character->position->x>-137.506 && character->position->x<-134.058 && character->position->y>-266.794 && character->position->y < -256.512){
+				status->mapfile = "quarto1.grafo";
+			}
 		}
-		/*else if (character->position->x &&character->position->y){
-			status->mapfile = "quarto3.grafo";
-		}*/
-	}
-	else if (status->mapfile == "quarto2.grafo")
-	{
-		if (character->position->x>-137.506 && character->position->x<-134.058 && character->position->y>-266.794 && character->position->y<-256.512){
-			status->mapfile = "quarto1.grafo";
+		//else {
+		//	if (character->position->x &&character->position->y){
+		//		status->mapfile = "quarto1.grafo";
+		//	}
+		//}
+
+		if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
+		{
+			character->Die();
+		}
+
+		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
+		{
+			character->Die();
 		}
 	}
-	//else {
-	//	if (character->position->x &&character->position->y){
-	//		status->mapfile = "quarto1.grafo";
-	//	}
-	//}
-
-	if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
+	else
 	{
-		character->Die();
+		//if (character->homer.GetSequence() != 19)
+		//	character->homer.SetSequence(19);
+		character->homer.SetSequence(73);
 	}
-
-	if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
-	{
-		character->Die();
-	}
-
     glutPostRedisplay();
 }
 
