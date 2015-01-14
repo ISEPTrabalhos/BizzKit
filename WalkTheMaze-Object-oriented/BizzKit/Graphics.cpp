@@ -540,7 +540,7 @@ void Graphics::drawTrap()
 {
 	glPushMatrix();
 	glTranslatef(trap->position->x, trap->position->y, trap->position->z);
-	glScalef(1.0, 1.0, INFINITESIMO);
+	glScalef(1.0, 1.0, trap->height);
 	drawCube(obstacle->size);
 	glPopMatrix();
 }

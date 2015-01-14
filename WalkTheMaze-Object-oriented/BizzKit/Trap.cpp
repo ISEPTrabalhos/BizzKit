@@ -4,7 +4,7 @@
 Trap::Trap()
 {
 	size = 5.0;
-	height = 1.1;
+	height = 0.1;
 
     position = new Point();
 	position->x = 126;
