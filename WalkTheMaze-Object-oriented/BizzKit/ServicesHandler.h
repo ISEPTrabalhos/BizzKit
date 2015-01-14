@@ -36,6 +36,11 @@ public:
 	void saveSingleMap(string lvl);
 	int score(string user, string level, int score);
 	int uploadRoute(string user, int score, int pos_x, int pos_y);
+	vector<string> getSoundsList();
+	void saveSound(string soundName);
+	vector<string> getTexturesList();
+	void saveTexture(string textureName);
+	void saveFile(string url, string path);
 
 	//usefull functions
 	wstring convertStringToWstring(string source);

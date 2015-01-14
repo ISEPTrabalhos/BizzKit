@@ -1,4 +1,9 @@
 #include "ServicesHandler.h"
+#include<windows.h>
+#include <tchar.h>
+#include <urlmon.h>
+#pragma comment(lib, "urlmon.lib")
+#pragma comment(lib,"wininet.lib")
 
 ServicesHandler::ServicesHandler(){
 	hr = ERROR_SUCCESS;
@@ -116,4 +121,76 @@ int ServicesHandler::uploadRoute(string user, int score, int pos_x, int pos_y)
 	int *result = 0;
 	//hr = BasicHttp_Binding_IService_UploadRoute(proxy, username, score,pos_x,pos_y, result, NULL, 0, NULL, error);
 	return *result;
+}
+
+vector<string> ServicesHandler::getSoundsList() {
+	// receive sounds list 
+	WCHAR* results = NULL;;
+	//hr = BasicHttpBinding_IService_getSoundsList(proxy, &results, heap, NULL, 0, NULL, error);
+
+	string resultsSounds = convertWcharToString(results);
+	// split string into vector
+	vector<string> sounds;
+	stringstream ss(resultsSounds);
+	string item;
+	while (getline(ss, item, ',')) {
+		sounds.push_back(item);
+	}
+
+	return sounds;
+}
+
+void ServicesHandler::saveSound(string name) {
+	//convert string into wchar
+	wstring strName = convertStringToWstring(name);
+	wchar_t* soundName = const_cast<wchar_t*>(strName.c_str());
+
+	// receive map
+	wchar_t* result = NULL;;
+	//hr = BasicHttpBinding_IService_downloadSound(proxy, soundName, &result, heap, NULL, 0, NULL, error);
+
+	string url = convertWcharToString(result);
+	string filename = name + ".wav";
+
+	saveFile(url, filename);
+
+}
+
+vector<string> ServicesHandler::getTexturesList() {
+	//receive textures list
+	WCHAR* results = NULL;;
+	//hr = BasicHttpBinding_IService_getTexturesList(proxy, &results, heap, NULL, 0, NULL, error);
+
+	string resultsTextures = convertWcharToString(results);
+	// split string into vector
+	vector<string> textures;
+	stringstream ss(resultsTextures);
+	string item;
+	while (getline(ss, item, ',')) {
+		textures.push_back(item);
+	}
+
+	return textures;
+}
+
+void ServicesHandler::saveTexture(string name) {
+	//convert string into wchar
+	wstring strName = convertStringToWstring(name);
+	wchar_t* textureName = const_cast<wchar_t*>(strName.c_str());
+
+	// receive map
+	wchar_t* result = NULL;
+	//hr = BasicHttpBinding_IService_downloadTexture(proxy, textureName, &result, heap, NULL, 0, NULL, error);
+
+	string url = convertWcharToString(result);
+	string filename = name + ".jpg";
+
+	saveFile(url, filename);
+
+}
+
+void ServicesHandler::saveFile(string url, string path) {
+	HRESULT hr;
+	LPCTSTR Url = _T(url.c_str()), File = _T(path.c_str());
+	hr = URLDownloadToFile(0, Url, File, 0, 0);
 }
