@@ -122,7 +122,7 @@ void Maze::Timer(int value) {
 		character->Die();
 	}
 
-	if (DetectTrap(character->position->x, character->position->y, character->position->z))
+	if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
 	{
 		character->Die();
 	}
@@ -131,12 +131,12 @@ void Maze::Timer(int value) {
 }
 
 bool Maze::Walk(int direction) {
-	if (!character->IsDead())
+	if (character->IsDead())
 	{
-		// TODO: stop moving
+		return false;
 	}
 
-GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
+	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
 
 
 	nx = character->position->x + (direction * character->vel) * cosf(character->dir);
