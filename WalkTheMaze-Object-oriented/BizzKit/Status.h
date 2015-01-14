@@ -25,6 +25,7 @@ public:
 	GLfloat* main_light;
 	GLboolean daynight;
 	GLboolean walking;
+	GLboolean falling;
 
 	string username, password, passwd, loginErrorMessage;
 	bool nextInput, loggedIn;

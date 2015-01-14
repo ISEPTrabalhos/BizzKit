@@ -36,63 +36,71 @@ void Maze::Timer(int value) {
 
 	if (status->tecla_o) status->background_music->toggle();
 
-	GLfloat nx = 0, ny = 0, z = character->position->z;
+
+	if (!status->falling){
+		GLfloat nx = 0, ny = 0, z = character->position->z;
 
 
-	if (status->up){
-		if (Walk(1)) {
-			nx = character->position->x + character->vel * cosf(character->dir);
-			ny = character->position->y + character->vel * sinf(character->dir);
-			character->position->x = nx;
-			character->position->y = ny;
-			character->position->z = CHARACTER_HEIGHT * 0.5;
-			status->walking = GL_TRUE;
-			
-			//	Check if the character has fallen and drains some life
-			if (character->position->z - z < -4.0) {
-				character->health -= 10;
-				Music *f = new Music("falling.wav");
-				f->play();
-			}
-				
-		}
-	}
-	else if (status->down){
-		if (Walk(-1)) {
-			nx = character->position->x - character->vel * cosf(character->dir);
-			ny = character->position->y - character->vel * sinf(character->dir);
-			character->position->x = nx;
-			character->position->y = ny;
-			character->position->z = CHARACTER_HEIGHT * 0.5;
-			status->walking = GL_TRUE;
+		if (status->up){
+			if (Walk(1)) {
+				nx = character->position->x + character->vel * cosf(character->dir);
+				ny = character->position->y + character->vel * sinf(character->dir);
+				character->position->x = nx;
+				character->position->y = ny;
+				character->position->z = CHARACTER_HEIGHT * 0.5;
+				status->walking = GL_TRUE;
 
-			//	Check if the character has fallen and drains some life
-			if (character->position->z - z < -4.0) {
-				character->health -= 10;
-				Music *f = new Music("falling.wav");
-				f->play();
+				//	Check if the character has fallen and drains some life
+				if (character->position->z - z < -4.0) {
+					character->health -= 10;
+					Music *f = new Music("falling.wav");
+					f->play();
+				}
+
 			}
 		}
-	}
-	else
-		status->walking = GL_FALSE;
+		else if (status->down){
+			if (Walk(-1)) {
+				nx = character->position->x - character->vel * cosf(character->dir);
+				ny = character->position->y - character->vel * sinf(character->dir);
+				character->position->x = nx;
+				character->position->y = ny;
+				character->position->z = CHARACTER_HEIGHT * 0.5;
+				status->walking = GL_TRUE;
 
-	if (status->left){
-		character->dir += rad(2);
-		status->camera->dir_long = character->dir;
-	}
-	else if (status->right){
-		character->dir -= rad(2);
-		status->camera->dir_long = character->dir;
-	}
+				//	Check if the character has fallen and drains some life
+				if (character->position->z - z < -4.0) {
+					character->health -= 10;
+					Music *f = new Music("falling.wav");
+					f->play();
+				}
+			}
+		}
+		else
+			status->walking = GL_FALSE;
 
-	if (status->walking && character->homer.GetSequence() != 3){
-		character->homer.SetSequence(3);
+		if (status->left){
+			character->dir += rad(2);
+			status->camera->dir_long = character->dir;
+		}
+		else if (status->right){
+			character->dir -= rad(2);
+			status->camera->dir_long = character->dir;
+		}
 
+		if (status->walking && character->homer.GetSequence() != 3){
+			character->homer.SetSequence(3);
+
+		}
+		else if (!status->walking && character->homer.GetSequence() == 3)
+		{
+			character->homer.SetSequence(0);
+		}
 	}
-	else if (!status->walking && character->homer.GetSequence() == 3)
-	{
-		character->homer.SetSequence(0);
+	else{
+		character->homer.SetSequence(20);
+		status->falling = GL_FALSE;
+		//Timer(10);
 	}
 
 	if (status->mapfile == "quarto1.grafo")
@@ -150,6 +158,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			if (nz > character->position->z && nz - character->position->z > 1) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
+				status->falling = GL_TRUE;
 				return false;
 			}
 			character->position->x = nx;
@@ -188,6 +197,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			if (nz > character->position->z && nz - character->position->z > 1) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
+				status->falling = GL_TRUE;
 				return false;
 			}
 				
@@ -207,6 +217,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			if (nz > character->position->z && nz - character->position->z > 1) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
+				status->falling = GL_TRUE;
 				return false;
 			}
 				
@@ -227,6 +238,7 @@ GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nx
 			if (nz > character->position->z && nz - character->position->z > 1) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
+				status->falling = GL_TRUE;
 				return false;
 			}
 

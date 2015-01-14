@@ -30,6 +30,7 @@ Status::Status(){
 	daynight = true;
 
 	walking = GL_FALSE;
+	falling = GL_FALSE;
 
 	username = "";
 	password = "";
