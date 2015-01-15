@@ -1,6 +1,6 @@
 #include "Keyboard.h"
 #include "Login.h"
-
+#include "ServicesHandler.h"
 
 extern Status *status;
 extern Model *model;
@@ -54,20 +54,54 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
 		// in case wordls menu is visible
-		/*if (status->showMapMenu) {
+		if (status->showMapMenu) {
 			switch (key) {
 			case'1':
 				status->mapfile = "mundo1.grafo";
 				leGrafo(status->mapfile);
+				status->showMapMenu = false;
+				status->mainMenu = false;
 				break;
 			case '2':
 				status->mapfile = "quarto1.grafo";
 				leGrafo(status->mapfile);
+				status->showMapMenu = false;
+				status->mainMenu = false;
+				break;
+			case '0':
+				status->showMapMenu = false;
+				status->mainMenu = true;
 				break;
 			}
-		}*/
-
-		switch (key){
+		}
+		else if (status->showSoundsMenu) {
+			switch (key) {
+			case '0':
+				status->showSoundsMenu = false;
+				status->mainMenu = true;
+				break;
+			}
+			int option = key - 48; // convert key
+			if (option > 0 && option <= status->soundsList.size()) {
+				ServicesHandler *handler = new ServicesHandler();
+				//handler->saveSound(status->soundsList.at(option-1));
+			}
+		}
+		else if (status->showTexturesMenu) {
+			switch (key) {
+			case '0':
+				status->showTexturesMenu = false;
+				status->mainMenu = true;
+				break;
+			}
+			int option = key - 48; // convert key
+			if (option > 0 && option <= status->texturesList.size()) {
+				ServicesHandler *handler = new ServicesHandler();
+				//handler->saveTexture(status->texturesList.at(option-1));
+			}
+		}
+		else {
+			switch (key){
 			case 27:
 				exit(0);
 				break;
@@ -109,16 +143,27 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				break;
 			case 'c':
 			case 'C':
-				if (glIsEnabled(GL_CULL_FACE))
-					glDisable(GL_CULL_FACE);
-				else
-					glEnable(GL_CULL_FACE);
-				glutPostRedisplay();
-				break;
+				if (status->mainMenu) {
+					status->mainMenu = false;
+				}
+				else {
+					if (glIsEnabled(GL_CULL_FACE))
+						glDisable(GL_CULL_FACE);
+					else
+						glEnable(GL_CULL_FACE);
+					glutPostRedisplay();
+					break;
+				}
+
 			case 'n':
 			case 'N':
-				status->apresentaNormais = !status->apresentaNormais;
-				glutPostRedisplay();
+				if (status->mainMenu) {
+					//INICIAR NOVO JOGO
+				}
+				else {
+					status->apresentaNormais = !status->apresentaNormais;
+					glutPostRedisplay();
+				}
 				break;
 			case 'i':
 			case 'I':
@@ -133,6 +178,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			case 'm':
 			case 'M':
 				//status->showMapMenu = !status->showMapMenu;
+				status->snow = GL_FALSE;
 				status->mainMenu = !status->mainMenu;
 				break;
 			case 'd':
@@ -146,12 +192,12 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				}
 				break;
 			case '1':
-				status->showMapMenu = !status->showMapMenu;
+				status->showMapMenu = true;
 				status->showSoundsMenu = false;
 				status->showTexturesMenu = false;
 				break;
 			case '2':
-				status->showSoundsMenu = !status->showSoundsMenu;
+				status->showSoundsMenu = true;
 				status->showMapMenu = false;
 				status->showTexturesMenu = false;
 				break;
@@ -161,10 +207,14 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				status->showMapMenu = false;
 				break;
 			case '4':
-				status->snow = GLU_TRUE;
+				if (!status->mainMenu) {
+					status->snow = GLU_TRUE;
+				}
 				break;
+			}
 		}
-	} else {
+	}
+	else {
 		loginKeyboard(key, x, y);
 	}
 }

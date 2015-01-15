@@ -745,7 +745,8 @@ void Graphics::displayMainMenu() {
 	glColor3f(0, 1, 0);
 	displayMyText("MAIN MENU", -100, 350, 0);
 	glColor3f(1.0, 0, 0);
-	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -450, 200, 0);
+	displayMyText("C - CONTINUE  | N -  NEW GAME", -300, 275, 0);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -425, 200, 0);
 
 	//draw separator line
 	glLineWidth(1.0);
@@ -758,6 +759,8 @@ void Graphics::displayMainMenu() {
 	if (status->showMapMenu) {
 		displayMyText("1 - Mundo 1", -400, 0, 0);
 		displayMyText("2 - Mundo 2", -400, -75, 0);
+		string back = status->soundsList.size() + "0 - Go back";
+		displayMyText((char*)back.c_str(), -400, -150, 0);
 	}
 	else if (status->showSoundsMenu) {
 		if (status->soundsList.empty()) {
@@ -769,9 +772,11 @@ void Graphics::displayMainMenu() {
 		int posY = 0;
 		for (int i = 0; i < status->soundsList.size(); i++) {
 			string item = (i + 1) + " - " + status->soundsList.at(i);
-			displayMyText((char*)item.c_str(), -400, posY, 0);
+			displayMyText((char*)item.c_str(), -200, posY, 0);
 			posY += -75;
 		}
+		string back = status->soundsList.size() + "Go back";
+		displayMyText((char*)back.c_str(), -200, posY, 0);
 	}
 	else if (status->showTexturesMenu) {
 		if (status->texturesList.empty()) {
@@ -783,12 +788,12 @@ void Graphics::displayMainMenu() {
 		int posY = 0;
 		for (int i = 0; i < status->texturesList.size(); i++) {
 			string item = (i + 1) + " - " + status->texturesList.at(i);
-			displayMyText((char*)item.c_str(), -400, posY, 0);
+			displayMyText((char*)item.c_str(), -200, posY, 0);
 			posY += -75;
 		}
+		string back = status->soundsList.size() + "Go back";
+		displayMyText((char*)back.c_str(), -200, posY, 0);
 	}
-
-	displayMyText("To exit a menu, just press the respective key", -width + 20,  -height + 10, 0);
 
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
