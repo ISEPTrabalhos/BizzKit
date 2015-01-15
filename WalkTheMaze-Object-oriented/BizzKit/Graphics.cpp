@@ -15,6 +15,27 @@ extern EnemyCharacter *enemy;
 extern Door *door1, *door2, *exitDoor;
 extern Obstacle *obstacle;
 extern Trap *trap;
+extern SnowFlake* sf;
+
+void Graphics::drawEffect(void) {
+	double w = glutGet(GLUT_WINDOW_WIDTH);
+	double h = glutGet(GLUT_WINDOW_HEIGHT);
+
+	// switch to 2D for text overlay
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-w, w, -h, h, -1, 1);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glDisable(GL_LIGHTING);
+
+	sf->draw();
+
+	glEnable(GL_LIGHTING);
+	glutSwapBuffers();
+}
 
 void Graphics::drawGround(GLuint texID){
 #define STEP 10
@@ -624,6 +645,8 @@ void Graphics::display(void){
 		showScore(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 
 		drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
+		
+		if (status->snow) drawEffect();
 
 		if (status->showMapMenu) {
 			displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));

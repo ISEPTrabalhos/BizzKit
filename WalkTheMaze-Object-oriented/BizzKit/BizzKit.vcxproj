@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="SnowFlake.cpp" />
     <ClCompile Include="Trap.cpp" />
     <ClCompile Include="Upload.cpp" />
     <ClCompile Include="EnemyCharacter.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="ServicesHandler.h" />
+    <ClInclude Include="SnowFlake.h" />
     <ClInclude Include="Status.h" />
     <ClInclude Include="studio.h" />
     <ClInclude Include="tempuri.org.wsdl.h" />

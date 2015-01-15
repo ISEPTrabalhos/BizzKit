@@ -18,6 +18,7 @@ EnemyCharacter *enemy;
 Obstacle *obstacle;
 Trap *trap;
 Door *door1, *door2, *exitDoor;
+SnowFlake* sf = new SnowFlake();
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim

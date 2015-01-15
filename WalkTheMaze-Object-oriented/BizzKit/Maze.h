@@ -8,6 +8,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Model.h"
+#include "SnowFlake.h"
 
 class Maze {
 public:
