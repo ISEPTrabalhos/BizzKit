@@ -38,6 +38,7 @@ Status::Status(){
 	loginErrorMessage = "";
 	nextInput = false;
 	loggedIn = false;
+	mainMenu = false;
 }
 
 Status::~Status(){}

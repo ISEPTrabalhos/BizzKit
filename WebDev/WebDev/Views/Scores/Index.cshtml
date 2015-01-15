@@ -1,5 +1,7 @@
 ﻿@model IEnumerable<WebDev.Models.Score>
 
+@using WebDev.Resources;
+
 @{
     ViewBag.Title = "Leaderboard";
 }
@@ -9,13 +11,13 @@
 <table class="table">
     <tr>
         <th>
-            Player
+            @Resource.Player
         </th>
         <th>
-            Level
+            @Resource.Level
         </th>
         <th>
-            Score
+            @Resource.Score
         </th>
     </tr>
 

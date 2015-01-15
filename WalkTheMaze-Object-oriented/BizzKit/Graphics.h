@@ -51,6 +51,8 @@ public:
 	// functions for new login window
 	static void loginDisplay(void);
 	static void displayMyText(char *string, float x, float y, float z);
+
+	static void displayMainMenu();
 };
 
 #endif
