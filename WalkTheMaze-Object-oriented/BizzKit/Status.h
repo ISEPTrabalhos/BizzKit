@@ -36,6 +36,7 @@ public:
 	// functions
 	Status();
 	~Status();
+	void setDefaults();
 };
 
 #endif

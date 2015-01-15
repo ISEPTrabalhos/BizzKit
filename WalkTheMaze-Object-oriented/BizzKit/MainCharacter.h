@@ -17,6 +17,7 @@ public:
 
 	bool IsDead();
 	void Die();
+	void setDefaults();
 };
 
 #endif

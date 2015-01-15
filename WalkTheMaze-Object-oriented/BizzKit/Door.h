@@ -11,6 +11,7 @@ public:
 
 	Door(int x, int y, string mdl);
 	~Door();
+	void setDefaults(int x, int y);
 
 };
 

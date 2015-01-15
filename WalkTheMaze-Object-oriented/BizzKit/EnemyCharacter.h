@@ -15,6 +15,7 @@ public:
     
 	EnemyCharacter();
 	~EnemyCharacter();
+	void setDefaults();
 
 };
 

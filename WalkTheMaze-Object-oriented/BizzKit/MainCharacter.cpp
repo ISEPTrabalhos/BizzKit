@@ -33,3 +33,12 @@ void MainCharacter::Die()
 }
 
 MainCharacter::~MainCharacter(){}
+
+
+void MainCharacter::setDefaults() {
+	position->x = -250;
+	position->y = -250;
+	position->z = CHARACTER_HEIGHT * 0.5;
+	dir = 0;
+	health = 100;
+}

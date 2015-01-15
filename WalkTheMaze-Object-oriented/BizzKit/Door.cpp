@@ -10,3 +10,10 @@ Door::Door(int x, int y, string mdl){
 }
 
 Door::~Door(){}
+           
+void Door::setDefaults(int x, int y) {
+	model.SetSequence(0);
+	position->x = x;
+	position->y = y;
+	position->z = 0;
+}

@@ -22,6 +22,7 @@ public:
 	// functions
 	Model();
 	~Model();
+	void setDefaults();
 };
 
 #endif
