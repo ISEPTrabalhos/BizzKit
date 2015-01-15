@@ -546,7 +546,7 @@ void Graphics::drawTrap()
 }
 
 void Graphics::display(void){
-	if (status->loggedIn) {
+	if (status->loggedIn && status->mainMenu == false) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glLoadIdentity();
 		setCamera();
@@ -592,6 +592,9 @@ void Graphics::display(void){
 		glFlush();
 		glutSwapBuffers();
 	}
+	else if (status->mainMenu) {
+		displayMainMenu();
+	}
 	else {
 		loginDisplay();
 	}
@@ -634,6 +637,29 @@ void  Graphics::loginDisplay(void){
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
 	
+}
+
+void Graphics::displayMainMenu() {
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	double width = glutGet(GLUT_WINDOW_WIDTH);
+	double height = glutGet(GLUT_WINDOW_HEIGHT);
+	// switch to 2D for text overlay
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glOrtho(-width, width, -height, height, -1, 1);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glDisable(GL_LIGHTING);
+	
+	glColor3f(0, 1, 0);
+	displayMyText("MAIN MENU", -100, 350, 0);
+	glColor3f(119, 136, 153);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -325, 200, 0);
+
+	glEnable(GL_LIGHTING);
+	glutSwapBuffers();
 }
 
 void Graphics::displayMyText(char *string, float x, float y, float z) {
