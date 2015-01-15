@@ -107,9 +107,20 @@ void Maze::Timer(int value) {
 
 		if (status->mapfile == "quarto1.grafo")
 		{
-			if (character->position->x > 0.331 && character->position->x<11.43 && character->position->y>292.529 && character->position->y < 292.605)
+			if (character->position->x > 10 && character->position->x<15 && character->position->y>285 && character->position->y < 295)
 			{
 				status->mapfile = "quarto2.grafo";
+				character->position->x = -125;
+				character->position->y = -250;
+				leGrafo(status->mapfile);
+			}
+
+			if (character->position->x > 285 && character->position->x<295 && character->position->y>-275 && character->position->y < -265) {
+				status->mapfile = "quarto3.grafo";
+				character->position->x = -250;
+				character->position->y = 250;
+				leGrafo(status->mapfile);
+			
 			}
 			/*else if (character->position->x &&character->position->y){
 				status->mapfile = "quarto3.grafo";
