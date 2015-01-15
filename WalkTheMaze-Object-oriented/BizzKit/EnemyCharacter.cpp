@@ -10,7 +10,7 @@ EnemyCharacter::EnemyCharacter(){
 	position->z = CHARACTER_HEIGHT / 2;
     dir = 0;
     vel = 0.5;
-	health = INT_MAX;
+	health = maxHealth;
 }
 
 EnemyCharacter::~EnemyCharacter(){}

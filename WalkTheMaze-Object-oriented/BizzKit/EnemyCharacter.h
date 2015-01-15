@@ -6,6 +6,7 @@
 
 class EnemyCharacter {
 public:
+	const GLint maxHealth = 10000;
     StudioModel model;
     Point *position;
     GLfloat  dir;
