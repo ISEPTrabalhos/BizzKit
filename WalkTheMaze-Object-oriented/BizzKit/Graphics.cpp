@@ -506,7 +506,6 @@ void Graphics::drawCube(float size)
 		{ xMin, yMax, zMax }
 	};
 
-	glColor3f(1.0, 0.0, 0.0);
 	drawFace(vert[0], vert[1], vert[2], vert[3]);
 	drawFace(vert[4], vert[5], vert[6], vert[7]);
 	drawFace(vert[0], vert[1], vert[5], vert[4]);
@@ -558,6 +557,12 @@ void Graphics::display(void){
 		drawEnemy();
 		drawObstacle();
 		drawTrap();
+		// barra de energia para o jogador; testado apenas na terceira pessoa; comentado, ja existe em numeracao no canto superior direito
+		//GLfloat c1[3] = { 0.2, 0.8, 0.2 };
+		//drawToolTip(0.5, 0.5, 0.67, c1);
+		GLfloat c2[3] = { 0.9, 0.1, 0.1 };
+		//drawToolTip(0.01, 0.01, (float) enemy->health / 100.0, c2);
+		drawToolTip3d(enemy->position->x, enemy->position->y, enemy->position->z + CHARACTER_HEIGHT, enemy->health / enemy->maxHealth, c2);
 
 		drawAxes();
 		material(slate);
@@ -581,20 +586,36 @@ void Graphics::display(void){
 
 		displayHealth(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 
-
-		// barra de energia para o jogador; testado apenas na terceira pessoa; comentado, ja existe em numeracao no canto superior direito
-		//GLfloat c1[3] = { 0.2, 0.8, 0.2 };
-		//drawToolTip(0.5, 0.5, 0.67, c1);
-		GLfloat c2[3] = { 0.9, 0.1, 0.1 };
-		drawToolTip(0.01, 0.01, (float) enemy->health / 100.0, c2);
-
-
 		glFlush();
 		glutSwapBuffers();
 	}
 	else {
 		loginDisplay();
 	}
+}
+
+void Graphics::drawToolTip3d(float x, float y, float z, float hp, GLfloat *c)
+{
+	hp = (hp > 1.0 || hp < 0.0) ? 0.0 : hp;
+	cout << character->dir + 2 * M_PI << endl;
+
+	glDisable(GL_LIGHTING);
+	glPushMatrix();
+	{
+		glTranslatef(x, y, z);
+		glRotatef(graus(character->dir)+90.0, 0.0, 0.0, 1.0);
+		glScalef(0.1, 0.0001, 0.01);
+		glColor3f(0.3, 0.3, 0.3);
+		drawCube(10);
+		glColor3fv(c);
+		glTranslatef(0.0, 1.01, 0.0);
+		glScalef(0.9, 1.0, 0.5);
+		glScalef(hp, 1.0, 1.0);
+		drawCube(10);
+
+	}
+	glPopMatrix();
+	glEnable(GL_LIGHTING);
 }
 
 void  Graphics::loginDisplay(void){ 

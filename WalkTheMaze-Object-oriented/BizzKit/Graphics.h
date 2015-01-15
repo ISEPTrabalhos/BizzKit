@@ -32,6 +32,7 @@ public:
     static void createTextures(GLuint texID[]);
     
 	static void drawToolTip(float x, float y, float hp, GLfloat *c);
+	static void drawToolTip3d(float x, float y, float z, float hp, GLfloat *c);
     static void drawMiniMap(int width, int height);
 	static void displayMapList(int width, int height);
 	static void drawText(string src, int posX, int posY);
