@@ -319,6 +319,13 @@ void Maze::showLoginWindow() {
 	glutMainLoop();
 }
 
+void Maze::spawn(){
+	if (status->mapfile == "quarto2.grafo"){
+		character->position->x = -125;
+		character->position->y = -250;
+	}
+}
+
 void Maze::Launch(int argc, char **argv){
 	status = new Status();
 	glutInit(&argc, argv);
@@ -361,6 +368,8 @@ void Maze::Launch(int argc, char **argv){
 	model->quad = gluNewQuadric();
 	gluQuadricDrawStyle(model->quad, GLU_FILL);
 	gluQuadricNormals(model->quad, GLU_OUTSIDE);
+	
+	spawn();
 
 	leGrafo(status->mapfile);
 

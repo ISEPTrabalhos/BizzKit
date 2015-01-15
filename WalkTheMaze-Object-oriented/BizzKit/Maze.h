@@ -20,6 +20,7 @@ public:
 	static bool CollisionEnemy(GLfloat x, GLfloat y, GLfloat z);
 	static bool DetectTrap(GLfloat x, GLfloat y, GLfloat z);
 	static void showLoginWindow();
+	static void spawn();
 };
 
 #endif
