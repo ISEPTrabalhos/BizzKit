@@ -10,6 +10,7 @@
 #include "Trap.h"
 #include "Door.h"
 #include "SnowFlake.h"
+#include "Rain.h"
 
 class Graphics{
 public:
@@ -54,7 +55,7 @@ public:
 	// functions for new login window
 	static void loginDisplay(void);
 	static void displayMyText(char *string, float x, float y, float z);
-	static void drawEffect(void);
+	static void drawEffect(EFFECT e);
 
 	static void displayMainMenu();
 };

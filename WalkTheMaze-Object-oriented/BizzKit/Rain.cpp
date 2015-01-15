@@ -1,12 +1,11 @@
-#include "SnowFlake.h"
+#include "Rain.h"
+
+Rain::Rain() { flag = true; }
 
 
-SnowFlake::SnowFlake() { flag = true; }
+Rain::~Rain(){}
 
-
-SnowFlake::~SnowFlake(){}
-
-void SnowFlake::draw() {
+void Rain::draw() {
 	if (flag) reGen();
 
 	float delta_theta = 0.01;
@@ -14,7 +13,7 @@ void SnowFlake::draw() {
 	// draw
 	glPushMatrix();
 	glTranslatef(position->x, position->y, 0);
-	glColor3f(1,1,1);
+	glColor3f(0, 0, 1);
 	glBegin(GL_POLYGON); // OR GL_LINE_LOOP
 
 	for (float angle = 0; angle < 2 * M_PI; angle += delta_theta)
@@ -27,7 +26,7 @@ void SnowFlake::draw() {
 	else position->y = limit->y;
 }
 
-void SnowFlake::reGen() {
+void Rain::reGen() {
 	position = new Point();
 	limit = new Point();
 	limit->x = glutGet(GLUT_WINDOW_WIDTH);

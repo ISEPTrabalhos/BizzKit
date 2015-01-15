@@ -32,6 +32,7 @@ Status::Status(){
 	walking = GL_FALSE;
 	falling = GL_FALSE;
 	snow = GL_FALSE;
+	rain = GL_FALSE;
 
 	username = "";
 	password = "";

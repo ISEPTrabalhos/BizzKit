@@ -81,6 +81,7 @@ inline tipo_material operator++(tipo_material &rs, int) {
 typedef	GLdouble Vertice[3];
 typedef	GLdouble Vector[4];
 
+enum EFFECT { SNOW, RAIN };
 
 const GLfloat red_light[] = { 1.0, 0.0, 0.0, 1.0 };
 const GLfloat green_light[] = { 0.0, 1.0, 0.0, 1.0 };

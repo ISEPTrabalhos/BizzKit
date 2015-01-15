@@ -1,11 +1,11 @@
-#ifndef __SnowFlake__
-#define __SnowFlake__
+#ifndef __Rain__
+#define __Rain__
 
 #include "GlobalVars.h"
 #include "Point.h"
 #include <ctime>
 
-class SnowFlake {
+class Rain {
 public:
 	Point *position;
 	Point *limit;
@@ -13,8 +13,8 @@ public:
 	bool flag;
 	GLdouble vel;
 
-	SnowFlake();
-	~SnowFlake();
+	Rain();
+	~Rain();
 	void draw();
 	void reGen();
 };
