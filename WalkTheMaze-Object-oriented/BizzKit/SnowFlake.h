@@ -13,7 +13,7 @@ public:
 	Point *limit;
 	int radious;
 	bool flag;
-
+	GLdouble vel;
 
 	SnowFlake();
 	~SnowFlake();

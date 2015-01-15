@@ -23,7 +23,7 @@ void SnowFlake::draw() {
 	glEnd();
 	glPopMatrix();
 
-	if (position->y >(limit->y * -1)) position->y -=2;
+	if (position->y >(limit->y * -1)) position->y -= vel;
 	else position->y = limit->y;
 }
 
@@ -34,13 +34,13 @@ void SnowFlake::reGen() {
 	limit->y = glutGet(GLUT_WINDOW_HEIGHT);
 	limit->z = 0;
 
+	vel = 2;
+
 	int nx = limit->x * 2;
 	int ny = limit->y * 2;
 	position->x = (rand() % nx) - limit->x;
 	position->y = (rand() % ny) - limit->y;
 	radious = rand() % 10 + 10;
-
-	cout << "::" << position->x << ", " << position->y << endl;
 
 	flag = false;
 }

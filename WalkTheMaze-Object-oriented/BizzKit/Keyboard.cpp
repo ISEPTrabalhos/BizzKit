@@ -208,7 +208,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				break;
 			case '4':
 				if (!status->mainMenu) {
-					status->snow = GLU_TRUE;
+					status->snow = !status->snow;
 				}
 				break;
 			}
