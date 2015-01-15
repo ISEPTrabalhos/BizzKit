@@ -8,6 +8,7 @@
 #include "EnemyCharacter.h"
 #include "Obstacle.h"
 #include "Trap.h"
+#include "Door.h"
 
 class Graphics{
 public:
@@ -41,6 +42,7 @@ public:
 	static void showScore(int width, int height);
 
 	static void drawEnemy();
+	static void drawDoors();
 	static void drawCharacter();
 	static void drawObstacle();
 	static void drawTrap();

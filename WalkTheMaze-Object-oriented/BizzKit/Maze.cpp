@@ -6,6 +6,7 @@
 #include "EnemyCharacter.h"
 #include "Obstacle.h"
 #include "Trap.h"
+#include "Door.h"
 
 #define MAP_COOR_SCALE 5
 #define GAP_CLIMB 0.1
@@ -16,6 +17,7 @@ MainCharacter *character;
 EnemyCharacter *enemy;
 Obstacle *obstacle;
 Trap *trap;
+Door *door1, *door2;
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
@@ -105,9 +107,20 @@ void Maze::Timer(int value) {
 
 		if (status->mapfile == "quarto1.grafo")
 		{
-			if (character->position->x > 0.331 && character->position->x<11.43 && character->position->y>292.529 && character->position->y < 292.605)
+			if (character->position->x > 10 && character->position->x<15 && character->position->y>285 && character->position->y < 295)
 			{
 				status->mapfile = "quarto2.grafo";
+				character->position->x = -125;
+				character->position->y = -250;
+				leGrafo(status->mapfile);
+			}
+
+			if (character->position->x > 285 && character->position->x<295 && character->position->y>-275 && character->position->y < -265) {
+				status->mapfile = "quarto3.grafo";
+				character->position->x = -250;
+				character->position->y = 250;
+				leGrafo(status->mapfile);
+			
 			}
 			/*else if (character->position->x &&character->position->y){
 				status->mapfile = "quarto3.grafo";
@@ -331,6 +344,13 @@ void Maze::showLoginWindow() {
 	glutMainLoop();
 }
 
+void Maze::spawn(){
+	if (status->mapfile == "quarto2.grafo"){
+		character->position->x = -125;
+		character->position->y = -250;
+	}
+}
+
 void Maze::Launch(int argc, char **argv){
 	status = new Status();
 	glutInit(&argc, argv);
@@ -338,6 +358,8 @@ void Maze::Launch(int argc, char **argv){
 	model = new Model();
 	character = new MainCharacter();
 	enemy = new EnemyCharacter();
+	door1 = new Door(15, 290);
+	door2 = new Door(290, -270);
 	obstacle = new Obstacle();
 	trap = new Trap();
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -371,6 +393,8 @@ void Maze::Launch(int argc, char **argv){
 	model->quad = gluNewQuadric();
 	gluQuadricDrawStyle(model->quad, GLU_FILL);
 	gluQuadricNormals(model->quad, GLU_OUTSIDE);
+	
+	spawn();
 
 	leGrafo(status->mapfile);
 

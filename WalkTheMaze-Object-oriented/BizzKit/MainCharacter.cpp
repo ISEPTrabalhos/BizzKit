@@ -8,7 +8,7 @@ MainCharacter::MainCharacter(){
     position->y = -250;
     position->z = CHARACTER_HEIGHT * 0.5;
     dir = 0;
-    vel = 0.7;
+    vel = 3.5;
 	health = 100;
 }
 

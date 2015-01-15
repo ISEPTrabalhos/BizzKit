@@ -89,6 +89,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Door.cpp" />
     <ClCompile Include="Trap.cpp" />
     <ClCompile Include="Upload.cpp" />
     <ClCompile Include="EnemyCharacter.cpp" />
@@ -118,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Door.h" />
     <ClInclude Include="EnemyCharacter.h" />
     <ClInclude Include="GlobalVars.h" />
     <ClInclude Include="Grafo.h" />
