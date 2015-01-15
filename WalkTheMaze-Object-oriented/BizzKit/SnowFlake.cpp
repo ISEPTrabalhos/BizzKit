@@ -23,7 +23,7 @@ void SnowFlake::draw() {
 	glEnd();
 	glPopMatrix();
 
-	if (position->y >(limit->y * -1)) position->y -=4;
+	if (position->y >(limit->y * -1)) position->y -=2;
 	else position->y = limit->y;
 }
 
