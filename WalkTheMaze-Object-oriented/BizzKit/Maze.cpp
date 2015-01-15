@@ -6,6 +6,7 @@
 #include "EnemyCharacter.h"
 #include "Obstacle.h"
 #include "Trap.h"
+#include "Door.h"
 
 #define MAP_COOR_SCALE 5
 #define GAP_CLIMB 0.1
@@ -16,6 +17,7 @@ MainCharacter *character;
 EnemyCharacter *enemy;
 Obstacle *obstacle;
 Trap *trap;
+Door *door1, *door2;
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
@@ -313,6 +315,8 @@ void Maze::Launch(int argc, char **argv){
 	model = new Model();
 	character = new MainCharacter();
 	enemy = new EnemyCharacter();
+	door1 = new Door(15, 290);
+	door2 = new Door(290, -270);
 	obstacle = new Obstacle();
 	trap = new Trap();
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);

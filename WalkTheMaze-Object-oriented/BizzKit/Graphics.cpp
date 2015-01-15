@@ -12,6 +12,7 @@ extern Status *status;
 extern Model *model;
 extern MainCharacter *character;
 extern EnemyCharacter *enemy;
+extern Door *door1, *door2;
 extern Obstacle *obstacle;
 extern Trap *trap;
 
@@ -478,6 +479,23 @@ void Graphics::drawEnemy(){
 	glPopMatrix();
 }
 
+void Graphics::drawDoors() {
+	glPushMatrix();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+		glTranslatef(door1->position->x, door1->position->y, door1->position->z);
+		glRotatef(90, 0, 0, 1);
+		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+		mdlviewer_display(door2->model);
+	glPopMatrix();
+	glPushMatrix();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+		glTranslatef(door2->position->x, door2->position->y, door2->position->z);
+		glRotatef(180, 0, 0, 1);
+		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+		mdlviewer_display(door2->model);
+	glPopMatrix();
+}
+
 void Graphics::drawCharacter(){
 	glPushMatrix();
 	glTranslatef(character->position->x, character->position->y, character->position->z);
@@ -558,6 +576,7 @@ void Graphics::display(void){
 		drawEnemy();
 		drawObstacle();
 		drawTrap();
+		drawDoors();
 		// barra de energia para o jogador; testado apenas na terceira pessoa; comentado, ja existe em numeracao no canto superior direito
 		//GLfloat c1[3] = { 0.2, 0.8, 0.2 };
 		//drawToolTip(0.5, 0.5, 0.67, c1);
