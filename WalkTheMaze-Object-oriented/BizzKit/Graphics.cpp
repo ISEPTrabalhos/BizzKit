@@ -15,7 +15,7 @@ extern EnemyCharacter *enemy;
 extern Door *door1, *door2, *exitDoor;
 extern Obstacle *obstacle;
 extern Trap *trap;
-extern SnowFlake* sf;
+extern SnowFlake* sf[10];
 
 void Graphics::drawEffect(void) {
 	double w = glutGet(GLUT_WINDOW_WIDTH);
@@ -31,7 +31,7 @@ void Graphics::drawEffect(void) {
 
 	glDisable(GL_LIGHTING);
 
-	sf->draw();
+	for (size_t i = 0; i < 40; i++) sf[i]->draw();
 
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
@@ -668,7 +668,7 @@ void Graphics::display(void){
 void Graphics::drawToolTip3d(float x, float y, float z, float hp, GLfloat *c)
 {
 	hp = (hp > 1.0 || hp < 0.0) ? 0.0 : hp;
-	cout << character->dir + 2 * M_PI << endl;
+
 
 	glDisable(GL_LIGHTING);
 	glPushMatrix();

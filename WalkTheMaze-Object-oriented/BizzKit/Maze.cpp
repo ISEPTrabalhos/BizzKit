@@ -18,7 +18,12 @@ EnemyCharacter *enemy;
 Obstacle *obstacle;
 Trap *trap;
 Door *door1, *door2, *exitDoor;
-SnowFlake* sf = new SnowFlake();
+SnowFlake* sf[40] = {
+	new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(),
+	new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(),
+	new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(),
+	new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake()
+};
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
@@ -358,6 +363,9 @@ void Maze::spawn(){
 }
 
 void Maze::Launch(int argc, char **argv){
+	srand(time(NULL));
+	rand();
+
 	status = new Status();
 	glutInit(&argc, argv);
 	alutInit(&argc, argv);
