@@ -530,9 +530,10 @@ void Graphics::drawFace(GLfloat *v1, GLfloat *v2, GLfloat *v3, GLfloat *v4)
 void Graphics::drawObstacle()
 {
 	glPushMatrix();
-	glTranslatef(0.0, 0.0, INFINITESIMO);
+	glBindTexture(GL_TEXTURE_2D, NULL);
 	glTranslatef(obstacle->position->x, obstacle->position->y, obstacle->position->z);
-	drawCube(obstacle->size);
+	glScalef(0.05, 0.05, 0.05);
+	mdlviewer_display(obstacle->model);
 	glPopMatrix();
 }
 
