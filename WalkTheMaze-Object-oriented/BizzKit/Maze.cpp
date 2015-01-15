@@ -117,26 +117,31 @@ void Maze::Timer(int value) {
 
 			if (character->position->x > 285 && character->position->x<295 && character->position->y>-275 && character->position->y < -265) {
 				status->mapfile = "quarto3.grafo";
-				character->position->x = -250;
-				character->position->y = 250;
+				character->position->x = -270;
+				character->position->y = -250;
 				leGrafo(status->mapfile);
+				
 			
 			}
-			/*else if (character->position->x &&character->position->y){
-				status->mapfile = "quarto3.grafo";
-				}*/
+			
 		}
 		else if (status->mapfile == "quarto2.grafo")
 		{
-			if (character->position->x>-137.506 && character->position->x<-134.058 && character->position->y>-266.794 && character->position->y < -256.512){
+			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285){
 				status->mapfile = "quarto1.grafo";
+				character->position->x = 20;
+				character->position->y = 290;
+				leGrafo(status->mapfile);
 			}
 		}
-		//else {
-		//	if (character->position->x &&character->position->y){
-		//		status->mapfile = "quarto1.grafo";
-		//	}
-		//}
+		else {
+			if (character->position->x>-285 && character->position->x<-275 && character->position->y>245 && character->position->y < 255){
+				status->mapfile = "quarto1.grafo";
+				character->position->x = 270;
+				character->position->y = -270;
+				leGrafo(status->mapfile);
+			}
+		}
 
 		if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
 		{

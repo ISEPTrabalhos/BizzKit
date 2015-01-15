@@ -480,10 +480,13 @@ void Graphics::drawEnemy(){
 }
 
 void Graphics::drawDoors() {
-	cout << "FILE: " << status->mapfile << endl;
-	if (status->mapfile.compare("quarto2.grafo") == 0) {
+	if (status->mapfile.compare("quarto1.grafo") == 0) {
+		door1->position->x = 15;
+		door1->position->y = 290;
+	}
+	 else if (status->mapfile.compare("quarto2.grafo") == 0) {
 		door1->position->x = -125;
-		door1->position->y = -290;
+		door1->position->y = -285;
 	}
 	else if (status->mapfile.compare("quarto3.grafo") == 0) {
 		door1->position->x = -280;
