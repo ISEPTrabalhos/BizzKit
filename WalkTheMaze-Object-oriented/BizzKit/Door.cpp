@@ -1,8 +1,8 @@
 #include "Door.h"
 
-Door::Door(int x, int y){
+Door::Door(int x, int y, string mdl){
 	position = new Point();
-	mdlviewer_init("door.mdl", model);
+	mdlviewer_init((char*)mdl.c_str(), model);
 	model.SetSequence(0);
 	position->x = x;
 	position->y = y;

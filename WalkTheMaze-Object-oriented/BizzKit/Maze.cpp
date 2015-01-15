@@ -17,7 +17,7 @@ MainCharacter *character;
 EnemyCharacter *enemy;
 Obstacle *obstacle;
 Trap *trap;
-Door *door1, *door2;
+Door *door1, *door2, *exitDoor;
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
@@ -363,8 +363,11 @@ void Maze::Launch(int argc, char **argv){
 	model = new Model();
 	character = new MainCharacter();
 	enemy = new EnemyCharacter();
-	door1 = new Door(15, 290);
-	door2 = new Door(290, -270);
+	door1 = new Door(15, 290, "door.mdl");
+	door2 = new Door(290, -270, "door.mdl");
+	exitDoor = new Door(280, -280, "exit.mdl");
+	exitDoor->model.SetSequence(1);
+	exitDoor->position->z = 3;
 	obstacle = new Obstacle();
 	trap = new Trap();
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);

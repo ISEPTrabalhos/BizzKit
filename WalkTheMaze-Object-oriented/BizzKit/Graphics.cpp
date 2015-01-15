@@ -12,7 +12,7 @@ extern Status *status;
 extern Model *model;
 extern MainCharacter *character;
 extern EnemyCharacter *enemy;
-extern Door *door1, *door2;
+extern Door *door1, *door2, *exitDoor;
 extern Obstacle *obstacle;
 extern Trap *trap;
 
@@ -506,6 +506,15 @@ void Graphics::drawDoors() {
 			glRotatef(180, 0, 0, 1);
 			glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
 			mdlviewer_display(door2->model);
+		glPopMatrix();
+	}
+	if (status->mapfile.compare("quarto3.grafo") == 0) {
+		glPushMatrix();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+		glTranslatef(exitDoor->position->x, exitDoor->position->y, exitDoor->position->z);
+		glRotatef(0, 0, 0, 1);
+		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+		mdlviewer_display(exitDoor->model);
 		glPopMatrix();
 	}
 	

@@ -9,7 +9,7 @@ public:
 	StudioModel model;
 	Point *position;
 
-	Door(int x, int y);
+	Door(int x, int y, string mdl);
 	~Door();
 
 };
