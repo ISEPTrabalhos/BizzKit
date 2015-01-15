@@ -742,11 +742,14 @@ void Graphics::displayMainMenu() {
 
 	glDisable(GL_LIGHTING);
 
+	glColor3f(0.5, 0.5, 0.5);
+	string score = "Score: " + to_string(status->score) + " Health: " + to_string(character->health);
+	displayMyText((char*)score.c_str(), -width + 10, height - 30, 0);
 	glColor3f(0, 1, 0);
 	displayMyText("MAIN MENU", -100, 350, 0);
 	glColor3f(1.0, 0, 0);
-	displayMyText("C - CONTINUE  | N -  NEW GAME", -300, 275, 0);
-	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -425, 200, 0);
+	displayMyText("C - CONTINUE  | N -  NEW GAME", -250, 275, 0);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -350, 200, 0);
 
 	//draw separator line
 	glLineWidth(1.0);
