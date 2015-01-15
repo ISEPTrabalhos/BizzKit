@@ -132,6 +132,9 @@
     <ClCompile Include="tempuri.org.xsd.c">
       <Filter>Source Files\libs</Filter>
     </ClCompile>
+    <ClCompile Include="Rain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -223,6 +226,9 @@
     </ClInclude>
     <ClInclude Include="tempuri.org.xsd.h">
       <Filter>Header Files\libs</Filter>
+    </ClInclude>
+    <ClInclude Include="Rain.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,6 +24,13 @@ SnowFlake* sf[40] = {
 	new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(),
 	new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake(), new SnowFlake()
 };
+Rain* rain[40] = {
+	new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(),
+	new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(),
+	new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(),
+	new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain()
+};
+
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim

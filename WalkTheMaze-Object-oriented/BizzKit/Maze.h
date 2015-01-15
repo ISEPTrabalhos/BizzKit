@@ -10,6 +10,7 @@
 #include "Model.h"
 #include <time.h>
 #include "SnowFlake.h"
+#include "Rain.h"
 
 class Maze {
 public:

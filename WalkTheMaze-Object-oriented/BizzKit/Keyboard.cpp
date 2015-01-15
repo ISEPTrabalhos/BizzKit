@@ -211,6 +211,11 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 					status->snow = !status->snow;
 				}
 				break;
+			case '5':
+				if (!status->mainMenu) {
+					status->rain = !status->rain;
+				}
+				break;
 			}
 		}
 	}

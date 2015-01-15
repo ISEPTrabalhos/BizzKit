@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Door.cpp" />
+    <ClCompile Include="Rain.cpp" />
     <ClCompile Include="SnowFlake.cpp" />
     <ClCompile Include="Trap.cpp" />
     <ClCompile Include="Upload.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Music.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Rain.h" />
     <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="ServicesHandler.h" />

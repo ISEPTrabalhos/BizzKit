@@ -26,7 +26,7 @@ public:
 	GLboolean daynight;
 	GLboolean walking;
 	GLboolean falling;
-	GLboolean snow;
+	GLboolean snow, rain;
 
 	string username, password, passwd, loginErrorMessage;
 	bool nextInput, loggedIn, mainMenu, showSoundsMenu, showTexturesMenu;

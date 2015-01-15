@@ -5,8 +5,6 @@
 #include "Point.h"
 #include <ctime>
 
-enum EFFECT {SNOW, RAIN};
-
 class SnowFlake {
 public:
 	Point *position;

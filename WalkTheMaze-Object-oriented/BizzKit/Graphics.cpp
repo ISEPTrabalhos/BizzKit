@@ -15,9 +15,10 @@ extern EnemyCharacter *enemy;
 extern Door *door1, *door2, *exitDoor;
 extern Obstacle *obstacle;
 extern Trap *trap;
-extern SnowFlake* sf[10];
+extern SnowFlake* sf[40];
+extern Rain* rain[40];
 
-void Graphics::drawEffect(void) {
+void Graphics::drawEffect(EFFECT e) {
 	double w = glutGet(GLUT_WINDOW_WIDTH);
 	double h = glutGet(GLUT_WINDOW_HEIGHT);
 
@@ -31,7 +32,10 @@ void Graphics::drawEffect(void) {
 
 	glDisable(GL_LIGHTING);
 
-	for (size_t i = 0; i < 40; i++) sf[i]->draw();
+	if (e == EFFECT::SNOW)
+		for (size_t i = 0; i < 40; i++) sf[i]->draw();
+	else if (e == EFFECT::RAIN)
+		for (size_t i = 0; i < 40; i++) rain[i]->draw();
 
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();
@@ -646,7 +650,8 @@ void Graphics::display(void){
 
 		drawMiniMap(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
 		
-		if (status->snow) drawEffect();
+		if (status->snow) drawEffect(EFFECT::SNOW);
+		if (status->rain) drawEffect(EFFECT::RAIN);
 
 		if (status->showMapMenu) {
 			displayMapList(glutGet(GLUT_WINDOW_WIDTH), glutGet(GLUT_WINDOW_HEIGHT));
