@@ -9,7 +9,8 @@ class Rain {
 public:
 	Point *position;
 	Point *limit;
-	int radious;
+	GLdouble lineWidth;
+	int size;
 	bool flag;
 	GLdouble vel;
 

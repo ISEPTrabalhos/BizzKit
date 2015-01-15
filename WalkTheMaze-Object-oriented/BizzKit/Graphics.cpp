@@ -835,6 +835,9 @@ void Graphics::myReshape(int w, int h){
 		glMatrixMode(GL_PROJECTION);
 		Graphics::setProjection(0, 0, GL_FALSE);
 		glMatrixMode(GL_MODELVIEW);
+
+		
+
 	}
     
 }

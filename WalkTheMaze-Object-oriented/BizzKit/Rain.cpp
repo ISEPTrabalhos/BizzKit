@@ -12,13 +12,12 @@ void Rain::draw() {
 
 	// draw
 	glPushMatrix();
-	glTranslatef(position->x, position->y, 0);
-	glColor3f(0, 0, 1);
-	glBegin(GL_POLYGON); // OR GL_LINE_LOOP
-
-	for (float angle = 0; angle < 2 * M_PI; angle += delta_theta)
-		glVertex3f(radious*cos(angle), radious*sin(angle), 0);
-
+	//draw separator line
+	glLineWidth(lineWidth);
+	glColor3f(0.5, 0.6, 0.7);
+	glBegin(GL_LINES);
+	glVertex3f(position->x, position->y, 0.0);
+	glVertex3f(position->x, position->y + size, 0.0);
 	glEnd();
 	glPopMatrix();
 
@@ -33,13 +32,14 @@ void Rain::reGen() {
 	limit->y = glutGet(GLUT_WINDOW_HEIGHT);
 	limit->z = 0;
 
-	vel = 2;
+	vel = 40;
 
 	int nx = limit->x * 2;
 	int ny = limit->y * 2;
 	position->x = (rand() % nx) - limit->x;
 	position->y = (rand() % ny) - limit->y;
-	radious = rand() % 10 + 10;
-
+	 size = rand() % 90 + 20;
+	 lineWidth = 1.0;
+	
 	flag = false;
 }
