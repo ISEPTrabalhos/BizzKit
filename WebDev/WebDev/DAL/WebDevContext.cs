@@ -26,5 +26,7 @@ namespace WebDev.DAL
         public DbSet<Sounds> Sounds { get; set; }
 
         public DbSet<Textures> Textures { get; set; }
+
+        public DbSet<GameRoute> GameRoute { get; set; }
     }
 }

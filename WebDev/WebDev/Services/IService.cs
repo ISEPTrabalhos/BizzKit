@@ -34,5 +34,8 @@ namespace WebDev.Services
 
         [OperationContract]
         string downloadSound(string soundName);
+
+        [OperationContract]
+        void uploadRoute(string username, string level, string route);
     }
 }

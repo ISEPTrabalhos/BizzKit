@@ -164,5 +164,13 @@ namespace WebDev.Services
 
             return url.First().url;
         }
+
+        public void uploadRoute(string username, string level, string route)
+        {
+            GameRoute gameRoute = new GameRoute { username = username, level = level, route = route };
+
+            db.GameRoute.Add(gameRoute);
+            db.SaveChanges();
+        }
     }
 }
