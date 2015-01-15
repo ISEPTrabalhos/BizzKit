@@ -1,9 +1,15 @@
 #include "Keyboard.h"
 #include "Login.h"
 #include "ServicesHandler.h"
+#include "MainCharacter.h"
+#include "EnemyCharacter.h"
+#include "Door.h"
 
 extern Status *status;
 extern Model *model;
+extern MainCharacter *character;
+extern EnemyCharacter *enemy;
+extern Door *door1;
 
 void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 	if (key == 27) {
@@ -159,6 +165,12 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			case 'N':
 				if (status->mainMenu) {
 					//INICIAR NOVO JOGO
+					status->setDefaults();
+					model->setDefaults();
+					character->setDefaults();
+					enemy->setDefaults();
+					door1->setDefaults(15, 290);
+					status->mainMenu = false;
 				}
 				else {
 					status->apresentaNormais = !status->apresentaNormais;
