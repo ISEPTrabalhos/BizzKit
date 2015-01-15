@@ -6,8 +6,10 @@
 
 class Obstacle {
 public:
+	StudioModel model;
     Point *position;
 	float size;
+	float height;
     
 	Obstacle();
 	~Obstacle();
