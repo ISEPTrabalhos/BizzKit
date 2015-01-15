@@ -144,6 +144,9 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				status->main_light = (GLfloat*)white_light;
 			}
 			break;
+		case 'r':
+		case 'R':
+			status->mainMenu = true;
 		}
 	} else {
 		loginKeyboard(key, x, y);
