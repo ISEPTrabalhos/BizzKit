@@ -156,6 +156,11 @@ bool Maze::Walk(int direction) {
 	nx = character->position->x + (direction * character->vel) * cosf(character->dir);
 	ny = character->position->y + (direction * character->vel) * sinf(character->dir);
 
+	if (CollisionObstacle(nx, ny, character->position->z))
+	{
+		return false;
+	}
+
 	for (int n = 0; n < numNos; n++){
 		No ni = nos[n];
 
@@ -255,6 +260,26 @@ bool Maze::Walk(int direction) {
 			return false;
 		}
 	}
+}
+
+bool Maze::CollisionObstacle(GLfloat x, GLfloat y, GLfloat z)
+{
+	GLfloat xMin, xMax;
+	GLfloat yMin, yMax;
+	GLfloat zMin, zMax;
+
+	xMin = obstacle->position->x - obstacle->size / 2;
+	xMax = obstacle->position->x + obstacle->size / 2;
+
+	yMin = obstacle->position->y - obstacle->size / 2;
+	yMax = obstacle->position->y + obstacle->size / 2;
+
+	zMin = obstacle->position->z;
+	zMax = obstacle->position->z + obstacle->height;
+
+	return x >= xMin && x <= xMax &&
+		y >= yMin && y <= yMax &&
+		z >= zMin && z <= zMax;
 }
 
 bool Maze::DetectTrap(GLfloat x, GLfloat y, GLfloat z)
