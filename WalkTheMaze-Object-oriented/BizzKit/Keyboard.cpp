@@ -160,6 +160,9 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				status->showSoundsMenu = false;
 				status->showMapMenu = false;
 				break;
+			case '4':
+				status->snow = GLU_TRUE;
+				break;
 		}
 	} else {
 		loginKeyboard(key, x, y);
