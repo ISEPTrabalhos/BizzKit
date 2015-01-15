@@ -33,6 +33,8 @@ public:
 
 	vector<string> soundsList, texturesList;
 
+	string gameRoute;
+
 	// functions
 	Status();
 	~Status();

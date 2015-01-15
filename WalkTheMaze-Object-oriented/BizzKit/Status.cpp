@@ -46,6 +46,8 @@ Status::Status(){
 
 	soundsList = {};
 	texturesList = {};
+
+	gameRoute = "";
 }
 
 Status::~Status(){}
@@ -91,4 +93,6 @@ void Status::setDefaults() {
 
 	soundsList = {};
 	texturesList = {};
+
+	gameRoute = "";
 }

@@ -1,9 +1,15 @@
 #include "Keyboard.h"
 #include "Login.h"
 #include "ServicesHandler.h"
+#include "MainCharacter.h"
+#include "EnemyCharacter.h"
+#include "Door.h"
 
 extern Status *status;
 extern Model *model;
+extern MainCharacter *character;
+extern EnemyCharacter *enemy;
+extern Door *door1;
 
 void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 	if (key == 27) {
@@ -159,6 +165,12 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			case 'N':
 				if (status->mainMenu) {
 					//INICIAR NOVO JOGO
+					status->setDefaults();
+					model->setDefaults();
+					character->setDefaults();
+					enemy->setDefaults();
+					door1->setDefaults(15, 290);
+					status->mainMenu = false;
 				}
 				else {
 					status->apresentaNormais = !status->apresentaNormais;
@@ -234,9 +246,13 @@ void Keyboard::specialKeyUp(int key, int x, int y)
 			//		status->tecla_o = AL_FALSE;
 			//		break;
 
-		case GLUT_KEY_UP:
+		case GLUT_KEY_UP: {
 			status->up = GL_FALSE;
+			string novo = "(" + to_string((int)character->position->x) + "," + to_string((int)character->position->y) + "," + to_string((int)character->position->y) + "),";
+			status->gameRoute += novo;
+			cout << "GAME ROUTE: " << status->gameRoute << endl;
 			break;
+		}
 		case GLUT_KEY_DOWN:
 			status->down = GL_FALSE;
 			break;
