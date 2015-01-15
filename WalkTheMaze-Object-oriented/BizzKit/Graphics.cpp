@@ -480,20 +480,32 @@ void Graphics::drawEnemy(){
 }
 
 void Graphics::drawDoors() {
+	cout << "FILE: " << status->mapfile << endl;
+	if (status->mapfile.compare("quarto2.grafo") == 0) {
+		door1->position->x = -125;
+		door1->position->y = -290;
+	}
+	else if (status->mapfile.compare("quarto3.grafo") == 0) {
+		door1->position->x = -280;
+		door1->position->y = 250;
+	}
 	glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		glTranslatef(door1->position->x, door1->position->y, door1->position->z);
 		glRotatef(90, 0, 0, 1);
 		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
-		mdlviewer_display(door2->model);
+		mdlviewer_display(door1->model);
 	glPopMatrix();
-	glPushMatrix();
-		glBindTexture(GL_TEXTURE_2D, NULL);
-		glTranslatef(door2->position->x, door2->position->y, door2->position->z);
-		glRotatef(180, 0, 0, 1);
-		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
-		mdlviewer_display(door2->model);
-	glPopMatrix();
+	if (status->mapfile.compare("quarto1.grafo") == 0) {
+		glPushMatrix();
+			glBindTexture(GL_TEXTURE_2D, NULL);
+			glTranslatef(door2->position->x, door2->position->y, door2->position->z);
+			glRotatef(180, 0, 0, 1);
+			glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+			mdlviewer_display(door2->model);
+		glPopMatrix();
+	}
+	
 }
 
 void Graphics::drawCharacter(){
