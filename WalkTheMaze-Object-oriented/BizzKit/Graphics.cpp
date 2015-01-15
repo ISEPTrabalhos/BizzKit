@@ -678,7 +678,7 @@ void Graphics::displayMainMenu() {
 	glColor3f(0, 1, 0);
 	displayMyText("MAIN MENU", -100, 350, 0);
 	glColor3f(1.0, 0, 0);
-	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES  | 0 - EXIT", -450, 200, 0);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -450, 200, 0);
 
 	//draw separator line
 	glLineWidth(1.0);
@@ -691,14 +691,11 @@ void Graphics::displayMainMenu() {
 	if (status->showMapMenu) {
 		displayMyText("1 - Mundo 1", -400, 0, 0);
 		displayMyText("2 - Mundo 2", -400, -75, 0);
-		displayMyText("0 - Go back", -400, -150, 0);
 	}
 	else if (status->showSoundsMenu) {
 		if (status->soundsList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			status->texturesList = handler->getSoundsList();
-		}
-		else {
+			//status->texturesList = handler->getSoundsList();
 			status->soundsList.push_back("Sound 1");
 			status->soundsList.push_back("Sound 2");
 		}
@@ -708,15 +705,11 @@ void Graphics::displayMainMenu() {
 			displayMyText((char*)item.c_str(), -400, posY, 0);
 			posY += -75;
 		}
-		string back = status->soundsList.size() + "Go back";
-		displayMyText((char*)back.c_str(), -400, posY, 0);
 	}
 	else if (status->showTexturesMenu) {
 		if (status->texturesList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			status->texturesList = handler->getTexturesList();
-		}
-		else {
+			//status->texturesList = handler->getTexturesList();
 			status->texturesList.push_back("Texture 1");
 			status->texturesList.push_back("Texture 2");
 		}
@@ -726,9 +719,9 @@ void Graphics::displayMainMenu() {
 			displayMyText((char*)item.c_str(), -400, posY, 0);
 			posY += -75;
 		}
-		string back = status->soundsList.size() + "Go back";
-		displayMyText((char*)back.c_str(), -400, posY, 0);
 	}
+
+	displayMyText("To exit a menu, just press the respective key", -width + 20,  -height + 10, 0);
 
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();

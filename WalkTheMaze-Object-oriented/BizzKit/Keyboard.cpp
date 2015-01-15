@@ -14,7 +14,7 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			Login *login = new Login();
 			int id = login->LoginUser(status->username, status->password);
 			int x = 1;
-			if (true || id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
+			if (id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
 				status->loggedIn = true;
 				Keyboard::help();
 			} else {
@@ -54,7 +54,7 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
 		// in case wordls menu is visible
-		if (status->showMapMenu) {
+		/*if (status->showMapMenu) {
 			switch (key) {
 			case'1':
 				status->mapfile = "mundo1.grafo";
@@ -65,88 +65,101 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				leGrafo(status->mapfile);
 				break;
 			}
-		}
+		}*/
 
 		switch (key){
-		case 27:
-			exit(0);
-			break;
-		case 'h':
-		case 'H':
-			Keyboard::help();
-			break;
-		case 'l':
-		case 'L':
-			if (status->lightViewer)
-				status->lightViewer = 0;
-			else
-				status->lightViewer = 1;
-			glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
-			glutPostRedisplay();
-			break;
-		case 'k':
-		case 'K':
-			status->light = !status->light;
-			glutPostRedisplay();
-			break;
-		case 'w':
-		case 'W':
-			glDisable(GL_LIGHTING);
-			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-			glutPostRedisplay();
-			break;
-		case 'p':
-		case 'P':
-			glDisable(GL_LIGHTING);
-			glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-			glutPostRedisplay();
-			break;
-		case 's':
-		case 'S':
-			glEnable(GL_LIGHTING);
-			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-			glutPostRedisplay();
-			break;
-		case 'c':
-		case 'C':
-			if (glIsEnabled(GL_CULL_FACE))
-				glDisable(GL_CULL_FACE);
-			else
-				glEnable(GL_CULL_FACE);
-			glutPostRedisplay();
-			break;
-		case 'n':
-		case 'N':
-			status->apresentaNormais = !status->apresentaNormais;
-			glutPostRedisplay();
-			break;
-		case 'i':
-		case 'I':
-			status = new Status();
-			model = new Model();
-			glutPostRedisplay();
-			break;
-		case 'o':
-		case 'O':
-			status->tecla_o = !status->tecla_o;
-			break;
-		case 'm':
-		case 'M':
-			status->showMapMenu = !status->showMapMenu;
-			break;
-		case 'd':
-		case 'D':
-			status->daynight = GL_FALSE;
-			if (status->main_light == white_light) {
-				status->main_light = (GLfloat*)night_light;
-			}
-			else {
-				status->main_light = (GLfloat*)white_light;
-			}
-			break;
-		case 'r':
-		case 'R':
-			status->mainMenu = true;
+			case 27:
+				exit(0);
+				break;
+			case 'h':
+			case 'H':
+				Keyboard::help();
+				break;
+			case 'l':
+			case 'L':
+				if (status->lightViewer)
+					status->lightViewer = 0;
+				else
+					status->lightViewer = 1;
+				glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, status->lightViewer);
+				glutPostRedisplay();
+				break;
+			case 'k':
+			case 'K':
+				status->light = !status->light;
+				glutPostRedisplay();
+				break;
+			case 'w':
+			case 'W':
+				glDisable(GL_LIGHTING);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+				glutPostRedisplay();
+				break;
+			case 'p':
+			case 'P':
+				glDisable(GL_LIGHTING);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+				glutPostRedisplay();
+				break;
+			case 's':
+			case 'S':
+				glEnable(GL_LIGHTING);
+				glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+				glutPostRedisplay();
+				break;
+			case 'c':
+			case 'C':
+				if (glIsEnabled(GL_CULL_FACE))
+					glDisable(GL_CULL_FACE);
+				else
+					glEnable(GL_CULL_FACE);
+				glutPostRedisplay();
+				break;
+			case 'n':
+			case 'N':
+				status->apresentaNormais = !status->apresentaNormais;
+				glutPostRedisplay();
+				break;
+			case 'i':
+			case 'I':
+				status = new Status();
+				model = new Model();
+				glutPostRedisplay();
+				break;
+			case 'o':
+			case 'O':
+				status->tecla_o = !status->tecla_o;
+				break;
+			case 'm':
+			case 'M':
+				//status->showMapMenu = !status->showMapMenu;
+				status->mainMenu = !status->mainMenu;
+				break;
+			case 'd':
+			case 'D':
+				status->daynight = GL_FALSE;
+				if (status->main_light == white_light) {
+					status->main_light = (GLfloat*)night_light;
+				}
+				else {
+					status->main_light = (GLfloat*)white_light;
+				}
+				break;
+			case '1':
+				status->showMapMenu = !status->showMapMenu;
+				status->showSoundsMenu = false;
+				status->showTexturesMenu = false;
+				break;
+			case '2':
+				status->showSoundsMenu = !status->showSoundsMenu;
+				status->showMapMenu = false;
+				status->showTexturesMenu = false;
+				break;
+			case '3':
+				status->showTexturesMenu = !status->showTexturesMenu;
+				status->showSoundsMenu = false;
+				status->showMapMenu = false;
+				break;
 		}
 	} else {
 		loginKeyboard(key, x, y);
