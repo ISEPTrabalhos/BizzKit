@@ -246,9 +246,13 @@ void Keyboard::specialKeyUp(int key, int x, int y)
 			//		status->tecla_o = AL_FALSE;
 			//		break;
 
-		case GLUT_KEY_UP:
+		case GLUT_KEY_UP: {
 			status->up = GL_FALSE;
+			string novo = "(" + to_string((int)character->position->x) + "," + to_string((int)character->position->y) + "," + to_string((int)character->position->y) + "),";
+			status->gameRoute += novo;
+			cout << "GAME ROUTE: " << status->gameRoute << endl;
 			break;
+		}
 		case GLUT_KEY_DOWN:
 			status->down = GL_FALSE;
 			break;
