@@ -14,7 +14,7 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			Login *login = new Login();
 			int id = login->LoginUser(status->username, status->password);
 			int x = 1;
-			if (id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
+			if (true || id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
 				status->loggedIn = true;
 				Keyboard::help();
 			} else {

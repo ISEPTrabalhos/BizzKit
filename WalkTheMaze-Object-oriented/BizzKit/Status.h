@@ -28,7 +28,9 @@ public:
 	GLboolean falling;
 
 	string username, password, passwd, loginErrorMessage;
-	bool nextInput, loggedIn, mainMenu;
+	bool nextInput, loggedIn, mainMenu, showSoundsMenu, showTexturesMenu;
+
+	vector<string> soundsList, texturesList;
 
 	// functions
 	Status();

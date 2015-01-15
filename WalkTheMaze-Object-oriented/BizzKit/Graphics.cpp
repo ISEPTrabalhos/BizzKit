@@ -1,5 +1,6 @@
 #include "Graphics.h"
 #include "MapsReceiver.h"
+#include "ServicesHandler.h"
 
 #define SCALE_HOMER 0.02
 #define GRAUS(x)        (180*(x)/M_PI)
@@ -673,11 +674,61 @@ void Graphics::displayMainMenu() {
 	glLoadIdentity();
 
 	glDisable(GL_LIGHTING);
-	
+
 	glColor3f(0, 1, 0);
 	displayMyText("MAIN MENU", -100, 350, 0);
-	glColor3f(119, 136, 153);
-	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -325, 200, 0);
+	glColor3f(1.0, 0, 0);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES  | 0 - EXIT", -450, 200, 0);
+
+	//draw separator line
+	glLineWidth(1.0);
+	glColor3f(0.7, 0.7, 0.7);
+	glBegin(GL_LINES);
+	glVertex3f(-580, 125, 0.0);
+	glVertex3f(580, 125, 0);
+	glEnd();
+
+	if (status->showMapMenu) {
+		displayMyText("1 - Mundo 1", -400, 0, 0);
+		displayMyText("2 - Mundo 2", -400, -75, 0);
+		displayMyText("0 - Go back", -400, -150, 0);
+	}
+	else if (status->showSoundsMenu) {
+		if (status->soundsList.empty()) {
+			ServicesHandler *handler = new ServicesHandler();
+			status->texturesList = handler->getSoundsList();
+		}
+		else {
+			status->soundsList.push_back("Sound 1");
+			status->soundsList.push_back("Sound 2");
+		}
+		int posY = 0;
+		for (int i = 0; i < status->soundsList.size(); i++) {
+			string item = (i + 1) + " - " + status->soundsList.at(i);
+			displayMyText((char*)item.c_str(), -400, posY, 0);
+			posY += -75;
+		}
+		string back = status->soundsList.size() + "Go back";
+		displayMyText((char*)back.c_str(), -400, posY, 0);
+	}
+	else if (status->showTexturesMenu) {
+		if (status->texturesList.empty()) {
+			ServicesHandler *handler = new ServicesHandler();
+			status->texturesList = handler->getTexturesList();
+		}
+		else {
+			status->texturesList.push_back("Texture 1");
+			status->texturesList.push_back("Texture 2");
+		}
+		int posY = 0;
+		for (int i = 0; i < status->texturesList.size(); i++) {
+			string item = (i + 1) + " - " + status->texturesList.at(i);
+			displayMyText((char*)item.c_str(), -400, posY, 0);
+			posY += -75;
+		}
+		string back = status->soundsList.size() + "Go back";
+		displayMyText((char*)back.c_str(), -400, posY, 0);
+	}
 
 	glEnable(GL_LIGHTING);
 	glutSwapBuffers();

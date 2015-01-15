@@ -39,6 +39,11 @@ Status::Status(){
 	nextInput = false;
 	loggedIn = false;
 	mainMenu = false;
+	showSoundsMenu = false;
+	showTexturesMenu = false;
+
+	soundsList = {};
+	texturesList = {};
 }
 
 Status::~Status(){}
