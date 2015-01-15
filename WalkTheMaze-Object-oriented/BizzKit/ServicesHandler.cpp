@@ -1,9 +1,12 @@
 #include "ServicesHandler.h"
+#include "Status.h"
 #include<windows.h>
 #include <tchar.h>
 #include <urlmon.h>
 #pragma comment(lib, "urlmon.lib")
 #pragma comment(lib,"wininet.lib")
+
+extern Status *status;
 
 ServicesHandler::ServicesHandler(){
 	hr = ERROR_SUCCESS;
@@ -113,14 +116,15 @@ string ServicesHandler::convertWcharToString(wchar_t* src) {
 	return converterX.to_bytes(wstr);
 }
 
-int ServicesHandler::uploadRoute(string user, int score, int pos_x, int pos_y)
+void ServicesHandler::uploadRoute(string route)
 {
-	wstring string1 = convertStringToWstring(user);
+	wstring string1 = convertStringToWstring(status->username);
 	wchar_t *username = const_cast<wchar_t*>(string1.c_str());
-
-	int *result = 0;
-	//hr = BasicHttp_Binding_IService_UploadRoute(proxy, username, score,pos_x,pos_y, result, NULL, 0, NULL, error);
-	return *result;
+	wstring string2 = convertStringToWstring(status->mapfile);
+	wchar_t *level = const_cast<wchar_t*>(string1.c_str());
+	wstring string3 = convertStringToWstring(route);
+	wchar_t *gameRoute = const_cast<wchar_t*>(string3.c_str());
+	///hr = BasicHttpBinding_IService_uploadRoute(proxy, username, level, gameRoute, heap, NULL, 0, NULL, error);
 }
 
 vector<string> ServicesHandler::getSoundsList() {

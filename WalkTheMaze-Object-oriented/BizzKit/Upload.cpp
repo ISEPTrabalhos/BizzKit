@@ -3,7 +3,8 @@
 
 int Upload::uploadProgress(string username, int score, int pos_x, int pos_y)
 {
-	ServicesHandler *service = new ServicesHandler;
+	/*ServicesHandler *service = new ServicesHandler;
 	int res = service->uploadRoute(username, score, pos_x, pos_y);
-	return res;
+	return res;*/
+	return 1;
 }
