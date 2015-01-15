@@ -491,13 +491,15 @@ void Graphics::setCamera(){
 }
 
 void Graphics::drawEnemy(){
-	glPushMatrix();
-	glBindTexture(GL_TEXTURE_2D, NULL);
-	glTranslatef(enemy->position->x, enemy->position->y, enemy->position->z);
-	glRotatef(GRAUS(enemy->dir), 0, 0, 1);
-	glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
-	mdlviewer_display(enemy->model);
-	glPopMatrix();
+	if (status->mapfile.compare("quarto3.grafo") == 0) {
+		glPushMatrix();
+		glBindTexture(GL_TEXTURE_2D, NULL);
+		glTranslatef(enemy->position->x, enemy->position->y, enemy->position->z);
+		glRotatef(GRAUS(enemy->dir), 0, 0, 1);
+		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+		mdlviewer_display(enemy->model);
+		glPopMatrix();
+	}
 }
 
 void Graphics::drawDoors() {
@@ -602,11 +604,13 @@ void Graphics::drawObstacle()
 
 void Graphics::drawTrap()
 {
-	glPushMatrix();
-	glTranslatef(trap->position->x, trap->position->y, trap->position->z);
-	glScalef(1.0, 1.0, trap->height);
-	drawCube(obstacle->size);
-	glPopMatrix();
+	if (status->mapfile.compare("quarto3.grafo") == 0) {
+		glPushMatrix();
+		glTranslatef(trap->position->x, trap->position->y, trap->position->z);
+		glScalef(1.0, 1.0, trap->height);
+		drawCube(obstacle->size);
+		glPopMatrix();
+	}
 }
 
 void Graphics::display(void){
