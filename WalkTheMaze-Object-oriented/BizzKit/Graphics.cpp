@@ -518,18 +518,22 @@ void Graphics::drawDoors() {
 	else if (status->mapfile.compare("quarto3.grafo") == 0) {
 		door1->position->x = -280;
 		door1->position->y = 250;
+		exitDoor->position->x = 280;
+		exitDoor->position->y = -280;
 	}
 	else if (status->mapfile.compare("mundo1.grafo") == 0) {
-		door1->position->x = 150;
-		door1->position->y = 290;
+		exitDoor->position->x = 150;
+		exitDoor->position->y = 290;
 	}
-	glPushMatrix();
+	if (status->mapfile.compare("mundo1.grafo") != 0) {
+		glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		glTranslatef(door1->position->x, door1->position->y, door1->position->z);
 		glRotatef(90, 0, 0, 1);
 		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
 		mdlviewer_display(door1->model);
-	glPopMatrix();
+		glPopMatrix();
+	}
 	if (status->mapfile.compare("quarto1.grafo") == 0) {
 		glPushMatrix();
 			glBindTexture(GL_TEXTURE_2D, NULL);
@@ -539,11 +543,16 @@ void Graphics::drawDoors() {
 			mdlviewer_display(door2->model);
 		glPopMatrix();
 	}
-	if (status->mapfile.compare("quarto3.grafo") == 0) {
+	if (status->mapfile.compare("quarto3.grafo") == 0 || status->mapfile.compare("mundo1.grafo") == 0) {
 		glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		glTranslatef(exitDoor->position->x, exitDoor->position->y, exitDoor->position->z);
-		glRotatef(0, 0, 0, 1);
+		if (status->mapfile.compare("quarto3.grafo") == 0) {
+			glRotatef(0, 0, 0, 1);
+		}
+		else {
+			glRotatef(90, 0, 0, 1);
+		}
 		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
 		mdlviewer_display(exitDoor->model);
 		glPopMatrix();
