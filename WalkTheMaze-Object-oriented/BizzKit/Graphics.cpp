@@ -519,6 +519,10 @@ void Graphics::drawDoors() {
 		door1->position->x = -280;
 		door1->position->y = 250;
 	}
+	else if (status->mapfile.compare("mundo1.grafo") == 0) {
+		door1->position->x = 150;
+		door1->position->y = 290;
+	}
 	glPushMatrix();
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		glTranslatef(door1->position->x, door1->position->y, door1->position->z);
