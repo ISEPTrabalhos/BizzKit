@@ -7,7 +7,7 @@ SnowFlake::SnowFlake() { flag = true; }
 SnowFlake::~SnowFlake(){}
 
 void SnowFlake::draw() {
-	if (flag) reGen();
+	if (flag || limit->x != glutGet(GLUT_WINDOW_WIDTH)) reGen();
 
 	float delta_theta = 0.01;
 

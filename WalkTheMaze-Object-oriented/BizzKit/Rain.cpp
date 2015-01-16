@@ -6,7 +6,7 @@ Rain::Rain() { flag = true; }
 Rain::~Rain(){}
 
 void Rain::draw() {
-	if (flag) reGen();
+	if (flag || limit->x != glutGet(GLUT_WINDOW_WIDTH)) reGen();
 
 	float delta_theta = 0.01;
 
