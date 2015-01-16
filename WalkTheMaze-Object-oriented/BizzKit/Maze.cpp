@@ -48,7 +48,6 @@ void Maze::Timer(int value) {
 
     glutTimerFunc(status->timer, Timer, 0);
 
-
 	if (status->tecla_o) status->background_music->toggle();
 
 	if (!character->IsDead()){
@@ -64,12 +63,14 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-
+					status->score += 10;
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("falling.wav");
 						f->play();
+						status->score -= 100;
+						
 					}
 
 				}
@@ -82,12 +83,13 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-
+					status->score += 10;
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("falling.wav");
 						f->play();
+						status->score -= 100;
 					}
 				}
 			}
@@ -97,10 +99,12 @@ void Maze::Timer(int value) {
 			if (status->left){
 				character->dir += rad(2);
 				status->camera->dir_long = character->dir;
+				status->score += 10;
 			}
 			else if (status->right){
 				character->dir -= rad(2);
 				status->camera->dir_long = character->dir;
+				status->score += 10;
 			}
 
 			if (status->walking && character->homer.GetSequence() != 3){
@@ -201,6 +205,7 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
+				status->score -= 100;
 				return false;
 			}
 			character->position->x = nx;
@@ -240,6 +245,7 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
+				status->score -= 100;
 				return false;
 			}
 				
@@ -260,6 +266,7 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
+				status->score -= 100;
 				return false;
 			}
 				
@@ -281,6 +288,7 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
+				status->score -= 100;
 				return false;
 			}
 
