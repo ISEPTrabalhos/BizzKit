@@ -16,7 +16,7 @@ ServicesHandler::ServicesHandler(){
 	address = {};
 	templ = {};
 	// endereço do serviço
-	url = WS_STRING_VALUE(L"http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc");
+	url = WS_STRING_VALUE(L"http://localhost:43492/Services/Service.svc");
 	address.url = url;
 	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
 
@@ -187,7 +187,14 @@ void ServicesHandler::saveTexture(string name) {
 	//hr = BasicHttpBinding_IService_downloadTexture(proxy, textureName, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
-	string filename = name + ".jpg";
+	
+	string filename;
+	if (name.find("Floor") != std::string::npos) {
+		filename = "floor.jpg";
+	}
+	else {
+		filename = "wall.jpg";
+	}
 
 	saveFile(url, filename);
 

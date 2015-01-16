@@ -878,7 +878,7 @@ void Graphics::createTextures(GLuint texID[]) {
         exit(0);
     }
 
-	if (read_JPEG_file("Wall.jpg", &image, &w, &h, &bpp))
+	if (read_JPEG_file("wall.jpg", &image, &w, &h, &bpp))
 	{
 		// Create MipMapped Texture
 		glBindTexture(GL_TEXTURE_2D, texID[1]);
@@ -890,7 +890,7 @@ void Graphics::createTextures(GLuint texID[]) {
 
 	else
 	{
-		printf("Texture %s not Found\n", "Wall.jpg");
+		printf("Texture %s not Found\n", "wall.jpg");
 		exit(0);
 	}
     glBindTexture(GL_TEXTURE_2D, NULL);
