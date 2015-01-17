@@ -31,9 +31,9 @@ Rain* rain[40] = {
 	new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain()
 };
 
-
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
+int lastAttackTime = 0;
 
 void Maze::Timer(int value) {
 	if (status->daynight) {
@@ -50,8 +50,8 @@ void Maze::Timer(int value) {
 
 	if (status->tecla_o) status->background_music->toggle();
 
+	ChasePlayer();
 	if (!character->IsDead()){
-		ChasePlayer();
 
 		if (!status->falling){
 			GLfloat nx = 0, ny = 0, z = character->position->z;
@@ -65,13 +65,15 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					status->score += 10;
+					status->score += 1;
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("fall.wav");
 						f->play();
-						status->score -= 100;
+						status->score -= 10;
+						if (status->score <= 0)
+							status->score = 0;
 
 					}
 
@@ -85,13 +87,13 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					status->score += 10;
+					
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("fall.wav");
 						f->play();
-						status->score -= 100;
+						
 					}
 				}
 			}
@@ -124,10 +126,9 @@ void Maze::Timer(int value) {
 			//Timer(10);
 		}
 
-		if (status->mapfile == "quarto1.grafo")
-		{
-			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295)
-			{
+		if (status->mapfile == "quarto1.grafo") {
+
+			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295) {
 				status->mapfile = "quarto2.grafo";
 				character->position->x = -125;
 				character->position->y = -250;
@@ -139,14 +140,16 @@ void Maze::Timer(int value) {
 				character->position->x = -270;
 				character->position->y = 250;
 				leGrafo(status->mapfile);
+			}
 
-
+			if (character->position->x > 185 && character->position->x<195 && character->position->y>285 && character->position->y < 295) {
+				//	Win the Game
 			}
 
 		}
-		else if (status->mapfile == "quarto2.grafo")
-		{
-			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285){
+		else if (status->mapfile == "quarto2.grafo") {
+
+			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285) {
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 20;
 				character->position->y = 290;
@@ -154,17 +157,17 @@ void Maze::Timer(int value) {
 			}
 		}
 		else {
-			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255){
+			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255) {
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 270;
 				character->position->y = -270;
 				leGrafo(status->mapfile);
 			}
-		}
 
-		if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
-		{
-			character->Die();
+			if (character->position->x>275 && character->position->x < 285 && character->position->y>-285 && character->position->y < -275) {
+				// Win the Game
+			}
+				
 		}
 
 		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
@@ -190,6 +193,10 @@ void Maze::ChasePlayer()
 
 	GLfloat range = 50.0;
 
+	GLfloat enemyX = enemy->position->x;
+	GLfloat enemyY = enemy->position->y;
+	GLfloat enemyZ = enemy->position->z;
+
 	GLfloat playerX = character->position->x;
 	GLfloat playerY = character->position->y;
 	GLfloat playerZ = character->position->z;
@@ -207,32 +214,53 @@ void Maze::ChasePlayer()
 	zMin = enemy->position->z - range;
 	zMax = enemy->position->z + range;
 
-	if (playerX >= xMin && playerX <= xMax &&
-		playerY >= yMin && playerY <= yMax &&
-		playerZ >= zMin && playerZ <= zMax)
+	if (!character->IsDead())
 	{
-		if (enemy->model.GetSequence() != 3)
+		if (CollisionEnemy(playerX, playerY, playerZ))
 		{
-			enemy->model.SetSequence(3); //4
+			if (enemy->model.GetSequence() != 76)
+				enemy->model.SetSequence(76);
+
+			int tempTime = time(NULL); // time está em segundos
+			if (tempTime > lastAttackTime) // se for maior, passou um segundo, no mínimo
+			{
+				lastAttackTime = tempTime;
+				character->health -= enemy->damage;
+				status->score -= 100 * enemy->damage;
+			}
 		}
-
-		double ladoAdjacente = playerX - enemy->position->x;
-		double ladoOposto = playerY - enemy->position->y;
-		double ladoHipotenusa = sqrt(pow(ladoAdjacente, 2) + pow(ladoOposto, 2));
-
-		enemy->dir = atan2(ladoOposto, ladoAdjacente);
-
-		if (playerX > enemy->position->x || playerX < enemy->position->x)
+		else if (playerX >= xMin && playerX <= xMax &&
+			playerY >= yMin && playerY <= yMax &&
+			playerZ >= zMin && playerZ <= zMax)
 		{
-			enemy->position->x += enemy->vel * cos(enemy->dir);
+			if (enemy->model.GetSequence() != 4)
+			{
+				enemy->model.SetSequence(4);
+			}
+
+			double ladoAdjacente = playerX - enemy->position->x;
+			double ladoOposto = playerY - enemy->position->y;
+			double ladoHipotenusa = sqrt(pow(ladoAdjacente, 2) + pow(ladoOposto, 2));
+
+			enemy->dir = atan2(ladoOposto, ladoAdjacente);
+
+			if (playerX > enemy->position->x || playerX < enemy->position->x)
+			{
+				enemy->position->x += enemy->vel * cos(enemy->dir);
+			}
+
+			if (playerY > enemy->position->y || playerY < enemy->position->y)
+			{
+				enemy->position->y += enemy->vel * sin(enemy->dir);
+			}
 		}
-
-		if (playerY > enemy->position->y || playerY < enemy->position->y)
+		else // retorna ao lugar ou fica parado
 		{
-			enemy->position->y += enemy->vel * sin(enemy->dir);
+			if (enemy->model.GetSequence() != 1)
+				enemy->model.SetSequence(1);
 		}
 	}
-	else // retorna ao lugar ou fica parado
+	else
 	{
 		if (enemy->model.GetSequence() != 1)
 			enemy->model.SetSequence(1);
@@ -265,7 +293,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
@@ -306,7 +336,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
@@ -328,7 +360,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
@@ -351,7 +385,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}

@@ -663,11 +663,7 @@ void Graphics::display(void){
 		drawObstacle();
 		drawTrap();
 		drawDoors();
-		// barra de energia para o jogador; testado apenas na terceira pessoa; comentado, ja existe em numeracao no canto superior direito
-		//GLfloat c1[3] = { 0.2, 0.8, 0.2 };
-		//drawToolTip(0.5, 0.5, 0.67, c1);
 		GLfloat c2[3] = { 0.9, 0.1, 0.1 };
-		//drawToolTip(0.01, 0.01, (float) enemy->health / 100.0, c2);
 		drawToolTip3d(enemy->position->x, enemy->position->y, enemy->position->z + CHARACTER_HEIGHT, enemy->health / enemy->maxHealth, c2);
 
 		drawAxes();
