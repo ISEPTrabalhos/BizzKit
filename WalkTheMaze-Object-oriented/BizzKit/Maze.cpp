@@ -69,7 +69,7 @@ void Maze::Timer(int value) {
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
-						Music *f = new Music("falling.wav");
+						Music *f = new Music("fall.wav");
 						f->play();
 						status->score -= 100;
 
@@ -89,7 +89,7 @@ void Maze::Timer(int value) {
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
-						Music *f = new Music("falling.wav");
+						Music *f = new Music("fall.wav");
 						f->play();
 						status->score -= 100;
 					}
