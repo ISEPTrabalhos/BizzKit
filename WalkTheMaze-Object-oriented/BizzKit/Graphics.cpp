@@ -809,33 +809,29 @@ void Graphics::displayMainMenu() {
 	else if (status->showSoundsMenu) {
 		if (status->soundsList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			//status->texturesList = handler->getSoundsList();
-			status->soundsList.push_back("Sound 1");
-			status->soundsList.push_back("Sound 2");
+			//status->soundsList = handler->getSoundsList();
 		}
 		int posY = 0;
 		for (int i = 0; i < status->soundsList.size(); i++) {
-			string item = (i + 1) + " - " + status->soundsList.at(i);
+			string item = to_string(i + 1) + " - " + status->soundsList.at(i);
 			displayMyText((char*)item.c_str(), -200, posY, 0);
 			posY += -75;
 		}
-		string back = status->soundsList.size() + "Go back";
+		string back = "0 - Go back";
 		displayMyText((char*)back.c_str(), -200, posY, 0);
 	}
 	else if (status->showTexturesMenu) {
 		if (status->texturesList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
 			//status->texturesList = handler->getTexturesList();
-			status->texturesList.push_back("Texture 1");
-			status->texturesList.push_back("Texture 2");
 		}
 		int posY = 0;
 		for (int i = 0; i < status->texturesList.size(); i++) {
-			string item = (i + 1) + " - " + status->texturesList.at(i);
+			string item = to_string(i + 1) + " - " + status->texturesList.at(i);
 			displayMyText((char*)item.c_str(), -200, posY, 0);
 			posY += -75;
 		}
-		string back = status->soundsList.size() + "Go back";
+		string back = "0 - Go back";
 		displayMyText((char*)back.c_str(), -200, posY, 0);
 	}
 

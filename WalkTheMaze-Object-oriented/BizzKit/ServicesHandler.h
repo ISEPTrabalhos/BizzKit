@@ -34,7 +34,7 @@ public:
 	int signIn(string user, string pass);
 	vector<string> getMapsList();
 	void saveSingleMap(string lvl);
-	int score(string user, string level, int score);
+	void uploadScore(int score);
 	void uploadRoute(string route);
 	vector<string> getSoundsList();
 	void saveSound(string soundName);

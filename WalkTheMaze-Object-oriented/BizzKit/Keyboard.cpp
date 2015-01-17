@@ -4,6 +4,7 @@
 #include "MainCharacter.h"
 #include "EnemyCharacter.h"
 #include "Door.h"
+#include "Graphics.h"
 
 extern Status *status;
 extern Model *model;
@@ -91,6 +92,8 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			if (option > 0 && option <= status->soundsList.size()) {
 				ServicesHandler *handler = new ServicesHandler();
 				//handler->saveSound(status->soundsList.at(option-1));
+				status->showSoundsMenu = false;
+				Graphics::createTextures(model->texID);
 			}
 		}
 		else if (status->showTexturesMenu) {
@@ -104,6 +107,8 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			if (option > 0 && option <= status->texturesList.size()) {
 				ServicesHandler *handler = new ServicesHandler();
 				//handler->saveTexture(status->texturesList.at(option-1));
+				status->showTexturesMenu = false;
+				Graphics::createTextures(model->texID);
 			}
 		}
 		else {

@@ -15,7 +15,7 @@ namespace WebDev.Services
         int Login(string username, string password);
 
         [OperationContract]
-        int Score(string username, string levelName, int score);
+        void Score(string username, string levelName, int score);
 
         [OperationContract]
         string ListLevels();
