@@ -46,11 +46,13 @@ void Maze::Timer(int value) {
 		}
 	}
 
-    glutTimerFunc(status->timer, Timer, 0);
+	glutTimerFunc(status->timer, Timer, 0);
 
 	if (status->tecla_o) status->background_music->toggle();
 
 	if (!character->IsDead()){
+		ChasePlayer();
+
 		if (!status->falling){
 			GLfloat nx = 0, ny = 0, z = character->position->z;
 
@@ -70,7 +72,7 @@ void Maze::Timer(int value) {
 						Music *f = new Music("falling.wav");
 						f->play();
 						status->score -= 100;
-						
+
 					}
 
 				}
@@ -99,12 +101,12 @@ void Maze::Timer(int value) {
 			if (status->left){
 				character->dir += rad(2);
 				status->camera->dir_long = character->dir;
-				
+
 			}
 			else if (status->right){
 				character->dir -= rad(2);
 				status->camera->dir_long = character->dir;
-				
+
 			}
 
 			if (status->walking && character->homer.GetSequence() != 3){
@@ -124,7 +126,7 @@ void Maze::Timer(int value) {
 
 		if (status->mapfile == "quarto1.grafo")
 		{
-			if (character->position->x > 10 && character->position->x<15 && character->position->y>285 && character->position->y < 295)
+			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295)
 			{
 				status->mapfile = "quarto2.grafo";
 				character->position->x = -125;
@@ -137,10 +139,10 @@ void Maze::Timer(int value) {
 				character->position->x = -270;
 				character->position->y = 250;
 				leGrafo(status->mapfile);
-				
-			
+
+
 			}
-			
+
 		}
 		else if (status->mapfile == "quarto2.grafo")
 		{
@@ -152,7 +154,7 @@ void Maze::Timer(int value) {
 			}
 		}
 		else {
-			if (character->position->x>-285 && character->position->x<-275 && character->position->y>245 && character->position->y < 255){
+			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255){
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 270;
 				character->position->y = -270;
@@ -176,7 +178,65 @@ void Maze::Timer(int value) {
 		//	character->homer.SetSequence(19);
 		character->homer.SetSequence(73);
 	}
-    glutPostRedisplay();
+
+	glutPostRedisplay();
+}
+
+void Maze::ChasePlayer()
+{
+	static GLfloat enemyInitialX = enemy->position->x;
+	static GLfloat enemyInitialY = enemy->position->y;
+	static GLfloat enemyInitialZ = enemy->position->z;
+
+	GLfloat range = 150.0;
+
+	GLfloat playerX = character->position->x;
+	GLfloat playerY = character->position->y;
+	GLfloat playerZ = character->position->z;
+
+	GLfloat xMin, xMax;
+	GLfloat yMin, yMax;
+	GLfloat zMin, zMax;
+
+	xMin = enemy->position->x - range;
+	xMax = enemy->position->x + range;
+
+	yMin = enemy->position->y - range;
+	yMax = enemy->position->y + range;
+
+	zMin = enemy->position->z - range;
+	zMax = enemy->position->z + range;
+
+	if (playerX >= xMin && playerX <= xMax &&
+		playerY >= yMin && playerY <= yMax &&
+		playerZ >= zMin && playerZ <= zMax)
+	{
+		if (enemy->model.GetSequence() != 3)
+		{
+			enemy->model.SetSequence(3); //4
+		}
+
+		double ladoAdjacente = playerX - enemy->position->x;
+		double ladoOposto = playerY - enemy->position->y;
+		double ladoHipotenusa = sqrt(pow(ladoAdjacente, 2) + pow(ladoOposto, 2));
+
+		enemy->dir = atan2(ladoOposto, ladoAdjacente);
+
+		if (playerX > enemy->position->x || playerX < enemy->position->x)
+		{
+			enemy->position->x += enemy->vel * cos(enemy->dir);
+		}
+
+		if (playerY > enemy->position->y || playerY < enemy->position->y)
+		{
+			enemy->position->y += enemy->vel * sin(enemy->dir);
+		}
+	}
+	else // retorna ao lugar ou fica parado
+	{
+		if (enemy->model.GetSequence() != 1)
+			enemy->model.SetSequence(1);
+	}
 }
 
 bool Maze::Walk(int direction) {
@@ -235,9 +295,9 @@ bool Maze::Walk(int direction) {
 		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha + M_PI) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha + M_PI);
 		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha + M_PI) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha + M_PI);
 
-		if (0.0 <= nxx 
-			&& nxx <= si 
-			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy 
+		if (0.0 <= nxx
+			&& nxx <= si
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy
 			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
 
 			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
@@ -248,14 +308,14 @@ bool Maze::Walk(int direction) {
 				status->score -= 100;
 				return false;
 			}
-				
+
 			character->position->x = nx;
 			character->position->y = ny;
 			character->position->z = nz;
 			status->walking = GL_TRUE;
 			return false;
 		}
-		
+
 		if (0.0 <= nfxx
 			&& nfxx <= sf
 			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nfyy
@@ -269,7 +329,7 @@ bool Maze::Walk(int direction) {
 				status->score -= 100;
 				return false;
 			}
-				
+
 
 			character->position->x = nx;
 			character->position->y = ny;
@@ -278,9 +338,9 @@ bool Maze::Walk(int direction) {
 			return false;
 		}
 
-		if (si < nxx 
-			&& nxx < si + projLength 
-			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy 
+		if (si < nxx
+			&& nxx < si + projLength
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy
 			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE) {
 
 			nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
@@ -425,7 +485,7 @@ void Maze::Launch(int argc, char **argv){
 	model->quad = gluNewQuadric();
 	gluQuadricDrawStyle(model->quad, GLU_FILL);
 	gluQuadricNormals(model->quad, GLU_OUTSIDE);
-	
+
 	spawn();
 
 	leGrafo(status->mapfile);
