@@ -149,6 +149,27 @@ namespace WebDev.DAL
             textures.ForEach(s => context.Textures.Add(s));
 
             context.SaveChanges();
+
+            var enemies = new List<Enemies>
+            {
+                new Enemies{
+                    ID=1,
+                    name="Mummy",
+                    url="http://localhost:43492/assets/enemies/mummy.mdl"
+                },
+                new Enemies{
+                    ID=2,
+                    name="Zombie",
+                    url="http://localhost:43492/assets/enemies/SpitterL4D2v1.mdl"
+                }
+            };
+
+            enemies.ForEach(s => context.Enemies.Add(s));
         }
+         
+        
+        
     }
+
+   
 }
