@@ -65,13 +65,15 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					status->score += 10;
+					status->score += 1;
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("fall.wav");
 						f->play();
-						status->score -= 100;
+						status->score -= 10;
+						if (status->score <= 0)
+							status->score = 0;
 
 					}
 
@@ -85,13 +87,13 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					status->score += 10;
+					
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("fall.wav");
 						f->play();
-						status->score -= 100;
+						
 					}
 				}
 			}
@@ -271,7 +273,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
@@ -312,7 +316,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
@@ -334,7 +340,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
@@ -357,7 +365,9 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
 				character->health -= 5;
 				return false;
 			}
