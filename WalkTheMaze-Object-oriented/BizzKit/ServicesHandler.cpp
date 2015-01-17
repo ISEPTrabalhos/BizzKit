@@ -63,7 +63,8 @@ vector<string> ServicesHandler::getMapsList() {
 
 void ServicesHandler::saveSingleMap(string lvl) {
 	//convert string into wchar
-	wstring strLvl = convertStringToWstring(lvl);
+	string l = lvl.substr(0, lvl.find("."));
+	wstring strLvl = convertStringToWstring(l);
 	wchar_t* levelName = const_cast<wchar_t*>(strLvl.c_str());
 
 	// receive map
@@ -74,13 +75,12 @@ void ServicesHandler::saveSingleMap(string lvl) {
 	// save on file
 	//wstring wstr = level;
 	string newLevel = convertWcharToString(level);
-	// there is a NEW BUG on receving the maps, dont know why , ISSUE 47
-	// dont save file because of the bug
-	/*ofstream newFile; 
-	string filename = lvl + ".grafo";
-	newFile.open(filename);
+
+	ofstream newFile;
+	//string filename = lvl + ".grafo";
+	newFile.open(lvl);
 	newFile << newLevel;
-	newFile.close();*/
+	newFile.close();
 }
 
 void ServicesHandler::uploadScore(int score)

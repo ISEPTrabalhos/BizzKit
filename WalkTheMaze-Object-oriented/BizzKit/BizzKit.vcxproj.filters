@@ -75,9 +75,6 @@
     <ClCompile Include="Login.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
     <ClCompile Include="MapsReceiver.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
     </ClCompile>
     <ClCompile Include="Obstacle.cpp">
       <Filter>Source Files\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="Upload.cpp">
-      <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="Trap.cpp">
       <Filter>Source Files\Model</Filter>
@@ -167,9 +161,6 @@
     <ClInclude Include="Login.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>Header Files\Logic</Filter>
-    </ClInclude>
     <ClInclude Include="MapsReceiver.h">
       <Filter>Header Files\Logic</Filter>
     </ClInclude>
@@ -205,9 +196,6 @@
     </ClInclude>
     <ClInclude Include="Obstacle.h">
       <Filter>Header Files\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Upload.h">
-      <Filter>Header Files\Logic</Filter>
     </ClInclude>
     <ClInclude Include="Trap.h">
       <Filter>Header Files\Model</Filter>
