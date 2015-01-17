@@ -149,12 +149,12 @@ void ServicesHandler::saveSound(string name) {
 	wstring strName = convertStringToWstring(name);
 	wchar_t* soundName = const_cast<wchar_t*>(strName.c_str());
 
-	// receive map
 	wchar_t* result = NULL;;
 	//hr = BasicHttpBinding_IService_downloadSound(proxy, soundName, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
-	string filename = name + ".wav";
+	string type = name.substr(name.find("_") + 1, name.size());
+	string filename = type + ".wav";
 
 	saveFile(url, filename);
 
@@ -182,7 +182,6 @@ void ServicesHandler::saveTexture(string name) {
 	wstring strName = convertStringToWstring(name);
 	wchar_t* textureName = const_cast<wchar_t*>(strName.c_str());
 
-	// receive map
 	wchar_t* result = NULL;
 	//hr = BasicHttpBinding_IService_downloadTexture(proxy, textureName, &result, heap, NULL, 0, NULL, error);
 

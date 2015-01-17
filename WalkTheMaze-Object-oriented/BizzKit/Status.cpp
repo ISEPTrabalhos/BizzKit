@@ -23,7 +23,7 @@ Status::Status(){
 	mapfile = "quarto3.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
 
 	/* SET UP THE MUSIC */
-	background_music = new Music("The_Simpsons.wav");
+	background_music = new Music("background.wav");
 	background_music->play();
 
 	score = 0;

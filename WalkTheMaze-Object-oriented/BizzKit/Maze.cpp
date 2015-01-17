@@ -65,13 +65,15 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					status->score += 10;
+					status->score += 1;
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
-						Music *f = new Music("falling.wav");
+						Music *f = new Music("fall.wav");
 						f->play();
-						status->score -= 100;
+						status->score -= 10;
+						if (status->score <= 0)
+							status->score = 0;
 
 					}
 
@@ -85,13 +87,13 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					status->score += 10;
+					
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
-						Music *f = new Music("falling.wav");
+						Music *f = new Music("fall.wav");
 						f->play();
-						status->score -= 100;
+						
 					}
 				}
 			}
@@ -124,10 +126,9 @@ void Maze::Timer(int value) {
 			//Timer(10);
 		}
 
-		if (status->mapfile == "quarto1.grafo")
-		{
-			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295)
-			{
+		if (status->mapfile == "quarto1.grafo") {
+
+			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295) {
 				status->mapfile = "quarto2.grafo";
 				character->position->x = -125;
 				character->position->y = -250;
@@ -139,14 +140,16 @@ void Maze::Timer(int value) {
 				character->position->x = -270;
 				character->position->y = 250;
 				leGrafo(status->mapfile);
+			}
 
-
+			if (character->position->x > 185 && character->position->x<195 && character->position->y>285 && character->position->y < 295) {
+				//	Win the Game
 			}
 
 		}
-		else if (status->mapfile == "quarto2.grafo")
-		{
-			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285){
+		else if (status->mapfile == "quarto2.grafo") {
+
+			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285) {
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 20;
 				character->position->y = 290;
@@ -154,12 +157,17 @@ void Maze::Timer(int value) {
 			}
 		}
 		else {
-			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255){
+			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255) {
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 270;
 				character->position->y = -270;
 				leGrafo(status->mapfile);
 			}
+
+			if (character->position->x>275 && character->position->x < 285 && character->position->y>-285 && character->position->y < -275) {
+				// Win the Game
+			}
+				
 		}
 
 		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
@@ -285,7 +293,10 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
+				character->health -= 5;
 				return false;
 			}
 			character->position->x = nx;
@@ -325,7 +336,10 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
+				character->health -= 5;
 				return false;
 			}
 
@@ -346,7 +360,10 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
+				character->health -= 5;
 				return false;
 			}
 
@@ -368,7 +385,10 @@ bool Maze::Walk(int direction) {
 				Music *wall = new Music("wall.wav");
 				wall->play();
 				status->falling = GL_TRUE;
-				status->score -= 100;
+				status->score -= 10;
+				if (status->score <= 0)
+					status->score = 0;
+				character->health -= 5;
 				return false;
 			}
 
