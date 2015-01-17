@@ -31,9 +31,9 @@ Rain* rain[40] = {
 	new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain(), new Rain()
 };
 
-
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
+int lastAttackTime = 0;
 
 void Maze::Timer(int value) {
 	if (status->daynight) {
@@ -50,8 +50,8 @@ void Maze::Timer(int value) {
 
 	if (status->tecla_o) status->background_music->toggle();
 
+	ChasePlayer();
 	if (!character->IsDead()){
-		ChasePlayer();
 
 		if (!status->falling){
 			GLfloat nx = 0, ny = 0, z = character->position->z;
@@ -162,11 +162,6 @@ void Maze::Timer(int value) {
 			}
 		}
 
-		if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
-		{
-			character->Die();
-		}
-
 		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
 		{
 			character->Die();
@@ -190,6 +185,10 @@ void Maze::ChasePlayer()
 
 	GLfloat range = 50.0;
 
+	GLfloat enemyX = enemy->position->x;
+	GLfloat enemyY = enemy->position->y;
+	GLfloat enemyZ = enemy->position->z;
+
 	GLfloat playerX = character->position->x;
 	GLfloat playerY = character->position->y;
 	GLfloat playerZ = character->position->z;
@@ -207,32 +206,53 @@ void Maze::ChasePlayer()
 	zMin = enemy->position->z - range;
 	zMax = enemy->position->z + range;
 
-	if (playerX >= xMin && playerX <= xMax &&
-		playerY >= yMin && playerY <= yMax &&
-		playerZ >= zMin && playerZ <= zMax)
+	if (!character->IsDead())
 	{
-		if (enemy->model.GetSequence() != 3)
+		if (CollisionEnemy(playerX, playerY, playerZ))
 		{
-			enemy->model.SetSequence(3); //4
+			if (enemy->model.GetSequence() != 76)
+				enemy->model.SetSequence(76);
+
+			int tempTime = time(NULL); // time está em segundos
+			if (tempTime > lastAttackTime) // se for maior, passou um segundo, no mínimo
+			{
+				lastAttackTime = tempTime;
+				character->health -= enemy->damage;
+				status->score -= 100 * enemy->damage;
+			}
 		}
-
-		double ladoAdjacente = playerX - enemy->position->x;
-		double ladoOposto = playerY - enemy->position->y;
-		double ladoHipotenusa = sqrt(pow(ladoAdjacente, 2) + pow(ladoOposto, 2));
-
-		enemy->dir = atan2(ladoOposto, ladoAdjacente);
-
-		if (playerX > enemy->position->x || playerX < enemy->position->x)
+		else if (playerX >= xMin && playerX <= xMax &&
+			playerY >= yMin && playerY <= yMax &&
+			playerZ >= zMin && playerZ <= zMax)
 		{
-			enemy->position->x += enemy->vel * cos(enemy->dir);
+			if (enemy->model.GetSequence() != 4)
+			{
+				enemy->model.SetSequence(4);
+			}
+
+			double ladoAdjacente = playerX - enemy->position->x;
+			double ladoOposto = playerY - enemy->position->y;
+			double ladoHipotenusa = sqrt(pow(ladoAdjacente, 2) + pow(ladoOposto, 2));
+
+			enemy->dir = atan2(ladoOposto, ladoAdjacente);
+
+			if (playerX > enemy->position->x || playerX < enemy->position->x)
+			{
+				enemy->position->x += enemy->vel * cos(enemy->dir);
+			}
+
+			if (playerY > enemy->position->y || playerY < enemy->position->y)
+			{
+				enemy->position->y += enemy->vel * sin(enemy->dir);
+			}
 		}
-
-		if (playerY > enemy->position->y || playerY < enemy->position->y)
+		else // retorna ao lugar ou fica parado
 		{
-			enemy->position->y += enemy->vel * sin(enemy->dir);
+			if (enemy->model.GetSequence() != 1)
+				enemy->model.SetSequence(1);
 		}
 	}
-	else // retorna ao lugar ou fica parado
+	else
 	{
 		if (enemy->model.GetSequence() != 1)
 			enemy->model.SetSequence(1);
