@@ -37,5 +37,11 @@ namespace WebDev.Services
 
         [OperationContract]
         void uploadRoute(string username, string level, string route);
+
+        [OperationContract]
+        string getEnemiesModelsList();
+
+        [OperationContract]
+        string downloadEnemiesModels(string modelName);
     }
 }

@@ -167,5 +167,28 @@ namespace WebDev.Services
             db.GameRoute.Add(gameRoute);
             db.SaveChanges();
         }
+
+        public string getEnemiesModelsList()
+        {
+            var enemies = from e in db.Enemies
+                          select e;
+
+            List<string> enemiesList = new List<string>();
+
+            foreach(var enemy in enemies)
+            {
+                enemiesList.Add(enemy.name);
+            }
+            return string.Join(",", enemiesList.ToArray());
+        }
+
+        public string downloadEnemiesModels(string modelName)
+        {
+            var url = from e in db.Enemies
+                      where e.name == modelName
+                      select e;
+
+            return url.First().url;
+        }
     }
 }
