@@ -313,16 +313,12 @@ void Graphics::drawMaze(){
 	glPushMatrix();
 	glTranslatef(0, 0, 0.05);
 	glScalef(5, 5, 5);
-	//Graphics::material(red_plastic);
 	for (int i = 0; i<numNos; i++){
 		glPushMatrix();
-		//Graphics::material(preto);
 		glTranslatef(nos[i].x, nos[i].y, nos[i].z + 0.25);
-		//glutSolidCube(0.5);
 		glPopMatrix();
 		Graphics::drawNode(i);
 	}
-	//Graphics::material(emerald);
 	for (int i = 0; i<numArcos; i++)
 		Graphics::drawArc(arcos[i]);
 	glPopMatrix();
@@ -446,27 +442,19 @@ void Graphics::putLights(GLfloat* diffuse){
     //glPopMatrix();
 
 	if (status->spotlight) {
-		light_position[0] = character->position->x;
-		light_position[1] = character->position->y;
-		light_position[2] = character->position->z + CHARACTER_HEIGHT * 0.5;
-		light_position[3] = 1.0;
+		light_position[0] = character->position->x + cos(character->dir);
+		light_position[1] = character->position->y + sin(character->dir);
+		light_position[2] = character->position->z +CHARACTER_HEIGHT * 0.5 + 0.5;
+		light_position[3] = 1.0; 
 
-		spotlight_position[0] = character->position->x + character->vel * cos(character->dir);
-		spotlight_position[1] = character->position->y; character->vel * cos(character->dir);
-		spotlight_position[2] = character->position->z + CHARACTER_HEIGHT * 0.5;
-
-		glPushMatrix();
-		glTranslatef(light_position[0], light_position[1], light_position[2]);
-		glDisable(GL_LIGHTING);
-		glColor3f(1.0, 1.0, 1.0);
-		glutSolidCube(0.1);
-		glEnable(GL_LIGHTING);
-		glPopMatrix();
+		/*spotlight_position[0] = character->position->x +  cos(character->dir);
+		spotlight_position[1] = character->position->y +  sin(character->dir);
+		spotlight_position[2] = character->position->z + CHARACTER_HEIGHT * 0.5;*/
 
 		glLightfv(GL_LIGHT2, GL_POSITION, light_position);
-		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 10.0);
-		glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 2.0);
-		glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, spotlight_position);
+		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 25.0);
+		//glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 100.0);
+		//glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, spotlight_position);
 
 		glEnable(GL_LIGHT2);
 	}
