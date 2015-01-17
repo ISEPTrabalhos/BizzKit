@@ -6,6 +6,7 @@
 #include "EnemyCharacter.h"
 #include "Obstacle.h"
 #include "Trap.h"
+#include "ServicesHandler.h"
 #include "Door.h"
 
 #define MAP_COOR_SCALE 5
@@ -144,6 +145,11 @@ void Maze::Timer(int value) {
 
 			if (character->position->x > 185 && character->position->x<195 && character->position->y>285 && character->position->y < 295) {
 				//	Win the Game
+				status->mainMenu = true;
+				status->finished = true;
+				/*ServicesHandler *handler = new ServicesHandler();
+				handler->uploadScore(status->score);
+				handler->uploadRoute(status->gameRoute);*/
 			}
 
 		}
@@ -166,6 +172,11 @@ void Maze::Timer(int value) {
 
 			if (character->position->x>275 && character->position->x < 285 && character->position->y>-285 && character->position->y < -275) {
 				// Win the Game
+				status->mainMenu = true;
+				status->finished = true;
+				/*ServicesHandler *handler = new ServicesHandler();
+				handler->uploadScore(status->score);
+				handler->uploadRoute(status->gameRoute);*/
 			}
 				
 		}

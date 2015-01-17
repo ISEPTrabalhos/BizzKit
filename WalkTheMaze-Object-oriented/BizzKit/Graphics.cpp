@@ -785,7 +785,16 @@ void Graphics::displayMainMenu() {
 	glColor3f(0, 1, 0);
 	displayMyText("MAIN MENU", -100, 350, 0);
 	glColor3f(1.0, 0, 0);
-	displayMyText("C - CONTINUE  | N -  NEW GAME", -250, 275, 0);
+	if (status->finished == true) {
+		glColor3f(0, 1.0, 0);
+		displayMyText("CONGRATS , YOU WON !!", -160, 90, 0);
+		glColor3f(1.0, 0, 0);
+		displayMyText("N -  NEW GAME", -150, 275, 0);
+	}
+	else {
+		displayMyText("C - CONTINUE  | N -  NEW GAME", -250, 275, 0);
+	}
+	
 	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -350, 200, 0);
 
 	//draw separator line

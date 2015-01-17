@@ -154,7 +154,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				break;
 			case 'c':
 			case 'C':
-				if (status->mainMenu) {
+				if (status->mainMenu && status->finished == false) {
 					status->mainMenu = false;
 				}
 				else {
