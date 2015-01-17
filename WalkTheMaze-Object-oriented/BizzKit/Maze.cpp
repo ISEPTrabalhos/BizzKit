@@ -266,6 +266,7 @@ bool Maze::Walk(int direction) {
 				wall->play();
 				status->falling = GL_TRUE;
 				status->score -= 100;
+				character->health -= 5;
 				return false;
 			}
 			character->position->x = nx;
@@ -306,6 +307,7 @@ bool Maze::Walk(int direction) {
 				wall->play();
 				status->falling = GL_TRUE;
 				status->score -= 100;
+				character->health -= 5;
 				return false;
 			}
 
@@ -327,6 +329,7 @@ bool Maze::Walk(int direction) {
 				wall->play();
 				status->falling = GL_TRUE;
 				status->score -= 100;
+				character->health -= 5;
 				return false;
 			}
 
@@ -349,6 +352,7 @@ bool Maze::Walk(int direction) {
 				wall->play();
 				status->falling = GL_TRUE;
 				status->score -= 100;
+				character->health -= 5;
 				return false;
 			}
 
