@@ -124,10 +124,9 @@ void Maze::Timer(int value) {
 			//Timer(10);
 		}
 
-		if (status->mapfile == "quarto1.grafo")
-		{
-			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295)
-			{
+		if (status->mapfile == "quarto1.grafo") {
+
+			if (character->position->x > 10 && character->position->x < 15 && character->position->y>285 && character->position->y < 295) {
 				status->mapfile = "quarto2.grafo";
 				character->position->x = -125;
 				character->position->y = -250;
@@ -139,14 +138,16 @@ void Maze::Timer(int value) {
 				character->position->x = -270;
 				character->position->y = 250;
 				leGrafo(status->mapfile);
+			}
 
-
+			if (character->position->x > 185 && character->position->x<195 && character->position->y>285 && character->position->y < 295) {
+				//	Win the Game
 			}
 
 		}
-		else if (status->mapfile == "quarto2.grafo")
-		{
-			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285){
+		else if (status->mapfile == "quarto2.grafo") {
+
+			if (character->position->x>-130 && character->position->x<-120 && character->position->y>-295 && character->position->y < -285) {
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 20;
 				character->position->y = 290;
@@ -154,12 +155,17 @@ void Maze::Timer(int value) {
 			}
 		}
 		else {
-			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255){
+			if (character->position->x>-285 && character->position->x < -275 && character->position->y>245 && character->position->y < 255) {
 				status->mapfile = "quarto1.grafo";
 				character->position->x = 270;
 				character->position->y = -270;
 				leGrafo(status->mapfile);
 			}
+
+			if (character->position->x>275 && character->position->x < 285 && character->position->y>-285 && character->position->y < -275) {
+				// Win the Game
+			}
+				
 		}
 
 		if (CollisionEnemy(character->position->x, character->position->y, character->position->z))
