@@ -99,12 +99,12 @@ void Maze::Timer(int value) {
 			if (status->left){
 				character->dir += rad(2);
 				status->camera->dir_long = character->dir;
-				status->score += 10;
+				
 			}
 			else if (status->right){
 				character->dir -= rad(2);
 				status->camera->dir_long = character->dir;
-				status->score += 10;
+				
 			}
 
 			if (status->walking && character->homer.GetSequence() != 3){
