@@ -46,13 +46,13 @@ namespace WebDev.Services
             }
         }
         
-        public int Score(string username, string levelName, int score)
+        public void Score(string username, string levelName, int score)
         {
             var users = from u in db.Users
                         where u.username == username
                         select u;
 
-            if(users.Count() == 1)
+            if (users.Count() == 1)
             {
                 var scores = from s in db.Scores
                              where s.username == username
@@ -71,11 +71,6 @@ namespace WebDev.Services
 
                 db.SaveChanges();
 
-                return 1;
-            }
-            else
-            {
-                return 0;
             }
         }
 

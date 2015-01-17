@@ -39,10 +39,6 @@ int ServicesHandler::signIn(string user, string pass) {
 		proxy, username, password, &id, heap, NULL, 0, NULL, error);
 	//wprintf(L"%s\n", idResult);
 
-	//return _wtoi(idResult);
-
-	//int x = ServicesHandler::score("admin", "quarto1", 10);
-	//cout << "--> " << x << endl;
 	return id;
 }
 
@@ -87,18 +83,16 @@ void ServicesHandler::saveSingleMap(string lvl) {
 	newFile.close();*/
 }
 
-int ServicesHandler::score(string user, string level, int score)
+void ServicesHandler::uploadScore(int score)
 {
-	wstring string1 = convertStringToWstring(user);
+	wstring string1 = convertStringToWstring(status->username);
 	wchar_t* username = const_cast<wchar_t*>(string1.c_str());
 
-	wstring string2 = convertStringToWstring(level);
+	string lvlName = status->mapfile.substr(0, status->mapfile.find("."));
+	wstring string2 = convertStringToWstring(lvlName);
 	wchar_t* levelName = const_cast<wchar_t*>(string2.c_str());
 
-	//upload score
-	int *result = 0;
-	hr = BasicHttpBinding_IService_Score(proxy, username,levelName, score, result, heap, NULL, 0, NULL, error);
-	return *result;
+	//hr = BasicHttpBinding_IService_Score(proxy, username, levelName, score, heap, NULL, 0, NULL, error);
 }
 
 wstring ServicesHandler::convertStringToWstring(string source) {
@@ -120,11 +114,15 @@ void ServicesHandler::uploadRoute(string route)
 {
 	wstring string1 = convertStringToWstring(status->username);
 	wchar_t *username = const_cast<wchar_t*>(string1.c_str());
-	wstring string2 = convertStringToWstring(status->mapfile);
-	wchar_t *level = const_cast<wchar_t*>(string1.c_str());
+
+	string levelName = status->mapfile.substr(0, status->mapfile.find("."));
+	wstring string2 = convertStringToWstring(levelName);
+	wchar_t *level = const_cast<wchar_t*>(string2.c_str());
+
 	wstring string3 = convertStringToWstring(route);
 	wchar_t *gameRoute = const_cast<wchar_t*>(string3.c_str());
-	///hr = BasicHttpBinding_IService_uploadRoute(proxy, username, level, gameRoute, heap, NULL, 0, NULL, error);
+
+	//hr = BasicHttpBinding_IService_uploadRoute(proxy, username, level, gameRoute, heap, NULL, 0, NULL, error);
 }
 
 vector<string> ServicesHandler::getSoundsList() {
