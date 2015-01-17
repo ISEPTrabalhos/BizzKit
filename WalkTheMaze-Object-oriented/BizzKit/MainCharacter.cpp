@@ -28,7 +28,6 @@ void MainCharacter::Die()
 		//Seq = 19 homer dying animation
 		//Seq = 73 or 75 death animation
 		//homer.SetSequence(19);
-		// TODO: fade to black / stop dying animation
 	}
 }
 
