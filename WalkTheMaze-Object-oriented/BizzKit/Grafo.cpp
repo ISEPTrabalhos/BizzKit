@@ -1,4 +1,5 @@
 #include "Grafo.h"
+#include "ServicesHandler.h"
 
 No nos[_MAX_NOS_GRAFO];
 Arco arcos[_MAX_ARCOS_GRAFO];
@@ -97,6 +98,9 @@ void gravaGrafo(string file){
 }
 void leGrafo(string file){
 	ifstream myfile;
+
+	/*ServicesHandler *handler = new ServicesHandler();
+	handler->saveSingleMap(file);*/
 
 	myfile.open(file, ios::in);
 	if (!myfile.is_open()) {
