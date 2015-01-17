@@ -188,7 +188,7 @@ void Maze::ChasePlayer()
 	static GLfloat enemyInitialY = enemy->position->y;
 	static GLfloat enemyInitialZ = enemy->position->z;
 
-	GLfloat range = 150.0;
+	GLfloat range = 50.0;
 
 	GLfloat playerX = character->position->x;
 	GLfloat playerY = character->position->y;

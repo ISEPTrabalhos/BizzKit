@@ -9,7 +9,7 @@ EnemyCharacter::EnemyCharacter(){
 	position->y = 163;
 	position->z = CHARACTER_HEIGHT / 2;
     dir = 0;
-    vel = 0.2;
+    vel = 0.35;
 	health = maxHealth;
 }
 
