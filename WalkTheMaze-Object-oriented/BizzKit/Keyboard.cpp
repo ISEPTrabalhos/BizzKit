@@ -254,7 +254,6 @@ void Keyboard::specialKeyUp(int key, int x, int y)
 			status->up = GL_FALSE;
 			string novo = "(" + to_string((int)character->position->x) + "," + to_string((int)character->position->y) + "," + to_string((int)character->position->y) + "),";
 			status->gameRoute += novo;
-			cout << "GAME ROUTE: " << status->gameRoute << endl;
 			break;
 		}
 		case GLUT_KEY_DOWN:
