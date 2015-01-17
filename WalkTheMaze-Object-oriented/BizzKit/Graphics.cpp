@@ -410,6 +410,8 @@ void Graphics::material(enum tipo_material mat) {
 }
 
 void Graphics::putLights(GLfloat* diffuse){
+	GLfloat light_position[4];
+	GLfloat spotlight_position[3];
     const GLfloat white_amb[] = { 0.2, 0.2, 0.2, 1.0 };
     
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
@@ -421,23 +423,55 @@ void Graphics::putLights(GLfloat* diffuse){
     glLightfv(GL_LIGHT1, GL_SPECULAR, white_light);
     glLightfv(GL_LIGHT1, GL_AMBIENT, white_amb);
     glLightfv(GL_LIGHT1, GL_POSITION, model->g_pos_luz2);
+
+	glLightfv(GL_LIGHT2, GL_AMBIENT, white_amb);
+	glLightfv(GL_LIGHT2, GL_DIFFUSE, diffuse);
+	glLightfv(GL_LIGHT2, GL_SPECULAR, white_light);
     
-    /* desenhar luz */
+    ///* desenhar luz */
     //material(red_plastic);
     //glPushMatrix();
-    //	glTranslatef(Maze::model->g_pos_luz1[0], Maze::model->g_pos_luz1[1], Maze::model->g_pos_luz1[2]);
+    //	glTranslatef(model->g_pos_luz1[0], model->g_pos_luz1[1], model->g_pos_luz1[2]);
     //	glDisable(GL_LIGHTING);
     //	glColor3f(1.0, 1.0, 1.0);
     //	glutSolidCube(0.1);
     //	glEnable(GL_LIGHTING);
     //glPopMatrix();
     //glPushMatrix();
-    //	glTranslatef(Maze::model->g_pos_luz2[0], Maze::model->g_pos_luz2[1], Maze::model->g_pos_luz2[2]);
+    //	glTranslatef(model->g_pos_luz2[0], model->g_pos_luz2[1], model->g_pos_luz2[2]);
     //	glDisable(GL_LIGHTING);
     //	glColor3f(1.0, 1.0, 1.0);
     //	glutSolidCube(0.1);
     //	glEnable(GL_LIGHTING);
     //glPopMatrix();
+
+	if (status->spotlight) {
+		light_position[0] = character->position->x;
+		light_position[1] = character->position->y;
+		light_position[2] = character->position->z + CHARACTER_HEIGHT * 0.5;
+		light_position[3] = 1.0;
+
+		spotlight_position[0] = character->position->x + character->vel * cos(character->dir);
+		spotlight_position[1] = character->position->y; character->vel * cos(character->dir);
+		spotlight_position[2] = character->position->z + CHARACTER_HEIGHT * 0.5;
+
+		glPushMatrix();
+		glTranslatef(light_position[0], light_position[1], light_position[2]);
+		glDisable(GL_LIGHTING);
+		glColor3f(1.0, 1.0, 1.0);
+		glutSolidCube(0.1);
+		glEnable(GL_LIGHTING);
+		glPopMatrix();
+
+		glLightfv(GL_LIGHT2, GL_POSITION, light_position);
+		glLightf(GL_LIGHT2, GL_SPOT_CUTOFF, 10.0);
+		glLightf(GL_LIGHT2, GL_SPOT_EXPONENT, 2.0);
+		glLightfv(GL_LIGHT2, GL_SPOT_DIRECTION, spotlight_position);
+
+		glEnable(GL_LIGHT2);
+	}
+	else
+		glDisable(GL_LIGHT2);
     
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHT1);
@@ -479,9 +513,6 @@ void Graphics::setCamera(){
 		eye[1] = character->position->y - sin(character->dir) * 5;
 		eye[2] = CHARACTER_HEIGHT * 0.5 + character->position->z;
 
-		/*eye[0] = status->camera->center[0] + status->camera->dist*cos(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[1] = status->camera->center[1] + status->camera->dist*sin(status->camera->dir_long)*cos(status->camera->dir_lat);
-		eye[2] = status->camera->center[2] + status->camera->dist*sin(status->camera->dir_lat);*/
 	}
 
     if (status->light){

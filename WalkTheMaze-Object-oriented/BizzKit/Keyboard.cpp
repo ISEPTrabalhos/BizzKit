@@ -228,6 +228,10 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 					status->rain = !status->rain;
 				}
 				break;
+
+			case 'F':
+			case 'f':
+				status->spotlight = !status->spotlight;
 			}
 		}
 	}

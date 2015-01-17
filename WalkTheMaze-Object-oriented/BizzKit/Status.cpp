@@ -10,7 +10,8 @@ Status::Status(){
 	eixo[2] = 0;
 
 	// set light
-	light = GL_FALSE;
+	spotlight = GL_FALSE;
+	light = GL_TRUE;
 	apresentaNormais = GL_FALSE;
 	lightViewer = 1;
   
