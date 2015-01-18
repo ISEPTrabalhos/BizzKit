@@ -14,6 +14,7 @@ extern MainCharacter *character;
 extern EnemyCharacter *enemy;
 extern Door *door1, *door2, *exitDoor;
 extern Obstacle *obstacle;
+extern Ammo *ammo;
 extern Trap *trap;
 extern SnowFlake* sf[40];
 extern Rain* rain[40];
@@ -638,6 +639,17 @@ void Graphics::drawObstacle()
 	glPopMatrix();
 }
 
+void Graphics::drawAmmo()
+{
+	glPushMatrix();
+	glBindTexture(GL_TEXTURE_2D, NULL);
+	glTranslatef(ammo->position->x, ammo->position->y, ammo->position->z);
+	glRotatef(graus(ammo->dir), 0.0, 0.0, 1.0);
+	glScalef(0.05, 0.1, 0.1);
+	mdlviewer_display(ammo->model);
+	glPopMatrix();
+}
+
 void Graphics::drawTrap()
 {
 	if (status->mapfile.compare("quarto3.grafo") == 0) {
@@ -659,6 +671,7 @@ void Graphics::display(void){
 		drawGround(model->texID[0]);
 
 		drawCharacter();
+		drawAmmo();
 		drawEnemy();
 		drawObstacle();
 		drawTrap();

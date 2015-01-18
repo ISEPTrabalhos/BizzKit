@@ -11,6 +11,7 @@
 #include "Door.h"
 #include "SnowFlake.h"
 #include "Rain.h"
+#include "Ammo.h"
 
 class Graphics{
 public:
@@ -47,6 +48,7 @@ public:
 	static void drawDoors();
 	static void drawCharacter();
 	static void drawObstacle();
+	static void drawAmmo();
 	static void drawTrap();
 
 	static void drawCube(float size);
