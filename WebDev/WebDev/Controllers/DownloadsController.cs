@@ -23,7 +23,7 @@ namespace WebDev.Controllers
             var download = db.Downloads.Find(1);
             download.quantity++;
             db.SaveChanges();*/
-            Response.Redirect("#");
+            Response.Redirect("/App_Data/app.zip");
             return View();
         }
     }
