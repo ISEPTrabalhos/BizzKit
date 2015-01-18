@@ -27,7 +27,7 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 
 				/* SET UP THE MUSIC */
 				status->background_music = new Music("background.wav");
-				//status->background_music->play();
+				status->background_music->play();
 
 			} else {
 				status->username = "";
