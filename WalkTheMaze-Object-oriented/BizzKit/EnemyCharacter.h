@@ -6,13 +6,13 @@
 
 class EnemyCharacter {
 public:
-	const GLint maxHealth = 10000;
-	const GLint damage = 4;
+	const GLfloat maxHealth = 10000;
+	const GLfloat damage = 4;
     StudioModel model;
     Point *position;
     GLfloat  dir;
     GLfloat  vel;
-	GLint health;
+	GLfloat health;
     
 	EnemyCharacter();
 	~EnemyCharacter();
