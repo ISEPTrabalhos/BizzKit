@@ -163,6 +163,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\DownloadsController.cs" />
+    <Compile Include="Controllers\GameRoutesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ScoresController.cs" />
@@ -270,6 +271,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Scores\Index.cshtml" />
     <Content Include="Views\Downloads\Index.cshtml" />
+    <Content Include="Views\GameRoutes\Delete.cshtml" />
+    <Content Include="Views\GameRoutes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

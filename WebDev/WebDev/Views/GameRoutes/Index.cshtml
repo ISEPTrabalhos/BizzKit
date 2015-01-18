@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WebDev.Models.GameRoute>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.level)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.route)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.level)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.route)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
