@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<WebDev.Models.GameRoute>
 
+@using WebDev.Resources;
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = @Resource.Route;
 }
 
 <h2>Index</h2>
@@ -9,13 +11,13 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.username)
+            @Resource.Username
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.level)
+            @Resource.Level
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.route)
+            @Resource.Route
         </th>
         <th></th>
     </tr>

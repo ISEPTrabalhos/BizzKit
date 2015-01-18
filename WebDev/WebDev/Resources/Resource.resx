@@ -120,14 +120,35 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="Download" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="DownloadHere" xml:space="preserve">
+    <value>Download the game</value>
+  </data>
   <data name="Downloads" xml:space="preserve">
     <value>Downloads</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>Game</value>
   </data>
   <data name="Hello" xml:space="preserve">
     <value>Hello</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
+  </data>
+  <data name="HomeSubTitle" xml:space="preserve">
+    <value>Walk the Maze is a free and new Game, it displays a large maze that you need to get out, but be carefull or the monsters will kill you</value>
+  </data>
+  <data name="HowToPlay" xml:space="preserve">
+    <value>How to play</value>
+  </data>
+  <data name="HowToPlayGuide" xml:space="preserve">
+    <value>First you register for a new account, then you download the game, unzip it and you are good to go</value>
   </data>
   <data name="LeaderBoard" xml:space="preserve">
     <value>Leader Board</value>
@@ -152,5 +173,11 @@
   </data>
   <data name="Score" xml:space="preserve">
     <value>Score</value>
+  </data>
+  <data name="StartDownload" xml:space="preserve">
+    <value>Start you're download by pressing here</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
 </root>

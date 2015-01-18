@@ -1,26 +1,29 @@
 ﻿@model IEnumerable<WebDev.Models.Downloads>
+           @using WebDev.Resources;
 
-@Html.ActionLink("Download", "Download");
 
-<h2>Downloads</h2>
+
+<h2>@Resource.Downloads</h2>
 
 <table id="table">
     <tr>
         <th>
-            File Name
+            @Resource.FileName
         </th>
     
         <th>
-            Link to Download
+           @Resource.Download
         </th>
     </tr>
 
-@*@foreach (var item in Model)
-{
     <tr>
-        <td>@Html.DisplayFor(modelItem => item.fileName)</td>
-
+        <td>
+            @Resource.Game
+        </td>
+        <td>
+            @Html.ActionLink("app.zip", "Download")
+        </td>
     </tr>
-}*@
+
 </table>
 
