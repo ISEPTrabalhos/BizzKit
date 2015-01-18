@@ -63,7 +63,7 @@ void Status::setDefaults() {
 	eixo[2] = 0;
 
 	// set light
-	light = GL_FALSE;
+	light = GL_TRUE;
 	apresentaNormais = GL_FALSE;
 	lightViewer = 1;
 
