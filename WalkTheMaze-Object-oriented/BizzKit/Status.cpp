@@ -45,6 +45,7 @@ Status::Status(){
 	showSoundsMenu = false;
 	showTexturesMenu = false;
 	finished = false;
+	gameOver = false,
 
 	soundsList = {};
 	texturesList = {};
@@ -93,6 +94,7 @@ void Status::setDefaults() {
 	showSoundsMenu = false;
 	showTexturesMenu = false;
 	finished = false;
+	gameOver = false;
 
 	soundsList = {};
 	texturesList = {};

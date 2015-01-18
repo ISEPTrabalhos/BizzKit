@@ -37,6 +37,12 @@ double lightComponent, factor = 3.0, duration = 10000.0; //change duration to in
 int lastAttackTime = 0;
 
 void Maze::Timer(int value) {
+
+	if (character->IsDead()) {
+		status->gameOver = true;
+		status->mainMenu = true;
+	}
+
 	if (status->daynight) {
 		counter++;
 		lightComponent = cos((counter / duration) * (2.0 * M_PI)) / factor + (factor - 1.0) / factor;

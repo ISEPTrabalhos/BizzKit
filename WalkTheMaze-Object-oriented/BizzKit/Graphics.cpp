@@ -791,6 +791,12 @@ void Graphics::displayMainMenu() {
 		glColor3f(1.0, 0, 0);
 		displayMyText("N -  NEW GAME", -150, 275, 0);
 	}
+	else if (status->gameOver == true) {
+		glColor3f(0, 1.0, 0);
+		displayMyText("YOU DIED !!", -100, 90, 0);
+		glColor3f(1.0, 0, 0);
+		displayMyText("N -  NEW GAME | 0 - EXIT", -200, 275, 0);
+	}
 	else {
 		displayMyText("C - CONTINUE  | N -  NEW GAME", -250, 275, 0);
 	}
