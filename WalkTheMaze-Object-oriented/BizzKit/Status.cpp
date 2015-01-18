@@ -30,6 +30,7 @@ Status::Status(){
 	main_light = (GLfloat*)white_light;
 	daynight = true;
 
+	attacking = GL_FALSE;
 	walking = GL_FALSE;
 	falling = GL_FALSE;
 	snow = GL_FALSE;

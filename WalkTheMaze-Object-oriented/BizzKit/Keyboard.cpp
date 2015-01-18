@@ -237,6 +237,10 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			case 'F':
 			case 'f':
 				status->spotlight = !status->spotlight;
+				break;
+			case ' ':
+				status->attacking = GL_TRUE;
+				break;
 			}
 		}
 	}
@@ -269,6 +273,9 @@ void Keyboard::specialKeyUp(int key, int x, int y)
 			break;
 		case GLUT_KEY_RIGHT:
 			status->right = GL_FALSE;
+			break;
+		case ' ':
+			status->attacking = GL_FALSE;
 			break;
 		}
 	}
