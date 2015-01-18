@@ -17,14 +17,15 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 		exit(0);
 	}
 	if (status->nextInput) { // enter in passwod
-		if (key == 13) { 
+		if (key == 13) {
 			Login *login = new Login();
 			int id = login->LoginUser(status->username, status->password);
 			int x = 1;
 			if (true || id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
 				status->loggedIn = true;
 				Keyboard::help();
-			} else {
+			}
+			else {
 				status->username = "";
 				status->password = "";
 				status->passwd = "";
@@ -35,7 +36,8 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 		else if (key == 8) { // backspace
 			status->password.pop_back();
 			status->passwd.pop_back();
-		} else {
+		}
+		else {
 			if (key > 33 && key < 126) {
 				status->password.push_back(key);
 				status->passwd.push_back('*');
@@ -48,8 +50,9 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 		}
 		else if (key == 8) { // backspace
 			status->username.pop_back();
-		} else {
-			if (key > 33 && key < 126) { 
+		}
+		else {
+			if (key > 33 && key < 126) {
 				status->username.push_back(key);
 			}
 		}
@@ -58,6 +61,14 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 	glutPostRedisplay();
 
 }
+void Keyboard::keyboardUp(unsigned char key, int x, int y){
+	switch (key) {
+	case ' ':
+		status->attacking = GL_FALSE;
+		break;
+	}
+}
+
 void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
 		// in case wordls menu is visible
@@ -274,16 +285,13 @@ void Keyboard::specialKeyUp(int key, int x, int y)
 		case GLUT_KEY_RIGHT:
 			status->right = GL_FALSE;
 			break;
-		case ' ':
-			status->attacking = GL_FALSE;
-			break;
 		}
 	}
-	
+
 }
 
 void Keyboard::Special(int key, int x, int y){
-    
+
 	if (status->loggedIn) {
 		switch (key){
 		case GLUT_KEY_F1:
@@ -353,7 +361,7 @@ void Keyboard::Special(int key, int x, int y){
 			break;
 		}
 	}
-    
+
 }
 
 void Keyboard::help(void){
@@ -381,5 +389,5 @@ void Keyboard::help(void){
 	printf("Bot„o direito com CTRL - Zoom-in/out\n");
 	printf("PAGE_UP, PAGE_DOWN - Altera dist‚ncia da camara \n");
 	printf("ESC - Sair\n");
-    
+
 }
