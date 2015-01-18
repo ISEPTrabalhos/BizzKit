@@ -13,9 +13,7 @@ extern EnemyCharacter *enemy;
 extern Door *door1;
 
 void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
-	if (key == 27) {
-		exit(0);
-	}
+	
 	if (status->nextInput) { // enter in passwod
 		if (key == 13) { 
 			Login *login = new Login();
@@ -62,12 +60,13 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 }
 void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
+		switch (key) {
+		case 27:
+			exit(0);
+			break;
+		}
 		if (status->mainMenu == true || status->gameOver == true) {
-			switch (key) {
-				case 27:
-					exit(0);
-					break;
-			}
+			
 		}
 		// in case wordls menu is visible
 		if (status->showMapMenu) {
