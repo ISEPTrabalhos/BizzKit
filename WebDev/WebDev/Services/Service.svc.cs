@@ -66,7 +66,8 @@ namespace WebDev.Services
                 }
                 else
                 {
-                    scores.First().score = score;
+                    if (scores.First().score < score)
+                        scores.First().score = score;
                 }
 
                 db.SaveChanges();

@@ -198,6 +198,13 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\sounds\background.wav" />
+    <Content Include="assets\sounds\fall.wav" />
+    <Content Include="assets\sounds\wall.wav" />
+    <Content Include="assets\textures\floor.jpg" />
+    <Content Include="assets\textures\floor2.jpg" />
+    <Content Include="assets\textures\wall1.jpg" />
+    <Content Include="assets\textures\wall2.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -206,6 +213,10 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="assets\enemies\mummy.mdl" />
+    <Content Include="assets\enemies\SpitterL4D2v1.mdl" />
+    <Content Include="assets\textures\Thumbs.db" />
+    <Content Include="assets\game\app.zip" />
     <None Include="Properties\PublishProfiles\LAPR5.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
