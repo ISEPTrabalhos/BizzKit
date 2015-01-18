@@ -814,17 +814,18 @@ void Graphics::displayMainMenu() {
 	if (status->showMapMenu) {
 		displayMyText("1 - Mundo 1", -400, 0, 0);
 		displayMyText("2 - Mundo 2", -400, -75, 0);
-		string back = status->soundsList.size() + "0 - Go back";
+		string back = "0 - Go back";
 		displayMyText((char*)back.c_str(), -400, -150, 0);
 	}
 	else if (status->showSoundsMenu) {
 		if (status->soundsList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			//status->soundsList = handler->getSoundsList();
+			status->soundsList = handler->getSoundsList();
 		}
 		int posY = 0;
 		for (int i = 0; i < status->soundsList.size(); i++) {
-			string item = to_string(i + 1) + " - " + status->soundsList.at(i);
+			string name = status->soundsList.at(i).substr(0, status->soundsList.at(i).find("_"));
+			string item = to_string(i + 1) + " - " + name;
 			displayMyText((char*)item.c_str(), -200, posY, 0);
 			posY += -75;
 		}
@@ -834,7 +835,7 @@ void Graphics::displayMainMenu() {
 	else if (status->showTexturesMenu) {
 		if (status->texturesList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			//status->texturesList = handler->getTexturesList();
+			status->texturesList = handler->getTexturesList();
 		}
 		int posY = 0;
 		for (int i = 0; i < status->texturesList.size(); i++) {

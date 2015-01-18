@@ -16,7 +16,7 @@ ServicesHandler::ServicesHandler(){
 	address = {};
 	templ = {};
 	// endereço do serviço
-	url = WS_STRING_VALUE(L"http://localhost:43492/Services/Service.svc");
+	url = WS_STRING_VALUE(L"http://wvm041.dei.isep.ipp.pt/Lapr5/Services/Service.svc");
 	address.url = url;
 	hr = WsCreateHeap(2048, 512, NULL, 0, &heap, error);
 
@@ -92,7 +92,7 @@ void ServicesHandler::uploadScore(int score)
 	wstring string2 = convertStringToWstring(lvlName);
 	wchar_t* levelName = const_cast<wchar_t*>(string2.c_str());
 
-	//hr = BasicHttpBinding_IService_Score(proxy, username, levelName, score, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_Score(proxy, username, levelName, score, heap, NULL, 0, NULL, error);
 }
 
 wstring ServicesHandler::convertStringToWstring(string source) {
@@ -122,13 +122,13 @@ void ServicesHandler::uploadRoute(string route)
 	wstring string3 = convertStringToWstring(route);
 	wchar_t *gameRoute = const_cast<wchar_t*>(string3.c_str());
 
-	//hr = BasicHttpBinding_IService_uploadRoute(proxy, username, level, gameRoute, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_uploadRoute(proxy, username, level, gameRoute, heap, NULL, 0, NULL, error);
 }
 
 vector<string> ServicesHandler::getSoundsList() {
 	// receive sounds list 
 	WCHAR* results = NULL;;
-	//hr = BasicHttpBinding_IService_getSoundsList(proxy, &results, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_getSoundsList(proxy, &results, heap, NULL, 0, NULL, error);
 
 	string resultsSounds = convertWcharToString(results);
 	// split string into vector
@@ -143,14 +143,17 @@ vector<string> ServicesHandler::getSoundsList() {
 }
 
 void ServicesHandler::saveSound(string name) {
+
+	cout << name << endl;
 	//convert string into wchar
 	wstring strName = convertStringToWstring(name);
 	wchar_t* soundName = const_cast<wchar_t*>(strName.c_str());
 
 	wchar_t* result = NULL;;
-	//hr = BasicHttpBinding_IService_downloadSound(proxy, soundName, &result, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_downloadSound(proxy, soundName, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
+	cout << url << endl;
 	string type = name.substr(name.find("_") + 1, name.size());
 	string filename = type + ".wav";
 
@@ -161,7 +164,7 @@ void ServicesHandler::saveSound(string name) {
 vector<string> ServicesHandler::getTexturesList() {
 	//receive textures list
 	WCHAR* results = NULL;;
-	//hr = BasicHttpBinding_IService_getTexturesList(proxy, &results, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_getTexturesList(proxy, &results, heap, NULL, 0, NULL, error);
 
 	string resultsTextures = convertWcharToString(results);
 	// split string into vector
@@ -176,15 +179,17 @@ vector<string> ServicesHandler::getTexturesList() {
 }
 
 void ServicesHandler::saveTexture(string name) {
+
+	cout << name << endl;
 	//convert string into wchar
 	wstring strName = convertStringToWstring(name);
 	wchar_t* textureName = const_cast<wchar_t*>(strName.c_str());
 
 	wchar_t* result = NULL;
-	//hr = BasicHttpBinding_IService_downloadTexture(proxy, textureName, &result, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_downloadTexture(proxy, textureName, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
-	
+	cout << url << endl;
 	string filename;
 	if (name.find("Floor") != std::string::npos) {
 		filename = "floor.jpg";
@@ -206,7 +211,7 @@ void ServicesHandler::saveFile(string url, string path) {
 vector<string> ServicesHandler::getEnemiesModels()
 {
 	WCHAR *models=NULL;
-	//hr = BasicHttpBinding_IService_getEnemiesModelsList(proxy, &models, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_getEnemiesModelsList(proxy, &models, heap, NULL, 0, NULL, error);
 
 	string results = convertWcharToString(models);
 

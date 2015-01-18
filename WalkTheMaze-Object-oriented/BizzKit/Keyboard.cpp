@@ -19,7 +19,7 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			Login *login = new Login();
 			int id = login->LoginUser(status->username, status->password);
 			int x = 1;
-			if (true || id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
+			if (id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
 				status->loggedIn = true;
 				status->password = "";
 				status->passwd = "";
@@ -27,7 +27,7 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 
 				/* SET UP THE MUSIC */
 				status->background_music = new Music("background.wav");
-				status->background_music->play();
+				//status->background_music->play();
 
 			} else {
 				status->username = "";
@@ -71,11 +71,13 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
 		switch (key) {
 		case 27:
+			if (status->finished == false && status->gameRoute.compare("") != 0) {
+				ServicesHandler *handler = new ServicesHandler();
+				handler->uploadScore(status->score);
+				handler->uploadRoute(status->gameRoute);
+			}
 			exit(0);
 			break;
-		}
-		if (status->mainMenu == true || status->gameOver == true) {
-			
 		}
 		// in case wordls menu is visible
 		if (status->showMapMenu) {
@@ -108,7 +110,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			int option = key - 48; // convert key
 			if (option > 0 && option <= status->soundsList.size()) {
 				ServicesHandler *handler = new ServicesHandler();
-				//handler->saveSound(status->soundsList.at(option-1));
+				handler->saveSound(status->soundsList.at(option-1));
 				status->showSoundsMenu = false;
 				Graphics::createTextures(model->texID);
 			}
@@ -123,7 +125,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			int option = key - 48; // convert key
 			if (option > 0 && option <= status->texturesList.size()) {
 				ServicesHandler *handler = new ServicesHandler();
-				//handler->saveTexture(status->texturesList.at(option-1));
+				handler->saveTexture(status->texturesList.at(option-1));
 				status->showTexturesMenu = false;
 				Graphics::createTextures(model->texID);
 			}
@@ -145,6 +147,11 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 		else {
 			switch (key){
 			case 27:
+				if (status->finished == false && status->gameRoute.compare("") != 0) {
+					ServicesHandler *handler = new ServicesHandler();
+					handler->uploadScore(status->score);
+					handler->uploadRoute(status->gameRoute);
+				}
 				exit(0);
 				break;
 			case 'h':

@@ -151,6 +151,15 @@ namespace WebDev.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Routes.
+        /// </summary>
+        public static string Route {
+            get {
+                return ResourceManager.GetString("Route", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Score.
         /// </summary>
         public static string Score {
