@@ -7,7 +7,7 @@ EnemyCharacter::EnemyCharacter(){
 	model.SetSequence(1);
 	position->x = -113;
 	position->y = 163;
-	position->z = CHARACTER_HEIGHT / 2;
+	position->z = ENEMY_HEIGHT / 2;
     dir = 0;
     vel = 0.35;
 	health = maxHealth;
@@ -19,7 +19,7 @@ void EnemyCharacter::setDefaults() {
 	model.SetSequence(1);
 	position->x = -113;
 	position->y = 163;
-	position->z = CHARACTER_HEIGHT / 2;
+	position->z = ENEMY_HEIGHT / 2;
 	dir = 0;
 	health = maxHealth;
 }

@@ -83,13 +83,14 @@ void Maze::Timer(int value) {
 
 		if (ammo->isTravelling)
 		{
-			if (!Collision(ammo->position->x, ammo->position->y, ammo->position->z, ammo->vel, ammo->dir))
+			if (AmmoHitEnemy(ammo->position->x, ammo->position->y, ammo->position->z, ammo->vel, ammo->dir) ||
+				Collision(ammo->position->x, ammo->position->y, ammo->position->z, ammo->vel, ammo->dir))
 			{
-				ammo->travel();
+				ammo->isTravelling = GL_FALSE;
 			}
 			else
 			{
-				ammo->isTravelling = GL_FALSE;
+				ammo->travel();
 			}
 		}
 
@@ -451,7 +452,6 @@ bool Maze::Walk(int direction) {
 	}
 }
 
-
 bool Maze::Collision(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat vel, GLfloat dir)
 {
 	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
@@ -462,12 +462,6 @@ bool Maze::Collision(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat vel, GLfl
 
 	if (CollisionObstacle(nx, ny, posZ))
 	{
-		return true;
-	}
-
-	if (CollisionEnemy(nx, ny, posZ))
-	{
-		enemy->health -= ammo->damage;
 		return true;
 	}
 
@@ -605,6 +599,27 @@ bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 	return x >= xMin && x <= xMax &&
 		y >= yMin && y <= yMax &&
 		z >= zMin && z <= zMax;
+}
+
+bool Maze::AmmoHitEnemy(GLfloat x, GLfloat y, GLfloat z, GLfloat vel, GLfloat dir)
+{
+	int numSteps = 50;
+	float velStep = vel / (float)numSteps;
+
+	for (int i = 0; i <= numSteps; i++)
+	{
+		float nx = x + ((float)i) * velStep * cosf(dir);
+		float ny = y + ((float)i) * velStep * sinf(dir);
+
+		if (CollisionEnemy(nx, ny, z))
+		{
+			enemy->health -= ammo->damage;
+			status->score += ammo->damage;
+			return true;
+		}
+	}
+
+	return false;
 }
 
 void Maze::spawn(){

@@ -97,4 +97,8 @@ const GLfloat night_light[] = { 0.30, 0.30, 0.30, 1.0 };
 #define CHARACTER_WIDTH 0.96
 #define CHARACTER_HEIGHT 1.6
 
+#define ENEMY_LENGTH 1.92
+#define ENEMY_WIDTH 1.92
+#define ENEMY_HEIGHT 3.2
+
 #endif
