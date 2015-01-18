@@ -544,10 +544,6 @@ void Maze::Launch(int argc, char **argv){
 
 	leGrafo(status->mapfile);
 
-	/* SET UP THE MUSIC */
-	status->background_music = new Music("background.wav");
-	status->background_music->play();
-
 	glutMainLoop();
 
 }

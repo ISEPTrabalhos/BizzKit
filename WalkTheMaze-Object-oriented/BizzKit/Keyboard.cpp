@@ -24,6 +24,11 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 				status->password = "";
 				status->passwd = "";
 				Keyboard::help();
+
+				/* SET UP THE MUSIC */
+				status->background_music = new Music("background.wav");
+				status->background_music->play();
+
 			} else {
 				status->username = "";
 				status->password = "";
