@@ -6,7 +6,7 @@
 
 class Ammo {
 public:
-	const GLfloat damage = 100;
+	const GLfloat damage = 1000;
 	const GLfloat vel = 5;
     StudioModel model;
     Point *position;
