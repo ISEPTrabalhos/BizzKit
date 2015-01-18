@@ -165,6 +165,9 @@
   <data name="LogOff" xml:space="preserve">
     <value>Terminar sessão</value>
   </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Crie uma nova conta de utilizador</value>
+  </data>
   <data name="Player" xml:space="preserve">
     <value>Jogador</value>
   </data>
