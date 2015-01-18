@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ScoresController.cs" />
+    <Compile Include="Controllers\TextureViewerController.cs" />
     <Compile Include="DAL\WebDevContext.cs" />
     <Compile Include="DAL\WebDevInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -271,6 +272,7 @@
     <Content Include="Views\Downloads\Index.cshtml" />
     <Content Include="Views\GameRoutes\Delete.cshtml" />
     <Content Include="Views\GameRoutes\Index.cshtml" />
+    <Content Include="Views\TextureViewer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

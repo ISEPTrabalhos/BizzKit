@@ -160,6 +160,15 @@ namespace WebDev.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string Image {
+            get {
+                return ResourceManager.GetString("Image", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Leader Board.
         /// </summary>
         public static string LeaderBoard {
@@ -237,6 +246,24 @@ namespace WebDev.Resources {
         public static string StartDownload {
             get {
                 return ResourceManager.GetString("StartDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Texture Name.
+        /// </summary>
+        public static string TextureName {
+            get {
+                return ResourceManager.GetString("TextureName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Textures.
+        /// </summary>
+        public static string Textures {
+            get {
+                return ResourceManager.GetString("Textures", resourceCulture);
             }
         }
         

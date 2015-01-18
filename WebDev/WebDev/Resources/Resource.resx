@@ -150,6 +150,9 @@
   <data name="HowToPlayGuide" xml:space="preserve">
     <value>First you register for a new account, then you download the game, unzip it and you are good to go</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Image</value>
+  </data>
   <data name="LeaderBoard" xml:space="preserve">
     <value>Leader Board</value>
   </data>
@@ -176,6 +179,12 @@
   </data>
   <data name="StartDownload" xml:space="preserve">
     <value>Start you're download by pressing here</value>
+  </data>
+  <data name="TextureName" xml:space="preserve">
+    <value>Texture Name</value>
+  </data>
+  <data name="Textures" xml:space="preserve">
+    <value>Textures</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Username</value>

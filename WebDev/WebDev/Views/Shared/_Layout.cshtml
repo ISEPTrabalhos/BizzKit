@@ -26,6 +26,10 @@
                     <li>@Html.ActionLink(Resource.LeaderBoard, "Index", "Scores")</li>
                     <li>@Html.ActionLink(Resource.Downloads, "Index", "Downloads")</li>
                     <li>@Html.ActionLink(Resource.Route, "Index", "GameRoutes")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@Html.ActionLink(Resource.Textures, "Index", "TextureViewer")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

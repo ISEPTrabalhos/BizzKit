@@ -150,6 +150,9 @@
   <data name="HowToPlayGuide" xml:space="preserve">
     <value>Começa por criar uma nova conta, fazer o download do jogo, descompactá-lo e esta pronto para jogar.</value>
   </data>
+  <data name="Image" xml:space="preserve">
+    <value>Imagem</value>
+  </data>
   <data name="LeaderBoard" xml:space="preserve">
     <value>Pontuações</value>
   </data>
@@ -176,6 +179,12 @@
   </data>
   <data name="StartDownload" xml:space="preserve">
     <value>Comece já a sua transferência carregando aqui</value>
+  </data>
+  <data name="TextureName" xml:space="preserve">
+    <value>Nome da textura</value>
+  </data>
+  <data name="Textures" xml:space="preserve">
+    <value>Texturas</value>
   </data>
   <data name="Username" xml:space="preserve">
     <value>Utilizador</value>
