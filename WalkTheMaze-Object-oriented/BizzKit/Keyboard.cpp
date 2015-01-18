@@ -148,7 +148,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			int option = key - 48;
 			if (option > 0 && option <= status->enemiesModelsList.size()){
 				ServicesHandler *sh = new ServicesHandler();
-				//sh->saveModels(status->enemiesModelsList.at(option - 1));
+				sh->saveModels(status->enemiesModelsList.at(option - 1));
 				status->showEnemiesModelsMenu = false;
 			}
 		}

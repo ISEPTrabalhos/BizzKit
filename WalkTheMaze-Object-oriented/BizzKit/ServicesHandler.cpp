@@ -231,7 +231,7 @@ void ServicesHandler::saveModels(string modelName)
 	wchar_t *model = const_cast<wchar_t*>(name.c_str());
 
 	wchar_t *result = NULL;
-	//hr = BasicHttpBinding_IService_downloadEnemiesModels(proxy, modelName, &result, heap, NULL, 0, NULL, error);
+	hr = BasicHttpBinding_IService_downloadEnemiesModels(proxy, model, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
 	string filename;
