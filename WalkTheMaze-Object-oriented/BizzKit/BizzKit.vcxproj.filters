@@ -127,7 +127,7 @@
       <Filter>Source Files\libs</Filter>
     </ClCompile>
     <ClCompile Include="Rain.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Model</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +216,7 @@
       <Filter>Header Files\libs</Filter>
     </ClInclude>
     <ClInclude Include="Rain.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

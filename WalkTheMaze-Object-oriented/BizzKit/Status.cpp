@@ -22,10 +22,6 @@ Status::Status(){
 	up = down = left = right = GL_FALSE;
 	mapfile = "quarto3.grafo"; // for testing purpose it's better to have one of the rom as 'default' map
 
-	/* SET UP THE MUSIC */
-	background_music = new Music("background.wav");
-	background_music->play();
-
 	score = 0;
 	main_light = (GLfloat*)white_light;
 	daynight = true;

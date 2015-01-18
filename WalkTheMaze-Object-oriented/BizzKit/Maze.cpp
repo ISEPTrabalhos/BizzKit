@@ -489,19 +489,25 @@ void Maze::Launch(int argc, char **argv){
 	srand(time(NULL));
 	rand();
 
-	status = new Status();
 	glutInit(&argc, argv);
 	alutInit(&argc, argv);
+
+	status = new Status();
 	model = new Model();
+
 	character = new MainCharacter();
 	enemy = new EnemyCharacter();
+
 	door1 = new Door(15, 290, "door.mdl");
 	door2 = new Door(290, -270, "door.mdl");
 	exitDoor = new Door(280, -280, "exit.mdl");
 	exitDoor->model.SetSequence(1);
 	exitDoor->position->z = 3;
+
 	obstacle = new Obstacle();
 	trap = new Trap();
+
+	/* GLUT INIT STUFF */
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(640, 480);
 	int loginWindow = glutCreateWindow("OpenGL");
@@ -537,6 +543,10 @@ void Maze::Launch(int argc, char **argv){
 	spawn();
 
 	leGrafo(status->mapfile);
+
+	/* SET UP THE MUSIC */
+	status->background_music = new Music("background.wav");
+	status->background_music->play();
 
 	glutMainLoop();
 
