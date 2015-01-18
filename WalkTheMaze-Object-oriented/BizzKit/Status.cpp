@@ -89,11 +89,12 @@ void Status::setDefaults() {
 	mainMenu = false;
 	showSoundsMenu = false;
 	showTexturesMenu = false;
+	showEnemiesModelsMenu = false;
 	finished = false;
 	gameOver = false;
 
 	soundsList = {};
 	texturesList = {};
-
+	enemiesModelsList = {};
 	gameRoute = "";
 }

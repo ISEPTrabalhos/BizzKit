@@ -128,6 +128,20 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				Graphics::createTextures(model->texID);
 			}
 		}
+		else if (status->showEnemiesModelsMenu){
+			switch (key){
+			case '0':
+				status->showEnemiesModelsMenu = false;
+				status->mainMenu = true;
+				break;
+			}
+			int option = key - 48;
+			if (option > 0 && option <= status->enemiesModelsList.size()){
+				ServicesHandler *sh = new ServicesHandler();
+				//sh->saveModels(status->enemiesModelsList.at(option - 1));
+				status->showEnemiesModelsMenu = false;
+			}
+		}
 		else {
 			switch (key){
 			case 27:
@@ -247,16 +261,18 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				status->showMapMenu = false;
 				break;
 			case '4':
-				if (!status->mainMenu) {
-					status->snow = !status->snow;
-				}
+				status->showEnemiesModelsMenu = true;
 				break;
 			case '5':
 				if (!status->mainMenu) {
 					status->rain = !status->rain;
 				}
 				break;
-
+			case '6':
+				if (!status->mainMenu) {
+					status->snow = !status->snow;
+				}
+				break;
 			case 'F':
 			case 'f':
 				status->spotlight = !status->spotlight;

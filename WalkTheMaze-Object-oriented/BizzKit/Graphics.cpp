@@ -801,7 +801,7 @@ void Graphics::displayMainMenu() {
 		displayMyText("C - CONTINUE  | N -  NEW GAME  |  ESC - EXIT", -375, 275, 0);
 	}
 	
-	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -350, 200, 0);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES  | 4 - ENEMY MODELS", -350, 200, 0);
 
 	//draw separator line
 	glLineWidth(1.0);
@@ -844,6 +844,21 @@ void Graphics::displayMainMenu() {
 		}
 		string back = "0 - Go back";
 		displayMyText((char*)back.c_str(), -200, posY, 0);
+	}
+	else if (status->showEnemiesModelsMenu){
+		if (status->enemiesModelsList.empty()){
+			ServicesHandler *sh = new ServicesHandler();
+			//status->enemiesModelsList = sh->getEnemiesModels();
+		}
+		int posY = 0;
+		for (int i = 0; i < status->enemiesModelsList.size(); i++)
+		{
+			string item = to_string(i + 1) + " - " + status->enemiesModelsList.at(i);
+			displayMyText((char*) item.c_str(), -200, posY, 0);
+			posY += -75;
+		}
+		string back = "0 - Go Back";
+		displayMyText((char*) back.c_str(), -200, posY, 0);
 	}
 
 	glEnable(GL_LIGHTING);
