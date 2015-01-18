@@ -94,7 +94,25 @@ void Maze::Timer(int value) {
 			}
 		}
 
-		ChasePlayer();
+		if (status->mapfile == "quarto3.grafo")
+		{
+			ChasePlayer();
+
+			if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
+			{
+				character->Die();
+			}
+		}
+		else
+		{
+			enemy->position->x = INT_MAX;
+			enemy->position->y = INT_MAX;
+			enemy->position->z = INT_MAX;
+
+			trap->position->x = INT_MAX;
+			trap->position->y = INT_MAX;
+			trap->position->z = INT_MAX;
+		}
 
 		if (!status->falling){
 			GLfloat nx = 0, ny = 0, z = character->position->z;
@@ -219,11 +237,6 @@ void Maze::Timer(int value) {
 				handler->uploadRoute(status->gameRoute);
 			}
 				
-		}
-
-		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
-		{
-			character->Die();
 		}
 	}
 	else
