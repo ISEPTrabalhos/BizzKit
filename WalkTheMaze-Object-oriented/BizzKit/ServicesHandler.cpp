@@ -202,3 +202,41 @@ void ServicesHandler::saveFile(string url, string path) {
 	LPCTSTR Url = _T(url.c_str()), File = _T(path.c_str());
 	hr = URLDownloadToFile(0, Url, File, 0, 0);
 }
+
+vector<string> ServicesHandler::getEnemiesModels()
+{
+	WCHAR *models=NULL;
+	//hr = BasicHttpBinding_IService_getEnemiesModelsList(proxy, &models, heap, NULL, 0, NULL, error);
+
+	string results = convertWcharToString(models);
+
+	vector<string>enemies;
+	stringstream ss(results);
+	string item;
+	while (getline(ss, item,','))
+	{
+		enemies.push_back(item);
+	}
+	return enemies;
+}
+
+void ServicesHandler::saveModels(string modelName)
+{
+	wstring name = convertStringToWstring(modelName);
+	wchar_t *model = const_cast<wchar_t*>(name.c_str());
+
+	wchar_t *result = NULL;
+	//hr = BasicHttpBinding_IService_downloadEnemiesModels(proxy, modelName, &result, heap, NULL, 0, NULL, error);
+
+	string url = convertWcharToString(result);
+	string filename;
+	if (modelName.find("Mummy") != std::string::npos)
+	{
+		filename = "mummy.mdl";
+	}
+	else{
+		filename = "SpitterL4D2v1.mdl";
+	}
+
+	saveFile(url, filename);
+}

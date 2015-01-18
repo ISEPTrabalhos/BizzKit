@@ -41,7 +41,8 @@ public:
 	vector<string> getTexturesList();
 	void saveTexture(string textureName);
 	void saveFile(string url, string path);
-	
+	vector<string>getEnemiesModels();
+	void saveModels(string modelName);
 
 	//usefull functions
 	wstring convertStringToWstring(string source);
