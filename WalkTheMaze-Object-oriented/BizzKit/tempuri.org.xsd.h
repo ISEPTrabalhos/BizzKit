@@ -49,6 +49,20 @@ extern "C" {
 //     struct _ListLevelsResponse;
 //     struct _LoadLevel;
 //     struct _LoadLevelResponse;
+//     struct _getTexturesList;
+//     struct _getTexturesListResponse;
+//     struct _downloadTexture;
+//     struct _downloadTextureResponse;
+//     struct _getSoundsList;
+//     struct _getSoundsListResponse;
+//     struct _downloadSound;
+//     struct _downloadSoundResponse;
+//     struct _uploadRoute;
+//     struct _uploadRouteResponse;
+//     struct _getEnemiesModelsList;
+//     struct _getEnemiesModelsListResponse;
+//     struct _downloadEnemiesModels;
+//     struct _downloadEnemiesModelsResponse;
 
 // The following header files must be included in this order before this one
 
@@ -79,11 +93,7 @@ typedef struct _Score
     int score;
 } _Score;
 
-// typeDescription: n/a
-typedef struct _ScoreResponse 
-{
-    int ScoreResult;
-} _ScoreResponse;
+typedef struct _ScoreResponse _ScoreResponse;
 
 typedef struct _ListLevels _ListLevels;
 
@@ -104,6 +114,76 @@ typedef struct _LoadLevelResponse
 {
     WCHAR* LoadLevelResult; // optional
 } _LoadLevelResponse;
+
+typedef struct _getTexturesList _getTexturesList;
+
+// typeDescription: n/a
+typedef struct _getTexturesListResponse 
+{
+    WCHAR* getTexturesListResult; // optional
+} _getTexturesListResponse;
+
+// typeDescription: n/a
+typedef struct _downloadTexture 
+{
+    WCHAR* textureName; // optional
+} _downloadTexture;
+
+// typeDescription: n/a
+typedef struct _downloadTextureResponse 
+{
+    WCHAR* downloadTextureResult; // optional
+} _downloadTextureResponse;
+
+typedef struct _getSoundsList _getSoundsList;
+
+// typeDescription: n/a
+typedef struct _getSoundsListResponse 
+{
+    WCHAR* getSoundsListResult; // optional
+} _getSoundsListResponse;
+
+// typeDescription: n/a
+typedef struct _downloadSound 
+{
+    WCHAR* soundName; // optional
+} _downloadSound;
+
+// typeDescription: n/a
+typedef struct _downloadSoundResponse 
+{
+    WCHAR* downloadSoundResult; // optional
+} _downloadSoundResponse;
+
+// typeDescription: n/a
+typedef struct _uploadRoute 
+{
+    WCHAR* username; // optional
+    WCHAR* level; // optional
+    WCHAR* route; // optional
+} _uploadRoute;
+
+typedef struct _uploadRouteResponse _uploadRouteResponse;
+
+typedef struct _getEnemiesModelsList _getEnemiesModelsList;
+
+// typeDescription: n/a
+typedef struct _getEnemiesModelsListResponse 
+{
+    WCHAR* getEnemiesModelsListResult; // optional
+} _getEnemiesModelsListResponse;
+
+// typeDescription: n/a
+typedef struct _downloadEnemiesModels 
+{
+    WCHAR* modelName; // optional
+} _downloadEnemiesModels;
+
+// typeDescription: n/a
+typedef struct _downloadEnemiesModelsResponse 
+{
+    WCHAR* downloadEnemiesModelsResult; // optional
+} _downloadEnemiesModelsResponse;
 
 ////////////////////////////////////////////////
 // Global web service descriptions.
@@ -153,6 +233,76 @@ typedef struct _tempuri_org_xsd
         // elementDescription: tempuri_org_xsd.globalElements.LoadLevelResponse
         WS_ELEMENT_DESCRIPTION LoadLevelResponse;
         
+        // xml element: getTexturesList ("http://tempuri.org/")
+        // c type: _getTexturesList
+        // elementDescription: tempuri_org_xsd.globalElements.getTexturesList
+        WS_ELEMENT_DESCRIPTION getTexturesList;
+        
+        // xml element: getTexturesListResponse ("http://tempuri.org/")
+        // c type: _getTexturesListResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getTexturesListResponse
+        WS_ELEMENT_DESCRIPTION getTexturesListResponse;
+        
+        // xml element: downloadTexture ("http://tempuri.org/")
+        // c type: _downloadTexture
+        // elementDescription: tempuri_org_xsd.globalElements.downloadTexture
+        WS_ELEMENT_DESCRIPTION downloadTexture;
+        
+        // xml element: downloadTextureResponse ("http://tempuri.org/")
+        // c type: _downloadTextureResponse
+        // elementDescription: tempuri_org_xsd.globalElements.downloadTextureResponse
+        WS_ELEMENT_DESCRIPTION downloadTextureResponse;
+        
+        // xml element: getSoundsList ("http://tempuri.org/")
+        // c type: _getSoundsList
+        // elementDescription: tempuri_org_xsd.globalElements.getSoundsList
+        WS_ELEMENT_DESCRIPTION getSoundsList;
+        
+        // xml element: getSoundsListResponse ("http://tempuri.org/")
+        // c type: _getSoundsListResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getSoundsListResponse
+        WS_ELEMENT_DESCRIPTION getSoundsListResponse;
+        
+        // xml element: downloadSound ("http://tempuri.org/")
+        // c type: _downloadSound
+        // elementDescription: tempuri_org_xsd.globalElements.downloadSound
+        WS_ELEMENT_DESCRIPTION downloadSound;
+        
+        // xml element: downloadSoundResponse ("http://tempuri.org/")
+        // c type: _downloadSoundResponse
+        // elementDescription: tempuri_org_xsd.globalElements.downloadSoundResponse
+        WS_ELEMENT_DESCRIPTION downloadSoundResponse;
+        
+        // xml element: uploadRoute ("http://tempuri.org/")
+        // c type: _uploadRoute
+        // elementDescription: tempuri_org_xsd.globalElements.uploadRoute
+        WS_ELEMENT_DESCRIPTION uploadRoute;
+        
+        // xml element: uploadRouteResponse ("http://tempuri.org/")
+        // c type: _uploadRouteResponse
+        // elementDescription: tempuri_org_xsd.globalElements.uploadRouteResponse
+        WS_ELEMENT_DESCRIPTION uploadRouteResponse;
+        
+        // xml element: getEnemiesModelsList ("http://tempuri.org/")
+        // c type: _getEnemiesModelsList
+        // elementDescription: tempuri_org_xsd.globalElements.getEnemiesModelsList
+        WS_ELEMENT_DESCRIPTION getEnemiesModelsList;
+        
+        // xml element: getEnemiesModelsListResponse ("http://tempuri.org/")
+        // c type: _getEnemiesModelsListResponse
+        // elementDescription: tempuri_org_xsd.globalElements.getEnemiesModelsListResponse
+        WS_ELEMENT_DESCRIPTION getEnemiesModelsListResponse;
+        
+        // xml element: downloadEnemiesModels ("http://tempuri.org/")
+        // c type: _downloadEnemiesModels
+        // elementDescription: tempuri_org_xsd.globalElements.downloadEnemiesModels
+        WS_ELEMENT_DESCRIPTION downloadEnemiesModels;
+        
+        // xml element: downloadEnemiesModelsResponse ("http://tempuri.org/")
+        // c type: _downloadEnemiesModelsResponse
+        // elementDescription: tempuri_org_xsd.globalElements.downloadEnemiesModelsResponse
+        WS_ELEMENT_DESCRIPTION downloadEnemiesModelsResponse;
+        
     } globalElements;
     struct // externallyReferencedTypes
     {
@@ -164,6 +314,20 @@ typedef struct _tempuri_org_xsd
         WS_STRUCT_DESCRIPTION ListLevelsResponse;
         WS_STRUCT_DESCRIPTION LoadLevel;
         WS_STRUCT_DESCRIPTION LoadLevelResponse;
+        WS_STRUCT_DESCRIPTION getTexturesList;
+        WS_STRUCT_DESCRIPTION getTexturesListResponse;
+        WS_STRUCT_DESCRIPTION downloadTexture;
+        WS_STRUCT_DESCRIPTION downloadTextureResponse;
+        WS_STRUCT_DESCRIPTION getSoundsList;
+        WS_STRUCT_DESCRIPTION getSoundsListResponse;
+        WS_STRUCT_DESCRIPTION downloadSound;
+        WS_STRUCT_DESCRIPTION downloadSoundResponse;
+        WS_STRUCT_DESCRIPTION uploadRoute;
+        WS_STRUCT_DESCRIPTION uploadRouteResponse;
+        WS_STRUCT_DESCRIPTION getEnemiesModelsList;
+        WS_STRUCT_DESCRIPTION getEnemiesModelsListResponse;
+        WS_STRUCT_DESCRIPTION downloadEnemiesModels;
+        WS_STRUCT_DESCRIPTION downloadEnemiesModelsResponse;
     } externallyReferencedTypes;
 } _tempuri_org_xsd;
 
