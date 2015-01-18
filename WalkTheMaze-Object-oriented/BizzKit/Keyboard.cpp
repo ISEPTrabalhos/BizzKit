@@ -33,8 +33,10 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			}
 		}
 		else if (key == 8) { // backspace
-			status->password.pop_back();
-			status->passwd.pop_back();
+			if (status->password.compare("") != 0) {
+				status->password.pop_back();
+				status->passwd.pop_back();
+			}
 		} else {
 			if (key > 33 && key < 126) {
 				status->password.push_back(key);
@@ -47,7 +49,9 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			status->nextInput = true; // go to password
 		}
 		else if (key == 8) { // backspace
-			status->username.pop_back();
+			if (status->username.compare("") != 0) {
+				status->username.pop_back();
+			}
 		} else {
 			if (key > 33 && key < 126) { 
 				status->username.push_back(key);
