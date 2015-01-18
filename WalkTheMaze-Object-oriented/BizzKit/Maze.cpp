@@ -8,6 +8,7 @@
 #include "Trap.h"
 #include "ServicesHandler.h"
 #include "Door.h"
+#include "Ammo.h"
 
 #define MAP_COOR_SCALE 5
 #define GAP_CLIMB 0.1
@@ -15,6 +16,7 @@
 Model *model;
 Status *status;
 MainCharacter *character;
+Ammo *ammo;
 EnemyCharacter *enemy;
 Obstacle *obstacle;
 Trap *trap;
@@ -34,7 +36,8 @@ Rain* rain[40] = {
 
 int counter = 0;
 double lightComponent, factor = 3.0, duration = 10000.0; //change duration to increase/decrease effect tim
-int lastAttackTime = 0;
+int lastEnemyAttackTime = 0;
+int lastPlayerAttackTime = 0;
 
 void Maze::Timer(int value) {
 	if (status->daynight) {
@@ -51,8 +54,40 @@ void Maze::Timer(int value) {
 
 	if (status->tecla_o) status->background_music->toggle();
 
-	ChasePlayer();
 	if (!character->IsDead()){
+		if (status->attacking)
+		{
+			if (!ammo->isTravelling)
+			{
+				int tempTime = time(NULL);
+				if (tempTime > lastPlayerAttackTime) // prevents multiple attacks from firing within a second
+				{
+					lastPlayerAttackTime = tempTime;
+					ammo->fire(character->position->x, character->position->y, character->position->z, character->dir);
+				}
+			}
+		}
+		else
+		{
+			if (!ammo->isTravelling)
+			{
+				ammo->position->z = INT_MAX; // remove the projectile
+			}
+		}
+
+		if (ammo->isTravelling)
+		{
+			if (!Collision(ammo->position->x, ammo->position->y, ammo->position->z, ammo->vel, ammo->dir))
+			{
+				ammo->travel();
+			}
+			else
+			{
+				ammo->isTravelling = GL_FALSE;
+			}
+		}
+
+		ChasePlayer();
 
 		if (!status->falling){
 			GLfloat nx = 0, ny = 0, z = character->position->z;
@@ -88,13 +123,13 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-					
+
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
 						Music *f = new Music("fall.wav");
 						f->play();
-						
+
 					}
 				}
 			}
@@ -143,7 +178,7 @@ void Maze::Timer(int value) {
 				leGrafo(status->mapfile);
 			}
 
-			if (character->position->x > 185 && character->position->x<195 && character->position->y>285 && character->position->y < 295) {
+			if (character->position->x > 185 && character->position->x < 195 && character->position->y>285 && character->position->y < 295) {
 				//	Win the Game
 				status->mainMenu = true;
 				status->finished = true;
@@ -178,7 +213,7 @@ void Maze::Timer(int value) {
 				handler->uploadScore(status->score);
 				handler->uploadRoute(status->gameRoute);*/
 			}
-				
+
 		}
 
 		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
@@ -225,7 +260,7 @@ void Maze::ChasePlayer()
 	zMin = enemy->position->z - range;
 	zMax = enemy->position->z + range;
 
-	if (!character->IsDead())
+	if (!character->IsDead() && enemy->health > 0)
 	{
 		if (CollisionEnemy(playerX, playerY, playerZ))
 		{
@@ -233,9 +268,9 @@ void Maze::ChasePlayer()
 				enemy->model.SetSequence(76);
 
 			int tempTime = time(NULL); // time está em segundos
-			if (tempTime > lastAttackTime) // se for maior, passou um segundo, no mínimo
+			if (tempTime > lastEnemyAttackTime) // se for maior, passou um segundo, no mínimo
 			{
-				lastAttackTime = tempTime;
+				lastEnemyAttackTime = tempTime;
 				character->health -= enemy->damage;
 				status->score -= 100 * enemy->damage;
 			}
@@ -412,6 +447,102 @@ bool Maze::Walk(int direction) {
 	}
 }
 
+
+bool Maze::Collision(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat vel, GLfloat dir)
+{
+	GLfloat nx = 0.0, ny = 0.0, nz = 0.0, lx, ly, alpha, si, projLength, sf, gap, nxx, nyy, nfxx, nfyy;
+	int direction = 1;
+
+	nx = posX + vel * cosf(dir);
+	ny = posY + vel * sinf(dir);
+
+	if (CollisionObstacle(nx, ny, posZ))
+	{
+		return true;
+	}
+
+	if (CollisionEnemy(nx, ny, posZ))
+	{
+		enemy->health -= ammo->damage;
+		return true;
+	}
+
+	for (int n = 0; n < numNos; n++)
+	{
+		No ni = nos[n];
+
+		if (pow(nx - (ni.x * MAP_COOR_SCALE), 2) + pow(ny - (ni.y * MAP_COOR_SCALE), 2) <= pow((ni.largura * 0.5) * MAP_COOR_SCALE, 2))
+		{
+			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz > posZ && nz - posZ > 1)
+			{
+				return true;
+			}
+			return true;
+		}
+	}
+
+	for (int i = 0; i < numArcos; i++)
+	{
+		No ni = nos[arcos[i].noi];
+		No nf = nos[arcos[i].nof];
+		si = ni.largura * 0.5 * MAP_COOR_SCALE;
+		gap = nf.z * MAP_COOR_SCALE - ni.z * MAP_COOR_SCALE;
+		sf = nf.largura * 0.5 * MAP_COOR_SCALE;
+		projLength = sqrtf(powf(nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE, 2) + powf(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, 2)) - si - sf;
+		alpha = atan2(nf.y * MAP_COOR_SCALE - ni.y * MAP_COOR_SCALE, nf.x * MAP_COOR_SCALE - ni.x * MAP_COOR_SCALE);
+		lx = ((nx - ni.x * MAP_COOR_SCALE) * cosf(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sinf(alpha));
+		ly = ((ny - ni.y * MAP_COOR_SCALE) * cosf(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sinf(alpha));
+		nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+
+		nxx = (nx - ni.x * MAP_COOR_SCALE) * cos(alpha) + (ny - ni.y * MAP_COOR_SCALE) * sin(alpha);
+		nyy = (ny - ni.y * MAP_COOR_SCALE) * cos(alpha) - (nx - ni.x * MAP_COOR_SCALE) * sin(alpha);
+
+		nfxx = (nx - nf.x * MAP_COOR_SCALE) * cos(alpha + M_PI) + (ny - nf.y * MAP_COOR_SCALE) * sin(alpha + M_PI);
+		nfyy = (ny - nf.y * MAP_COOR_SCALE) * cos(alpha + M_PI) - (nx - nf.x * MAP_COOR_SCALE) * sin(alpha + M_PI);
+
+		if (0.0 <= nxx
+			&& nxx <= si
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy
+			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE)
+		{
+			nz = ni.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz > posZ && nz - posZ > 1)
+			{
+				return true;
+			}
+			return true;
+		}
+
+		if (0.0 <= nfxx
+			&& nfxx <= sf
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nfyy
+			&& nfyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE)
+		{
+			nz = nf.z * MAP_COOR_SCALE + CHARACTER_HEIGHT * 0.5;
+			if (nz > posZ && nz - posZ > 1)
+			{
+				return true;
+			}
+			return true;
+		}
+
+		if (si < nxx
+			&& nxx < si + projLength
+			&& -arcos[i].largura * 0.5 * MAP_COOR_SCALE <= nyy
+			&& nyy <= arcos[i].largura * 0.5 * MAP_COOR_SCALE)
+		{
+			nz = ni.z * MAP_COOR_SCALE + (lx - si) / projLength * gap + CHARACTER_HEIGHT * 0.5;
+			if (nz > posZ && nz - posZ > 1)
+			{
+				return true;
+			}
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Maze::CollisionObstacle(GLfloat x, GLfloat y, GLfloat z)
 {
 	GLfloat xMin, xMax;
@@ -497,6 +628,7 @@ void Maze::Launch(int argc, char **argv){
 	alutInit(&argc, argv);
 	model = new Model();
 	character = new MainCharacter();
+	ammo = new Ammo();
 	enemy = new EnemyCharacter();
 	door1 = new Door(15, 290, "door.mdl");
 	door2 = new Door(290, -270, "door.mdl");
@@ -511,6 +643,7 @@ void Maze::Launch(int argc, char **argv){
 	glutReshapeFunc(Graphics::myReshape);
 	glutDisplayFunc(Graphics::display);
 	glutKeyboardFunc(Keyboard::keyboard);
+	glutKeyboardUpFunc(Keyboard::keyboardUp);
 	glutSpecialUpFunc(Keyboard::specialKeyUp);
 	glutSpecialFunc(Keyboard::Special);
 	glutMouseFunc(Mouse::mouse);

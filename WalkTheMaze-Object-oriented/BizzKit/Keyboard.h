@@ -7,7 +7,8 @@
 
 class Keyboard {
 public:
-    static void keyboard(unsigned char key, int x, int y);
+	static void keyboard(unsigned char key, int x, int y);
+	static void keyboardUp(unsigned char key, int x, int y);
     static void Special(int key, int x, int y);
     static void help(void);
 	static void specialKeyUp(int key, int x, int y);

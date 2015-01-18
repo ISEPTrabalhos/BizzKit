@@ -18,7 +18,7 @@ public:
 	// functions
     static void Launch(int argc, char **argv);
     static void Timer(int value);
-	static bool Collision(GLfloat nx, GLfloat ny, GLfloat nz);
+	static bool Collision(GLfloat posX, GLfloat posY, GLfloat posZ, GLfloat vel, GLfloat dir);
 	static void ChasePlayer();
 	static bool Walk(int direction);
 	static bool CollisionObstacle(GLfloat x, GLfloat y, GLfloat z);
