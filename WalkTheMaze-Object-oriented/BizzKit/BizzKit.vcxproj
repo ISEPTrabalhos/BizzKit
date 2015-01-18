@@ -91,7 +91,10 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Rain.cpp" />
+    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c" />
     <ClCompile Include="SnowFlake.cpp" />
+    <ClCompile Include="tempuri.org.wsdl.c" />
+    <ClCompile Include="tempuri.org.xsd.c" />
     <ClCompile Include="Trap.cpp" />
     <ClCompile Include="EnemyCharacter.cpp" />
     <ClCompile Include="Grafo.cpp" />
@@ -109,13 +112,10 @@
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="readjpeg.c" />
-    <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c" />
     <ClCompile Include="ServicesHandler.cpp" />
     <ClCompile Include="Status.cpp" />
     <ClCompile Include="studio_render.cpp" />
     <ClCompile Include="studio_utils.cpp" />
-    <ClCompile Include="tempuri.org.wsdl.c" />
-    <ClCompile Include="tempuri.org.xsd.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />

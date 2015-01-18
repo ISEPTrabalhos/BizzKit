@@ -151,9 +151,9 @@ void Maze::Timer(int value) {
 				//	Win the Game
 				status->mainMenu = true;
 				status->finished = true;
-				/*ServicesHandler *handler = new ServicesHandler();
+				ServicesHandler *handler = new ServicesHandler();
 				handler->uploadScore(status->score);
-				handler->uploadRoute(status->gameRoute);*/
+				handler->uploadRoute(status->gameRoute);
 			}
 
 		}
@@ -178,11 +178,9 @@ void Maze::Timer(int value) {
 				// Win the Game
 				status->mainMenu = true;
 				status->finished = true;
-				Music *m = new Music("exit.wav");
-				m->play();
-				/*ServicesHandler *handler = new ServicesHandler();
+				ServicesHandler *handler = new ServicesHandler();
 				handler->uploadScore(status->score);
-				handler->uploadRoute(status->gameRoute);*/
+				handler->uploadRoute(status->gameRoute);
 			}
 				
 		}

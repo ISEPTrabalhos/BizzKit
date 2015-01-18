@@ -26,11 +26,6 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION score;
             WS_FIELD_DESCRIPTION* _ScoreFields [3]; 
         } _Scoredescs; // end of _Score
-        struct // _ScoreResponse
-        {
-            WS_FIELD_DESCRIPTION ScoreResult;
-            WS_FIELD_DESCRIPTION* _ScoreResponseFields [1]; 
-        } _ScoreResponsedescs; // end of _ScoreResponse
         struct // _ListLevelsResponse
         {
             WS_FIELD_DESCRIPTION ListLevelsResult;
@@ -46,6 +41,58 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_FIELD_DESCRIPTION LoadLevelResult;
             WS_FIELD_DESCRIPTION* _LoadLevelResponseFields [1]; 
         } _LoadLevelResponsedescs; // end of _LoadLevelResponse
+        struct // _getTexturesListResponse
+        {
+            WS_FIELD_DESCRIPTION getTexturesListResult;
+            WS_FIELD_DESCRIPTION* _getTexturesListResponseFields [1]; 
+        } _getTexturesListResponsedescs; // end of _getTexturesListResponse
+        struct // _downloadTexture
+        {
+            WS_FIELD_DESCRIPTION textureName;
+            WS_FIELD_DESCRIPTION* _downloadTextureFields [1]; 
+        } _downloadTexturedescs; // end of _downloadTexture
+        struct // _downloadTextureResponse
+        {
+            WS_FIELD_DESCRIPTION downloadTextureResult;
+            WS_FIELD_DESCRIPTION* _downloadTextureResponseFields [1]; 
+        } _downloadTextureResponsedescs; // end of _downloadTextureResponse
+        struct // _getSoundsListResponse
+        {
+            WS_FIELD_DESCRIPTION getSoundsListResult;
+            WS_FIELD_DESCRIPTION* _getSoundsListResponseFields [1]; 
+        } _getSoundsListResponsedescs; // end of _getSoundsListResponse
+        struct // _downloadSound
+        {
+            WS_FIELD_DESCRIPTION soundName;
+            WS_FIELD_DESCRIPTION* _downloadSoundFields [1]; 
+        } _downloadSounddescs; // end of _downloadSound
+        struct // _downloadSoundResponse
+        {
+            WS_FIELD_DESCRIPTION downloadSoundResult;
+            WS_FIELD_DESCRIPTION* _downloadSoundResponseFields [1]; 
+        } _downloadSoundResponsedescs; // end of _downloadSoundResponse
+        struct // _uploadRoute
+        {
+            WS_FIELD_DESCRIPTION username;
+            WS_FIELD_DESCRIPTION level;
+            WS_FIELD_DESCRIPTION route;
+            WS_FIELD_DESCRIPTION* _uploadRouteFields [3]; 
+        } _uploadRoutedescs; // end of _uploadRoute
+        struct // _getEnemiesModelsListResponse
+        {
+            WS_FIELD_DESCRIPTION getEnemiesModelsListResult;
+            WS_FIELD_DESCRIPTION* _getEnemiesModelsListResponseFields [1]; 
+        } _getEnemiesModelsListResponsedescs; // end of _getEnemiesModelsListResponse
+        struct // _downloadEnemiesModels
+        {
+            WS_FIELD_DESCRIPTION modelName;
+            WS_FIELD_DESCRIPTION* _downloadEnemiesModelsFields [1]; 
+        } _downloadEnemiesModelsdescs; // end of _downloadEnemiesModels
+        struct // _downloadEnemiesModelsResponse
+        {
+            WS_FIELD_DESCRIPTION downloadEnemiesModelsResult;
+            WS_FIELD_DESCRIPTION* _downloadEnemiesModelsResponseFields [1]; 
+        } _downloadEnemiesModelsResponsedescs; // end of _downloadEnemiesModelsResponse
     } globalElements;  // end of global elements
     struct // XML dictionary
     {
@@ -61,13 +108,37 @@ typedef struct _tempuri_org_xsdLocalDefinitions
             WS_XML_STRING _ScorelevelNameLocalName;  // levelName
             WS_XML_STRING _ScorescoreLocalName;  // score
             WS_XML_STRING _ScoreResponseTypeName;  // ScoreResponse
-            WS_XML_STRING _ScoreResponseScoreResultLocalName;  // ScoreResult
             WS_XML_STRING _ListLevelsTypeName;  // ListLevels
             WS_XML_STRING _ListLevelsResponseTypeName;  // ListLevelsResponse
             WS_XML_STRING _ListLevelsResponseListLevelsResultLocalName;  // ListLevelsResult
             WS_XML_STRING _LoadLevelTypeName;  // LoadLevel
             WS_XML_STRING _LoadLevelResponseTypeName;  // LoadLevelResponse
             WS_XML_STRING _LoadLevelResponseLoadLevelResultLocalName;  // LoadLevelResult
+            WS_XML_STRING _getTexturesListTypeName;  // getTexturesList
+            WS_XML_STRING _getTexturesListResponseTypeName;  // getTexturesListResponse
+            WS_XML_STRING _getTexturesListResponsegetTexturesListResultLocalName;  // getTexturesListResult
+            WS_XML_STRING _downloadTextureTypeName;  // downloadTexture
+            WS_XML_STRING _downloadTexturetextureNameLocalName;  // textureName
+            WS_XML_STRING _downloadTextureResponseTypeName;  // downloadTextureResponse
+            WS_XML_STRING _downloadTextureResponsedownloadTextureResultLocalName;  // downloadTextureResult
+            WS_XML_STRING _getSoundsListTypeName;  // getSoundsList
+            WS_XML_STRING _getSoundsListResponseTypeName;  // getSoundsListResponse
+            WS_XML_STRING _getSoundsListResponsegetSoundsListResultLocalName;  // getSoundsListResult
+            WS_XML_STRING _downloadSoundTypeName;  // downloadSound
+            WS_XML_STRING _downloadSoundsoundNameLocalName;  // soundName
+            WS_XML_STRING _downloadSoundResponseTypeName;  // downloadSoundResponse
+            WS_XML_STRING _downloadSoundResponsedownloadSoundResultLocalName;  // downloadSoundResult
+            WS_XML_STRING _uploadRouteTypeName;  // uploadRoute
+            WS_XML_STRING _uploadRoutelevelLocalName;  // level
+            WS_XML_STRING _uploadRouterouteLocalName;  // route
+            WS_XML_STRING _uploadRouteResponseTypeName;  // uploadRouteResponse
+            WS_XML_STRING _getEnemiesModelsListTypeName;  // getEnemiesModelsList
+            WS_XML_STRING _getEnemiesModelsListResponseTypeName;  // getEnemiesModelsListResponse
+            WS_XML_STRING _getEnemiesModelsListResponsegetEnemiesModelsListResultLocalName;  // getEnemiesModelsListResult
+            WS_XML_STRING _downloadEnemiesModelsTypeName;  // downloadEnemiesModels
+            WS_XML_STRING _downloadEnemiesModelsmodelNameLocalName;  // modelName
+            WS_XML_STRING _downloadEnemiesModelsResponseTypeName;  // downloadEnemiesModelsResponse
+            WS_XML_STRING _downloadEnemiesModelsResponsedownloadEnemiesModelsResultLocalName;  // downloadEnemiesModelsResult
         } xmlStrings; // end of XML string list
         WS_XML_DICTIONARY dict;  
     } dictionary;  // end of XML dictionary
@@ -161,22 +232,6 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._Scoredescs.score,
             },
         },    // _Score
-        {   // _ScoreResponse
-            { // field description for ScoreResult
-            WS_ELEMENT_FIELD_MAPPING,
-            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreResponseScoreResultLocalName, // ScoreResult
-            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
-            WS_INT32_TYPE,
-            0,
-            WsOffsetOf(_ScoreResponse, ScoreResult),
-             WS_FIELD_OPTIONAL,
-            0,
-            0xffffffff
-            },    // end of field description for ScoreResult
-            {    // fields description for _ScoreResponse
-            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs.ScoreResult,
-            },
-        },    // _ScoreResponse
         {   // _ListLevelsResponse
             { // field description for ListLevelsResult
             WS_ELEMENT_FIELD_MAPPING,
@@ -225,6 +280,190 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._LoadLevelResponsedescs.LoadLevelResult,
             },
         },    // _LoadLevelResponse
+        {   // _getTexturesListResponse
+            { // field description for getTexturesListResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getTexturesListResponsegetTexturesListResultLocalName, // getTexturesListResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getTexturesListResponse, getTexturesListResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for getTexturesListResult
+            {    // fields description for _getTexturesListResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getTexturesListResponsedescs.getTexturesListResult,
+            },
+        },    // _getTexturesListResponse
+        {   // _downloadTexture
+            { // field description for textureName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadTexturetextureNameLocalName, // textureName
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_downloadTexture, textureName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for textureName
+            {    // fields description for _downloadTexture
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._downloadTexturedescs.textureName,
+            },
+        },    // _downloadTexture
+        {   // _downloadTextureResponse
+            { // field description for downloadTextureResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadTextureResponsedownloadTextureResultLocalName, // downloadTextureResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_downloadTextureResponse, downloadTextureResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for downloadTextureResult
+            {    // fields description for _downloadTextureResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._downloadTextureResponsedescs.downloadTextureResult,
+            },
+        },    // _downloadTextureResponse
+        {   // _getSoundsListResponse
+            { // field description for getSoundsListResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getSoundsListResponsegetSoundsListResultLocalName, // getSoundsListResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getSoundsListResponse, getSoundsListResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for getSoundsListResult
+            {    // fields description for _getSoundsListResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getSoundsListResponsedescs.getSoundsListResult,
+            },
+        },    // _getSoundsListResponse
+        {   // _downloadSound
+            { // field description for soundName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadSoundsoundNameLocalName, // soundName
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_downloadSound, soundName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for soundName
+            {    // fields description for _downloadSound
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._downloadSounddescs.soundName,
+            },
+        },    // _downloadSound
+        {   // _downloadSoundResponse
+            { // field description for downloadSoundResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadSoundResponsedownloadSoundResultLocalName, // downloadSoundResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_downloadSoundResponse, downloadSoundResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for downloadSoundResult
+            {    // fields description for _downloadSoundResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._downloadSoundResponsedescs.downloadSoundResult,
+            },
+        },    // _downloadSoundResponse
+        {   // _uploadRoute
+            { // field description for username
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginusernameLocalName, // username
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_uploadRoute, username),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for username
+            { // field description for level
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._uploadRoutelevelLocalName, // level
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_uploadRoute, level),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for level
+            { // field description for route
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._uploadRouterouteLocalName, // route
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_uploadRoute, route),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for route
+            {    // fields description for _uploadRoute
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._uploadRoutedescs.username,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._uploadRoutedescs.level,
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._uploadRoutedescs.route,
+            },
+        },    // _uploadRoute
+        {   // _getEnemiesModelsListResponse
+            { // field description for getEnemiesModelsListResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getEnemiesModelsListResponsegetEnemiesModelsListResultLocalName, // getEnemiesModelsListResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_getEnemiesModelsListResponse, getEnemiesModelsListResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for getEnemiesModelsListResult
+            {    // fields description for _getEnemiesModelsListResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._getEnemiesModelsListResponsedescs.getEnemiesModelsListResult,
+            },
+        },    // _getEnemiesModelsListResponse
+        {   // _downloadEnemiesModels
+            { // field description for modelName
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadEnemiesModelsmodelNameLocalName, // modelName
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_downloadEnemiesModels, modelName),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for modelName
+            {    // fields description for _downloadEnemiesModels
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._downloadEnemiesModelsdescs.modelName,
+            },
+        },    // _downloadEnemiesModels
+        {   // _downloadEnemiesModelsResponse
+            { // field description for downloadEnemiesModelsResult
+            WS_ELEMENT_FIELD_MAPPING,
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadEnemiesModelsResponsedownloadEnemiesModelsResultLocalName, // downloadEnemiesModelsResult
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_WSZ_TYPE,
+            0,
+            WsOffsetOf(_downloadEnemiesModelsResponse, downloadEnemiesModelsResult),
+             WS_FIELD_OPTIONAL| WS_FIELD_NILLABLE,
+            0,
+            0xffffffff
+            },    // end of field description for downloadEnemiesModelsResult
+            {    // fields description for _downloadEnemiesModelsResponse
+            (WS_FIELD_DESCRIPTION*)&tempuri_org_xsdLocalDefinitions.globalElements._downloadEnemiesModelsResponsedescs.downloadEnemiesModelsResult,
+            },
+        },    // _downloadEnemiesModelsResponse
     }, // end of global elements
     {    // dictionary 
         { // xmlStrings
@@ -238,20 +477,44 @@ const static _tempuri_org_xsdLocalDefinitions tempuri_org_xsdLocalDefinitions =
             WS_XML_STRING_DICTIONARY_VALUE("levelName",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 7),
             WS_XML_STRING_DICTIONARY_VALUE("score",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 8),
             WS_XML_STRING_DICTIONARY_VALUE("ScoreResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 9),
-            WS_XML_STRING_DICTIONARY_VALUE("ScoreResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 10),
-            WS_XML_STRING_DICTIONARY_VALUE("ListLevels",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 11),
-            WS_XML_STRING_DICTIONARY_VALUE("ListLevelsResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 12),
-            WS_XML_STRING_DICTIONARY_VALUE("ListLevelsResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 13),
-            WS_XML_STRING_DICTIONARY_VALUE("LoadLevel",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 14),
-            WS_XML_STRING_DICTIONARY_VALUE("LoadLevelResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 15),
-            WS_XML_STRING_DICTIONARY_VALUE("LoadLevelResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 16),
+            WS_XML_STRING_DICTIONARY_VALUE("ListLevels",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 10),
+            WS_XML_STRING_DICTIONARY_VALUE("ListLevelsResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 11),
+            WS_XML_STRING_DICTIONARY_VALUE("ListLevelsResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 12),
+            WS_XML_STRING_DICTIONARY_VALUE("LoadLevel",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 13),
+            WS_XML_STRING_DICTIONARY_VALUE("LoadLevelResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 14),
+            WS_XML_STRING_DICTIONARY_VALUE("LoadLevelResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 15),
+            WS_XML_STRING_DICTIONARY_VALUE("getTexturesList",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 16),
+            WS_XML_STRING_DICTIONARY_VALUE("getTexturesListResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 17),
+            WS_XML_STRING_DICTIONARY_VALUE("getTexturesListResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 18),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadTexture",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 19),
+            WS_XML_STRING_DICTIONARY_VALUE("textureName",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 20),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadTextureResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 21),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadTextureResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 22),
+            WS_XML_STRING_DICTIONARY_VALUE("getSoundsList",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 23),
+            WS_XML_STRING_DICTIONARY_VALUE("getSoundsListResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 24),
+            WS_XML_STRING_DICTIONARY_VALUE("getSoundsListResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 25),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadSound",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 26),
+            WS_XML_STRING_DICTIONARY_VALUE("soundName",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 27),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadSoundResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 28),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadSoundResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 29),
+            WS_XML_STRING_DICTIONARY_VALUE("uploadRoute",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 30),
+            WS_XML_STRING_DICTIONARY_VALUE("level",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 31),
+            WS_XML_STRING_DICTIONARY_VALUE("route",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 32),
+            WS_XML_STRING_DICTIONARY_VALUE("uploadRouteResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 33),
+            WS_XML_STRING_DICTIONARY_VALUE("getEnemiesModelsList",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 34),
+            WS_XML_STRING_DICTIONARY_VALUE("getEnemiesModelsListResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 35),
+            WS_XML_STRING_DICTIONARY_VALUE("getEnemiesModelsListResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 36),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadEnemiesModels",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 37),
+            WS_XML_STRING_DICTIONARY_VALUE("modelName",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 38),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadEnemiesModelsResponse",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 39),
+            WS_XML_STRING_DICTIONARY_VALUE("downloadEnemiesModelsResult",&tempuri_org_xsdLocalDefinitions.dictionary.dict, 40),
         },  // end of xmlStrings
         
         {   // tempuri_org_xsddictionary
-        // c59f48d2-9153-44a9-b824-c32176259cd4 
-        { 0xc59f48d2, 0x9153, 0x44a9, { 0xb8, 0x24, 0xc3,0x21, 0x76, 0x25, 0x9c, 0xd4 } },
+        // 6d171c5e-63f8-4115-b539-7eced2c5249c 
+        { 0x6d171c5e, 0x63f8, 0x4115, { 0xb5, 0x39, 0x7e,0xce, 0xd2, 0xc5, 0x24, 0x9c } },
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings,
-        17,
+        41,
         TRUE,
         },
     },   //  end of dictionary
@@ -308,6 +571,90 @@ const _tempuri_org_xsd tempuri_org_xsd =
             WS_STRUCT_TYPE,
             (void*)&tempuri_org_xsd.externallyReferencedTypes.LoadLevelResponse,
         },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getTexturesListTypeName, // getTexturesList
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getTexturesList,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getTexturesListResponseTypeName, // getTexturesListResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getTexturesListResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadTextureTypeName, // downloadTexture
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.downloadTexture,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadTextureResponseTypeName, // downloadTextureResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.downloadTextureResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getSoundsListTypeName, // getSoundsList
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getSoundsList,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getSoundsListResponseTypeName, // getSoundsListResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getSoundsListResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadSoundTypeName, // downloadSound
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.downloadSound,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadSoundResponseTypeName, // downloadSoundResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.downloadSoundResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._uploadRouteTypeName, // uploadRoute
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.uploadRoute,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._uploadRouteResponseTypeName, // uploadRouteResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.uploadRouteResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getEnemiesModelsListTypeName, // getEnemiesModelsList
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getEnemiesModelsList,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getEnemiesModelsListResponseTypeName, // getEnemiesModelsListResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.getEnemiesModelsListResponse,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadEnemiesModelsTypeName, // downloadEnemiesModels
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.downloadEnemiesModels,
+        },
+        {
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadEnemiesModelsResponseTypeName, // downloadEnemiesModelsResponse
+            (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+            WS_STRUCT_TYPE,
+            (void*)&tempuri_org_xsd.externallyReferencedTypes.downloadEnemiesModelsResponse,
+        },
     }, // globalElements
     {  // begin of externallyReferencedTypes
         {
@@ -344,10 +691,10 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         },   // end of struct description for _Score
         {
-        sizeof(_ScoreResponse),
-        __alignof(_ScoreResponse),
-        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs._ScoreResponseFields,
-        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._ScoreResponsedescs._ScoreResponseFields),
+        0,
+        1,
+        0,
+        0,
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._ScoreResponseTypeName, // ScoreResponse
         (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
         0,
@@ -398,5 +745,159 @@ const _tempuri_org_xsd tempuri_org_xsd =
         0,
         0,
         },   // end of struct description for _LoadLevelResponse
+        {
+        0,
+        1,
+        0,
+        0,
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getTexturesListTypeName, // getTexturesList
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getTexturesList
+        {
+        sizeof(_getTexturesListResponse),
+        __alignof(_getTexturesListResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getTexturesListResponsedescs._getTexturesListResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getTexturesListResponsedescs._getTexturesListResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getTexturesListResponseTypeName, // getTexturesListResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getTexturesListResponse
+        {
+        sizeof(_downloadTexture),
+        __alignof(_downloadTexture),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._downloadTexturedescs._downloadTextureFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._downloadTexturedescs._downloadTextureFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadTextureTypeName, // downloadTexture
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _downloadTexture
+        {
+        sizeof(_downloadTextureResponse),
+        __alignof(_downloadTextureResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._downloadTextureResponsedescs._downloadTextureResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._downloadTextureResponsedescs._downloadTextureResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadTextureResponseTypeName, // downloadTextureResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _downloadTextureResponse
+        {
+        0,
+        1,
+        0,
+        0,
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getSoundsListTypeName, // getSoundsList
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getSoundsList
+        {
+        sizeof(_getSoundsListResponse),
+        __alignof(_getSoundsListResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getSoundsListResponsedescs._getSoundsListResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getSoundsListResponsedescs._getSoundsListResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getSoundsListResponseTypeName, // getSoundsListResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getSoundsListResponse
+        {
+        sizeof(_downloadSound),
+        __alignof(_downloadSound),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._downloadSounddescs._downloadSoundFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._downloadSounddescs._downloadSoundFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadSoundTypeName, // downloadSound
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _downloadSound
+        {
+        sizeof(_downloadSoundResponse),
+        __alignof(_downloadSoundResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._downloadSoundResponsedescs._downloadSoundResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._downloadSoundResponsedescs._downloadSoundResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadSoundResponseTypeName, // downloadSoundResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _downloadSoundResponse
+        {
+        sizeof(_uploadRoute),
+        __alignof(_uploadRoute),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._uploadRoutedescs._uploadRouteFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._uploadRoutedescs._uploadRouteFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._uploadRouteTypeName, // uploadRoute
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _uploadRoute
+        {
+        0,
+        1,
+        0,
+        0,
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._uploadRouteResponseTypeName, // uploadRouteResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _uploadRouteResponse
+        {
+        0,
+        1,
+        0,
+        0,
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getEnemiesModelsListTypeName, // getEnemiesModelsList
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getEnemiesModelsList
+        {
+        sizeof(_getEnemiesModelsListResponse),
+        __alignof(_getEnemiesModelsListResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._getEnemiesModelsListResponsedescs._getEnemiesModelsListResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._getEnemiesModelsListResponsedescs._getEnemiesModelsListResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._getEnemiesModelsListResponseTypeName, // getEnemiesModelsListResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _getEnemiesModelsListResponse
+        {
+        sizeof(_downloadEnemiesModels),
+        __alignof(_downloadEnemiesModels),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._downloadEnemiesModelsdescs._downloadEnemiesModelsFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._downloadEnemiesModelsdescs._downloadEnemiesModelsFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadEnemiesModelsTypeName, // downloadEnemiesModels
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _downloadEnemiesModels
+        {
+        sizeof(_downloadEnemiesModelsResponse),
+        __alignof(_downloadEnemiesModelsResponse),
+        (WS_FIELD_DESCRIPTION**)&tempuri_org_xsdLocalDefinitions.globalElements._downloadEnemiesModelsResponsedescs._downloadEnemiesModelsResponseFields,
+        WsCountOf(tempuri_org_xsdLocalDefinitions.globalElements._downloadEnemiesModelsResponsedescs._downloadEnemiesModelsResponseFields),
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._downloadEnemiesModelsResponseTypeName, // downloadEnemiesModelsResponse
+        (WS_XML_STRING*)&tempuri_org_xsdLocalDefinitions.dictionary.xmlStrings._LoginTypeNamespace, // http://tempuri.org/
+        0,
+        0,
+        0,
+        },   // end of struct description for _downloadEnemiesModelsResponse
     }, // end of externallyReferencedTypes;
 }; // end of _tempuri_org_xsd

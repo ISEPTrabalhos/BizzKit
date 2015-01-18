@@ -99,8 +99,8 @@ void gravaGrafo(string file){
 void leGrafo(string file){
 	ifstream myfile;
 
-	/*ServicesHandler *handler = new ServicesHandler();
-	handler->saveSingleMap(file);*/
+	ServicesHandler *handler = new ServicesHandler();
+	handler->saveSingleMap(file);
 
 	myfile.open(file, ios::in);
 	if (!myfile.is_open()) {
