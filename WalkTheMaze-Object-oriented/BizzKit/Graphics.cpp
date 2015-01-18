@@ -3,6 +3,7 @@
 #include "ServicesHandler.h"
 
 #define SCALE_HOMER 0.02
+#define SCALE_ENEMY 0.04
 #define GRAUS(x)        (180*(x)/M_PI)
 #define K_CIRCLE 1.0
 #define K_CONNECTION 1.0
@@ -520,7 +521,7 @@ void Graphics::drawEnemy(){
 		glBindTexture(GL_TEXTURE_2D, NULL);
 		glTranslatef(enemy->position->x, enemy->position->y, enemy->position->z);
 		glRotatef(GRAUS(enemy->dir), 0, 0, 1);
-		glScalef(SCALE_HOMER, SCALE_HOMER, SCALE_HOMER);
+		glScalef(SCALE_ENEMY, SCALE_ENEMY, SCALE_ENEMY);
 		mdlviewer_display(enemy->model);
 		glPopMatrix();
 	}
@@ -641,6 +642,7 @@ void Graphics::drawObstacle()
 
 void Graphics::drawAmmo()
 {
+	glDisable(GL_LIGHTING);
 	glPushMatrix();
 	glBindTexture(GL_TEXTURE_2D, NULL);
 	glTranslatef(ammo->position->x, ammo->position->y, ammo->position->z);
@@ -648,6 +650,7 @@ void Graphics::drawAmmo()
 	glScalef(0.05, 0.1, 0.1);
 	mdlviewer_display(ammo->model);
 	glPopMatrix();
+	glEnable(GL_LIGHTING);
 }
 
 void Graphics::drawTrap()
@@ -677,7 +680,7 @@ void Graphics::display(void){
 		drawTrap();
 		drawDoors();
 		GLfloat c2[3] = { 0.9, 0.1, 0.1 };
-		drawToolTip3d(enemy->position->x, enemy->position->y, enemy->position->z + CHARACTER_HEIGHT, enemy->health / enemy->maxHealth, c2);
+		drawToolTip3d(enemy->position->x, enemy->position->y, enemy->position->z + ENEMY_HEIGHT / 2, enemy->health / enemy->maxHealth, c2);
 
 		drawAxes();
 		material(slate);

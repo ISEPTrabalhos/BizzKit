@@ -23,6 +23,7 @@ public:
 	static bool Walk(int direction);
 	static bool CollisionObstacle(GLfloat x, GLfloat y, GLfloat z);
 	static bool CollisionEnemy(GLfloat x, GLfloat y, GLfloat z);
+	static bool AmmoHitEnemy(GLfloat x, GLfloat y, GLfloat z, GLfloat vel, GLfloat dir);
 	static bool DetectTrap(GLfloat x, GLfloat y, GLfloat z);
 	static void showLoginWindow();
 	static void spawn();
