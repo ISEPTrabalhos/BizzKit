@@ -102,6 +102,11 @@ void Maze::Timer(int value) {
 			{
 				character->Die();
 			}
+
+			if (enemy->health <= 0)
+			{
+				enemy->position->z = INT_MAX;
+			}
 		}
 		else
 		{
