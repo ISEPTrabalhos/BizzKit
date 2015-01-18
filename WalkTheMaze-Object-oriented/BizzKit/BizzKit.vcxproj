@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ammo.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Door.cpp" />
     <ClCompile Include="Rain.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="tempuri.org.xsd.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ammo.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Door.h" />
     <ClInclude Include="EnemyCharacter.h" />

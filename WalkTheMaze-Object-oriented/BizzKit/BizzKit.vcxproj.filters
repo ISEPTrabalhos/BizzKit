@@ -129,6 +129,9 @@
     <ClCompile Include="Rain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ammo.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Maze.h">
@@ -217,6 +220,9 @@
     </ClInclude>
     <ClInclude Include="Rain.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ammo.h">
+      <Filter>Header Files\Model</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
