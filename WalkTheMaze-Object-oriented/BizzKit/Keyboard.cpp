@@ -184,9 +184,13 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				break;
 			case 'i':
 			case 'I':
-				status = new Status();
-				model = new Model();
-				glutPostRedisplay();
+				//INICIAR NOVO JOGO
+				status->setDefaults();
+				model->setDefaults();
+				character->setDefaults();
+				enemy->setDefaults();
+				door1->setDefaults(15, 290);
+				status->mainMenu = false;
 				break;
 			case 'o':
 			case 'O':
