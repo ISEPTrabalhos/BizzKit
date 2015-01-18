@@ -165,6 +165,9 @@
   <data name="LogOff" xml:space="preserve">
     <value>Log off</value>
   </data>
+  <data name="NewAccount" xml:space="preserve">
+    <value>Create a new account</value>
+  </data>
   <data name="Player" xml:space="preserve">
     <value>Player</value>
   </data>
