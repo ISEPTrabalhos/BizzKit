@@ -144,7 +144,7 @@ vector<string> ServicesHandler::getSoundsList() {
 
 void ServicesHandler::saveSound(string name) {
 
-	cout << name << endl;
+	
 	//convert string into wchar
 	wstring strName = convertStringToWstring(name);
 	wchar_t* soundName = const_cast<wchar_t*>(strName.c_str());
@@ -153,7 +153,7 @@ void ServicesHandler::saveSound(string name) {
 	hr = BasicHttpBinding_IService_downloadSound(proxy, soundName, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
-	cout << url << endl;
+
 	string type = name.substr(name.find("_") + 1, name.size());
 	string filename = type + ".wav";
 
@@ -180,7 +180,6 @@ vector<string> ServicesHandler::getTexturesList() {
 
 void ServicesHandler::saveTexture(string name) {
 
-	cout << name << endl;
 	//convert string into wchar
 	wstring strName = convertStringToWstring(name);
 	wchar_t* textureName = const_cast<wchar_t*>(strName.c_str());
@@ -189,7 +188,7 @@ void ServicesHandler::saveTexture(string name) {
 	hr = BasicHttpBinding_IService_downloadTexture(proxy, textureName, &result, heap, NULL, 0, NULL, error);
 
 	string url = convertWcharToString(result);
-	cout << url << endl;
+	
 	string filename;
 	if (name.find("Floor") != std::string::npos) {
 		filename = "floor.jpg";
