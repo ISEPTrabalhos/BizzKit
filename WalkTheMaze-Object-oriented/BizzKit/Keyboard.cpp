@@ -13,9 +13,7 @@ extern EnemyCharacter *enemy;
 extern Door *door1;
 
 void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
-	if (key == 27) {
-		exit(0);
-	}
+	
 	if (status->nextInput) { // enter in passwod
 		if (key == 13) { 
 			Login *login = new Login();
@@ -23,6 +21,8 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			int x = 1;
 			if (true || id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
 				status->loggedIn = true;
+				status->password = "";
+				status->passwd = "";
 				Keyboard::help();
 			} else {
 				status->username = "";
@@ -60,6 +60,14 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 }
 void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
+		switch (key) {
+		case 27:
+			exit(0);
+			break;
+		}
+		if (status->mainMenu == true || status->gameOver == true) {
+			
+		}
 		// in case wordls menu is visible
 		if (status->showMapMenu) {
 			switch (key) {
@@ -173,6 +181,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 					status->setDefaults();
 					model->setDefaults();
 					character->setDefaults();
+					character->homer.SetSequence(0);
 					enemy->setDefaults();
 					door1->setDefaults(15, 290);
 					status->mainMenu = false;
@@ -188,6 +197,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				status->setDefaults();
 				model->setDefaults();
 				character->setDefaults();
+				character->homer.SetSequence(0);
 				enemy->setDefaults();
 				door1->setDefaults(15, 290);
 				status->mainMenu = false;
