@@ -147,6 +147,9 @@
   <data name="Register" xml:space="preserve">
     <value>Registar</value>
   </data>
+  <data name="Route" xml:space="preserve">
+    <value>Percursos</value>
+  </data>
   <data name="Score" xml:space="preserve">
     <value>Pontuação</value>
   </data>

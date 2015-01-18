@@ -13,19 +13,23 @@ extern EnemyCharacter *enemy;
 extern Door *door1;
 
 void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
-	if (key == 27) {
-		exit(0);
-	}
+	
 	if (status->nextInput) { // enter in passwod
-		if (key == 13) {
+		if (key == 13) { 
 			Login *login = new Login();
 			int id = login->LoginUser(status->username, status->password);
 			int x = 1;
-			if (true || id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
+			if (id >= 1) { // valid user // for testing purpose replace by 'true' and press ENTER twice
 				status->loggedIn = true;
+				status->password = "";
+				status->passwd = "";
 				Keyboard::help();
-			}
-			else {
+
+				/* SET UP THE MUSIC */
+				status->background_music = new Music("background.wav");
+				//status->background_music->play();
+
+			} else {
 				status->username = "";
 				status->password = "";
 				status->passwd = "";
@@ -34,10 +38,11 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			}
 		}
 		else if (key == 8) { // backspace
-			status->password.pop_back();
-			status->passwd.pop_back();
-		}
-		else {
+			if (status->password.compare("") != 0) {
+				status->password.pop_back();
+				status->passwd.pop_back();
+			}
+		} else {
 			if (key > 33 && key < 126) {
 				status->password.push_back(key);
 				status->passwd.push_back('*');
@@ -49,10 +54,11 @@ void Keyboard::loginKeyboard(unsigned char key, int x, int y) {
 			status->nextInput = true; // go to password
 		}
 		else if (key == 8) { // backspace
-			status->username.pop_back();
-		}
-		else {
-			if (key > 33 && key < 126) {
+			if (status->username.compare("") != 0) {
+				status->username.pop_back();
+			}
+		} else {
+			if (key > 33 && key < 126) { 
 				status->username.push_back(key);
 			}
 		}
@@ -71,6 +77,16 @@ void Keyboard::keyboardUp(unsigned char key, int x, int y){
 
 void Keyboard::keyboard(unsigned char key, int x, int y){
 	if (status->loggedIn) {
+		switch (key) {
+		case 27:
+			if (status->finished == false && status->gameRoute.compare("") != 0) {
+				ServicesHandler *handler = new ServicesHandler();
+				handler->uploadScore(status->score);
+				handler->uploadRoute(status->gameRoute);
+			}
+			exit(0);
+			break;
+		}
 		// in case wordls menu is visible
 		if (status->showMapMenu) {
 			switch (key) {
@@ -102,7 +118,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			int option = key - 48; // convert key
 			if (option > 0 && option <= status->soundsList.size()) {
 				ServicesHandler *handler = new ServicesHandler();
-				//handler->saveSound(status->soundsList.at(option-1));
+				handler->saveSound(status->soundsList.at(option-1));
 				status->showSoundsMenu = false;
 				Graphics::createTextures(model->texID);
 			}
@@ -117,14 +133,33 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 			int option = key - 48; // convert key
 			if (option > 0 && option <= status->texturesList.size()) {
 				ServicesHandler *handler = new ServicesHandler();
-				//handler->saveTexture(status->texturesList.at(option-1));
+				handler->saveTexture(status->texturesList.at(option-1));
 				status->showTexturesMenu = false;
 				Graphics::createTextures(model->texID);
+			}
+		}
+		else if (status->showEnemiesModelsMenu){
+			switch (key){
+			case '0':
+				status->showEnemiesModelsMenu = false;
+				status->mainMenu = true;
+				break;
+			}
+			int option = key - 48;
+			if (option > 0 && option <= status->enemiesModelsList.size()){
+				ServicesHandler *sh = new ServicesHandler();
+				//sh->saveModels(status->enemiesModelsList.at(option - 1));
+				status->showEnemiesModelsMenu = false;
 			}
 		}
 		else {
 			switch (key){
 			case 27:
+				if (status->finished == false && status->gameRoute.compare("") != 0) {
+					ServicesHandler *handler = new ServicesHandler();
+					handler->uploadScore(status->score);
+					handler->uploadRoute(status->gameRoute);
+				}
 				exit(0);
 				break;
 			case 'h':
@@ -184,6 +219,7 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 					status->setDefaults();
 					model->setDefaults();
 					character->setDefaults();
+					character->homer.SetSequence(0);
 					enemy->setDefaults();
 					door1->setDefaults(15, 290);
 					status->mainMenu = false;
@@ -195,9 +231,14 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				break;
 			case 'i':
 			case 'I':
-				status = new Status();
-				model = new Model();
-				glutPostRedisplay();
+				//INICIAR NOVO JOGO
+				status->setDefaults();
+				model->setDefaults();
+				character->setDefaults();
+				character->homer.SetSequence(0);
+				enemy->setDefaults();
+				door1->setDefaults(15, 290);
+				status->mainMenu = false;
 				break;
 			case 'o':
 			case 'O':
@@ -235,16 +276,18 @@ void Keyboard::keyboard(unsigned char key, int x, int y){
 				status->showMapMenu = false;
 				break;
 			case '4':
-				if (!status->mainMenu) {
-					status->snow = !status->snow;
-				}
+				status->showEnemiesModelsMenu = true;
 				break;
 			case '5':
 				if (!status->mainMenu) {
 					status->rain = !status->rain;
 				}
 				break;
-
+			case '6':
+				if (!status->mainMenu) {
+					status->snow = !status->snow;
+				}
+				break;
 			case 'F':
 			case 'f':
 				status->spotlight = !status->spotlight;

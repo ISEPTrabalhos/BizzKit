@@ -128,6 +128,13 @@ extern "C" {
 //     BasicHttpBinding_IService_Score
 //     BasicHttpBinding_IService_ListLevels
 //     BasicHttpBinding_IService_LoadLevel
+//     BasicHttpBinding_IService_getTexturesList
+//     BasicHttpBinding_IService_downloadTexture
+//     BasicHttpBinding_IService_getSoundsList
+//     BasicHttpBinding_IService_downloadSound
+//     BasicHttpBinding_IService_uploadRoute
+//     BasicHttpBinding_IService_getEnemiesModelsList
+//     BasicHttpBinding_IService_downloadEnemiesModels
 
 // The following server function tables were generated:
 
@@ -193,7 +200,6 @@ HRESULT WINAPI BasicHttpBinding_IService_Score(
     __in_opt __nullterminated WCHAR* username, 
     __in_opt __nullterminated WCHAR* levelName, 
     __in int score, 
-    __out int* ScoreResult, 
     __in WS_HEAP* _heap,
     __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
     __in const ULONG _callPropertyCount,
@@ -221,6 +227,81 @@ HRESULT WINAPI BasicHttpBinding_IService_LoadLevel(
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
+// operation: BasicHttpBinding_IService_getTexturesList
+HRESULT WINAPI BasicHttpBinding_IService_getTexturesList(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __out_opt __deref __nullterminated WCHAR** getTexturesListResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_downloadTexture
+HRESULT WINAPI BasicHttpBinding_IService_downloadTexture(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* textureName, 
+    __out_opt __deref __nullterminated WCHAR** downloadTextureResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_getSoundsList
+HRESULT WINAPI BasicHttpBinding_IService_getSoundsList(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __out_opt __deref __nullterminated WCHAR** getSoundsListResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_downloadSound
+HRESULT WINAPI BasicHttpBinding_IService_downloadSound(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* soundName, 
+    __out_opt __deref __nullterminated WCHAR** downloadSoundResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_uploadRoute
+HRESULT WINAPI BasicHttpBinding_IService_uploadRoute(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* username, 
+    __in_opt __nullterminated WCHAR* level, 
+    __in_opt __nullterminated WCHAR* route, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_getEnemiesModelsList
+HRESULT WINAPI BasicHttpBinding_IService_getEnemiesModelsList(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __out_opt __deref __nullterminated WCHAR** getEnemiesModelsListResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+// operation: BasicHttpBinding_IService_downloadEnemiesModels
+HRESULT WINAPI BasicHttpBinding_IService_downloadEnemiesModels(
+    __in WS_SERVICE_PROXY* _serviceProxy,
+    __in_opt __nullterminated WCHAR* modelName, 
+    __out_opt __deref __nullterminated WCHAR** downloadEnemiesModelsResult, 
+    __in WS_HEAP* _heap,
+    __in_ecount_opt(_callPropertyCount) const WS_CALL_PROPERTY* _callProperties,
+    __in const ULONG _callPropertyCount,
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
 ////////////////////////////////////////////////
 // Service functions definitions
 ////////////////////////////////////////////////
@@ -238,7 +319,6 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IService_ScoreCallback) (
     __in_opt __nullterminated WCHAR* username, 
     __in_opt __nullterminated WCHAR* levelName, 
     __in int score, 
-    __out int* ScoreResult, 
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
@@ -255,6 +335,53 @@ typedef HRESULT (CALLBACK* BasicHttpBinding_IService_LoadLevelCallback) (
     __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
     __in_opt WS_ERROR* _error);
 
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_getTexturesListCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __out_opt __deref __nullterminated WCHAR** getTexturesListResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_downloadTextureCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in_opt __nullterminated WCHAR* textureName, 
+    __out_opt __deref __nullterminated WCHAR** downloadTextureResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_getSoundsListCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __out_opt __deref __nullterminated WCHAR** getSoundsListResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_downloadSoundCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in_opt __nullterminated WCHAR* soundName, 
+    __out_opt __deref __nullterminated WCHAR** downloadSoundResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_uploadRouteCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in_opt __nullterminated WCHAR* username, 
+    __in_opt __nullterminated WCHAR* level, 
+    __in_opt __nullterminated WCHAR* route, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_getEnemiesModelsListCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __out_opt __deref __nullterminated WCHAR** getEnemiesModelsListResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
+typedef HRESULT (CALLBACK* BasicHttpBinding_IService_downloadEnemiesModelsCallback) (
+    __in const WS_OPERATION_CONTEXT* _context,
+    __in_opt __nullterminated WCHAR* modelName, 
+    __out_opt __deref __nullterminated WCHAR** downloadEnemiesModelsResult, 
+    __in_opt const WS_ASYNC_CONTEXT* _asyncContext,
+    __in_opt WS_ERROR* _error);
+
 // binding: BasicHttpBinding_IService
 typedef struct BasicHttpBinding_IServiceFunctionTable 
 {
@@ -262,6 +389,13 @@ typedef struct BasicHttpBinding_IServiceFunctionTable
     BasicHttpBinding_IService_ScoreCallback BasicHttpBinding_IService_Score;
     BasicHttpBinding_IService_ListLevelsCallback BasicHttpBinding_IService_ListLevels;
     BasicHttpBinding_IService_LoadLevelCallback BasicHttpBinding_IService_LoadLevel;
+    BasicHttpBinding_IService_getTexturesListCallback BasicHttpBinding_IService_getTexturesList;
+    BasicHttpBinding_IService_downloadTextureCallback BasicHttpBinding_IService_downloadTexture;
+    BasicHttpBinding_IService_getSoundsListCallback BasicHttpBinding_IService_getSoundsList;
+    BasicHttpBinding_IService_downloadSoundCallback BasicHttpBinding_IService_downloadSound;
+    BasicHttpBinding_IService_uploadRouteCallback BasicHttpBinding_IService_uploadRoute;
+    BasicHttpBinding_IService_getEnemiesModelsListCallback BasicHttpBinding_IService_getEnemiesModelsList;
+    BasicHttpBinding_IService_downloadEnemiesModelsCallback BasicHttpBinding_IService_downloadEnemiesModels;
 } BasicHttpBinding_IServiceFunctionTable;
 
 ////////////////////////////////////////////////
@@ -320,6 +454,90 @@ typedef struct _tempuri_org_wsdl
         // messageDescription: tempuri_org_wsdl.messages.IService_LoadLevel_OutputMessage
         WS_MESSAGE_DESCRIPTION IService_LoadLevel_OutputMessage;
         
+        // message: IService_getTexturesList_InputMessage
+        // c type: _getTexturesList
+        // action: "http://tempuri.org/IService/getTexturesList"
+        // messageDescription: tempuri_org_wsdl.messages.IService_getTexturesList_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_getTexturesList_InputMessage;
+        
+        // message: IService_getTexturesList_OutputMessage
+        // c type: _getTexturesListResponse
+        // action: "http://tempuri.org/IService/getTexturesListResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_getTexturesList_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_getTexturesList_OutputMessage;
+        
+        // message: IService_downloadTexture_InputMessage
+        // c type: _downloadTexture
+        // action: "http://tempuri.org/IService/downloadTexture"
+        // messageDescription: tempuri_org_wsdl.messages.IService_downloadTexture_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_downloadTexture_InputMessage;
+        
+        // message: IService_downloadTexture_OutputMessage
+        // c type: _downloadTextureResponse
+        // action: "http://tempuri.org/IService/downloadTextureResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_downloadTexture_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_downloadTexture_OutputMessage;
+        
+        // message: IService_getSoundsList_InputMessage
+        // c type: _getSoundsList
+        // action: "http://tempuri.org/IService/getSoundsList"
+        // messageDescription: tempuri_org_wsdl.messages.IService_getSoundsList_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_getSoundsList_InputMessage;
+        
+        // message: IService_getSoundsList_OutputMessage
+        // c type: _getSoundsListResponse
+        // action: "http://tempuri.org/IService/getSoundsListResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_getSoundsList_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_getSoundsList_OutputMessage;
+        
+        // message: IService_downloadSound_InputMessage
+        // c type: _downloadSound
+        // action: "http://tempuri.org/IService/downloadSound"
+        // messageDescription: tempuri_org_wsdl.messages.IService_downloadSound_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_downloadSound_InputMessage;
+        
+        // message: IService_downloadSound_OutputMessage
+        // c type: _downloadSoundResponse
+        // action: "http://tempuri.org/IService/downloadSoundResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_downloadSound_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_downloadSound_OutputMessage;
+        
+        // message: IService_uploadRoute_InputMessage
+        // c type: _uploadRoute
+        // action: "http://tempuri.org/IService/uploadRoute"
+        // messageDescription: tempuri_org_wsdl.messages.IService_uploadRoute_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_uploadRoute_InputMessage;
+        
+        // message: IService_uploadRoute_OutputMessage
+        // c type: _uploadRouteResponse
+        // action: "http://tempuri.org/IService/uploadRouteResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_uploadRoute_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_uploadRoute_OutputMessage;
+        
+        // message: IService_getEnemiesModelsList_InputMessage
+        // c type: _getEnemiesModelsList
+        // action: "http://tempuri.org/IService/getEnemiesModelsList"
+        // messageDescription: tempuri_org_wsdl.messages.IService_getEnemiesModelsList_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_getEnemiesModelsList_InputMessage;
+        
+        // message: IService_getEnemiesModelsList_OutputMessage
+        // c type: _getEnemiesModelsListResponse
+        // action: "http://tempuri.org/IService/getEnemiesModelsListResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_getEnemiesModelsList_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_getEnemiesModelsList_OutputMessage;
+        
+        // message: IService_downloadEnemiesModels_InputMessage
+        // c type: _downloadEnemiesModels
+        // action: "http://tempuri.org/IService/downloadEnemiesModels"
+        // messageDescription: tempuri_org_wsdl.messages.IService_downloadEnemiesModels_InputMessage
+        WS_MESSAGE_DESCRIPTION IService_downloadEnemiesModels_InputMessage;
+        
+        // message: IService_downloadEnemiesModels_OutputMessage
+        // c type: _downloadEnemiesModelsResponse
+        // action: "http://tempuri.org/IService/downloadEnemiesModelsResponse"
+        // messageDescription: tempuri_org_wsdl.messages.IService_downloadEnemiesModels_OutputMessage
+        WS_MESSAGE_DESCRIPTION IService_downloadEnemiesModels_OutputMessage;
+        
     } messages;
     struct // contracts
     {
@@ -337,6 +555,27 @@ typedef struct _tempuri_org_wsdl
         // operation: BasicHttpBinding_IService_LoadLevel
         //     input message: IService_LoadLevel_InputMessage
         //     output message: IService_LoadLevel_OutputMessage
+        // operation: BasicHttpBinding_IService_getTexturesList
+        //     input message: IService_getTexturesList_InputMessage
+        //     output message: IService_getTexturesList_OutputMessage
+        // operation: BasicHttpBinding_IService_downloadTexture
+        //     input message: IService_downloadTexture_InputMessage
+        //     output message: IService_downloadTexture_OutputMessage
+        // operation: BasicHttpBinding_IService_getSoundsList
+        //     input message: IService_getSoundsList_InputMessage
+        //     output message: IService_getSoundsList_OutputMessage
+        // operation: BasicHttpBinding_IService_downloadSound
+        //     input message: IService_downloadSound_InputMessage
+        //     output message: IService_downloadSound_OutputMessage
+        // operation: BasicHttpBinding_IService_uploadRoute
+        //     input message: IService_uploadRoute_InputMessage
+        //     output message: IService_uploadRoute_OutputMessage
+        // operation: BasicHttpBinding_IService_getEnemiesModelsList
+        //     input message: IService_getEnemiesModelsList_InputMessage
+        //     output message: IService_getEnemiesModelsList_OutputMessage
+        // operation: BasicHttpBinding_IService_downloadEnemiesModels
+        //     input message: IService_downloadEnemiesModels_InputMessage
+        //     output message: IService_downloadEnemiesModels_OutputMessage
         // contractDescription: tempuri_org_wsdl.contracts.BasicHttpBinding_IService
         WS_CONTRACT_DESCRIPTION BasicHttpBinding_IService;
         

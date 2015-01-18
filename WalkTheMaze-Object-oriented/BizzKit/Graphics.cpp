@@ -804,11 +804,17 @@ void Graphics::displayMainMenu() {
 		glColor3f(1.0, 0, 0);
 		displayMyText("N -  NEW GAME", -150, 275, 0);
 	}
+	else if (status->gameOver == true) {
+		glColor3f(0, 1.0, 0);
+		displayMyText("YOU DIED !!", -100, 90, 0);
+		glColor3f(1.0, 0, 0);
+		displayMyText("N -  NEW GAME | ESC - EXIT", -200, 275, 0);
+	}
 	else {
-		displayMyText("C - CONTINUE  | N -  NEW GAME", -250, 275, 0);
+		displayMyText("C - CONTINUE  | N -  NEW GAME  |  ESC - EXIT", -375, 275, 0);
 	}
 	
-	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES", -350, 200, 0);
+	displayMyText("1 - WORLDS  |  2- SOUNDS  | 3 - TEXTURES  | 4 - ENEMY MODELS", -350, 200, 0);
 
 	//draw separator line
 	glLineWidth(1.0);
@@ -821,17 +827,18 @@ void Graphics::displayMainMenu() {
 	if (status->showMapMenu) {
 		displayMyText("1 - Mundo 1", -400, 0, 0);
 		displayMyText("2 - Mundo 2", -400, -75, 0);
-		string back = status->soundsList.size() + "0 - Go back";
+		string back = "0 - Go back";
 		displayMyText((char*)back.c_str(), -400, -150, 0);
 	}
 	else if (status->showSoundsMenu) {
 		if (status->soundsList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			//status->soundsList = handler->getSoundsList();
+			status->soundsList = handler->getSoundsList();
 		}
 		int posY = 0;
 		for (int i = 0; i < status->soundsList.size(); i++) {
-			string item = to_string(i + 1) + " - " + status->soundsList.at(i);
+			string name = status->soundsList.at(i).substr(0, status->soundsList.at(i).find("_"));
+			string item = to_string(i + 1) + " - " + name;
 			displayMyText((char*)item.c_str(), -200, posY, 0);
 			posY += -75;
 		}
@@ -841,7 +848,7 @@ void Graphics::displayMainMenu() {
 	else if (status->showTexturesMenu) {
 		if (status->texturesList.empty()) {
 			ServicesHandler *handler = new ServicesHandler();
-			//status->texturesList = handler->getTexturesList();
+			status->texturesList = handler->getTexturesList();
 		}
 		int posY = 0;
 		for (int i = 0; i < status->texturesList.size(); i++) {
@@ -851,6 +858,21 @@ void Graphics::displayMainMenu() {
 		}
 		string back = "0 - Go back";
 		displayMyText((char*)back.c_str(), -200, posY, 0);
+	}
+	else if (status->showEnemiesModelsMenu){
+		if (status->enemiesModelsList.empty()){
+			ServicesHandler *sh = new ServicesHandler();
+			//status->enemiesModelsList = sh->getEnemiesModels();
+		}
+		int posY = 0;
+		for (int i = 0; i < status->enemiesModelsList.size(); i++)
+		{
+			string item = to_string(i + 1) + " - " + status->enemiesModelsList.at(i);
+			displayMyText((char*) item.c_str(), -200, posY, 0);
+			posY += -75;
+		}
+		string back = "0 - Go Back";
+		displayMyText((char*) back.c_str(), -200, posY, 0);
 	}
 
 	glEnable(GL_LIGHTING);

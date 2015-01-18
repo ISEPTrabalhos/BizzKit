@@ -117,16 +117,16 @@
     <ClCompile Include="SnowFlake.cpp">
       <Filter>Source Files\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Rain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="schemas.microsoft.com.2003.10.Serialization.xsd.c">
-      <Filter>Source Files\libs</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tempuri.org.wsdl.c">
-      <Filter>Source Files\libs</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="tempuri.org.xsd.c">
-      <Filter>Source Files\libs</Filter>
-    </ClCompile>
-    <ClCompile Include="Rain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Ammo.cpp">
@@ -209,16 +209,16 @@
     <ClInclude Include="SnowFlake.h">
       <Filter>Header Files\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Rain.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="schemas.microsoft.com.2003.10.Serialization.xsd.h">
-      <Filter>Header Files\libs</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tempuri.org.wsdl.h">
-      <Filter>Header Files\libs</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tempuri.org.xsd.h">
-      <Filter>Header Files\libs</Filter>
-    </ClInclude>
-    <ClInclude Include="Rain.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Ammo.h">

@@ -25,34 +25,34 @@ namespace WebDev.DAL
                 new Level {
                     name = "quarto1",
                     content = @"28
--60 60 0
--60 -60 0
-60 -60 0
-60 60 0
--60 25 0
--50 25 0
--60 -25 0
--50 -25 0
--40 -50 0
--40 30 0
--40 35 0
-20 35 0
--20 -60 0
--20 20 0
-0 35 0
-0 -30 0
-10 -30 0
-20 60 0
-20 -10 0
-45 60 0
-45 50 0
-45 30 0
-35 -15 0
-60 -20 0
-50 -20 0
-15 -45 0
-40 -60 0
-40 -50 0
+-60 60 5
+-60 -60 5
+60 -60 5
+60 60 5
+-60 25 5
+-50 25 5
+-60 -25 5
+-50 -25 5
+-40 -50 5
+-40 30 5
+-40 35 5
+20 35 5
+-20 -60 5
+-20 20 5
+0 35 5
+0 -30 5
+10 -30 5
+20 60 5
+20 -5 5
+45 60 5
+45 50 5
+45 30 5
+35 -15 5
+60 -20 5
+50 -20 5
+15 -45 5
+40 -60 5
+40 -50 5
 18
 0 1 1 1
 1 2 1 1
@@ -83,6 +83,154 @@ namespace WebDev.DAL
 2
 0 1 1 1
 1 2 1 1"
+                },
+                new Level {
+                    name = "quarto2",
+                    content = @"20
+-30 60 5
+-30 -60 5
+30 -60 5
+30 60 5
+-30 25 2
+-25 25 2
+-30 -25 2
+-25 -25 2
+-15 20 2
+-15 40 2
+-15 50 0
+-15 10 0
+-15 -20 2
+-15 -40 2
+-15 -50 0
+-15 -10 0
+10 -60 2
+10 30 2
+10 60 2
+20 30 2
+14
+0 1 5 5
+1 2 5 5
+2 3 5 5
+3 0 5 5
+4 5 5 5
+6 7 5 5
+8 9 5 5
+9 10 5 5
+8 11 5 5
+12 13 5 5
+13 14 5 5
+12 15 5 5
+16 17 5 5
+18 19 5 5
+"
+                },
+                new Level {
+                    name = "quarto3",
+                    content = @"31
+-60 60 5
+-60 -60 5
+60 -60 5
+60 60 5
+-60 25 2
+-50 25 2
+-60 -25 2
+-50 -25 2
+-30 40 2
+-30 -15 2
+-30 -25 0
+-45 40 0
+25 40 2
+-20 -60 2
+-20 -50 2
+-5 -60 2
+-5 -20 2
+-5 -30 2
+20 -30 2
+25 60 2
+25 -10 2
+35 -20 2
+45 -25 0
+50 60 2
+50 50 2
+0 20 2
+60 -40 2
+45 -40 2
+20 -50 2
+40 -60 2
+40 -50 2
+21
+0 1 5 5
+1 2 5 5
+2 3 5 5
+0 3 5 5
+4 5 5 5
+6 7 5 5
+8 9 5 5
+9 10 5 5
+8 11 5 5
+8 12 5 5
+13 14 5 5
+15 16 5 5
+17 18 5 5
+19 20 5 5
+20 21 5 5
+21 22 5 5
+23 24 5 5
+12 25 5 5
+26 27 5 5
+27 28 5 5
+29 30 5 5"
+                },
+                new Level {
+                    name = "mundo1",
+                    content = @"28
+-60 60 5
+-60 -60 5
+60 -60 5
+60 60 5
+-60 25 5
+-50 25 5
+-60 -25 5
+-50 -25 5
+-40 -50 5
+-40 30 5
+-40 35 5
+20 35 5
+-20 -60 5
+-20 20 5
+0 35 5
+0 -30 5
+10 -30 5
+20 60 5
+20 -5 5
+45 60 5
+45 50 5
+45 30 5
+35 -15 5
+60 -20 5
+50 -20 5
+15 -45 5
+40 -60 5
+40 -50 5
+18
+0 1 1 1
+1 2 1 1
+2 3 1 1
+0 3 1 1
+4 5 1 5
+6 7 1 5
+8 9 1 5
+10 11 1 5
+12 13 1 5
+14 15 1 5
+15 16 1 5
+17 18 1 5
+19 20 1 5
+18 21 1 5
+18 22 1 5
+23 24 1 5
+24 25 1 5
+26 27 1 5"
                 }
             };
 
@@ -115,18 +263,18 @@ namespace WebDev.DAL
             {
                 new Sounds {
                     ID = 1,
-                    name = "Background music",
-                    url = "http://localhost:43492/assets/sounds/The_Simpsons.wav",
+                    name = "Background music_background",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/sounds/background.wav",
                 },
                 new Sounds {
                     ID = 2,
-                    name = "Against the wall",
-                    url = "http://localhost:43492/assets/sounds/wall.wav"
+                    name = "Crashing_wall",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/sounds/wall.wav"
                 },
                 new Sounds {
                     ID = 3,
-                    name = "Falling",
-                    url = "http://localhost:43492/assets/sounds/falling.wav"
+                    name = "Falling_fall",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/sounds/fall.wav"
                 }
             };
 
@@ -136,13 +284,23 @@ namespace WebDev.DAL
             {
                 new Textures {
                     ID = 1,
-                    name = "Floor texture",
-                    url = "http://localhost:43492/assets/textures/floor.jpg"
+                    name = "Floor 1",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/textures/floor.jpg"
                 },
                 new Textures {
                     ID = 2,
-                    name = "Walls texture",
-                    url = "http://localhost:43492/assets/textures/Wall.jpg"
+                    name = "Wall 1",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/textures/wall1.jpg"
+                },
+                new Textures {
+                    ID = 3,
+                    name = "Floor 2",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/textures/floor2.jpg"
+                },
+                new Textures {
+                    ID = 4,
+                    name = "Wall 2",
+                    url = "wvm041.dei.isep.ipp.pt/Lapr5/assets/textures/wall2.jpg"
                 }
             };
 
@@ -155,12 +313,12 @@ namespace WebDev.DAL
                 new Enemies{
                     ID=1,
                     name="Mummy",
-                    url="http://localhost:43492/assets/enemies/mummy.mdl"
+                    url="wvm041.dei.isep.ipp.pt/Lapr5/assets/enemies/mummy.mdl"
                 },
                 new Enemies{
                     ID=2,
                     name="Zombie",
-                    url="http://localhost:43492/assets/enemies/SpitterL4D2v1.mdl"
+                    url="wvm041.dei.isep.ipp.pt/Lapr5/assets/enemies/SpitterL4D2v1.mdl"
                 }
             };
 

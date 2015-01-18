@@ -19,11 +19,11 @@ namespace WebDev.Controllers
         // GET: Downloads/Download
         public ActionResult Download()
         {
-            /*WebDevContext db = new WebDevContext();
-            var download = db.Downloads.Find(1);
-            download.quantity++;
-            db.SaveChanges();*/
-            Response.Redirect("#");
+            //WebDevContext db = new WebDevContext();
+            //var download = db.Downloads.Find(1);
+            //download.quantity++;
+            //db.SaveChanges();
+            Response.Redirect("/LAPR5/assets/game/app.zip");
             return View();
         }
     }

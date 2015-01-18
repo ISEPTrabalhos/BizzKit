@@ -40,6 +40,12 @@ int lastEnemyAttackTime = 0;
 int lastPlayerAttackTime = 0;
 
 void Maze::Timer(int value) {
+
+	if (character->IsDead()) {
+		status->gameOver = true;
+		status->mainMenu = true;
+	}
+
 	if (status->daynight) {
 		counter++;
 		lightComponent = cos((counter / duration) * (2.0 * M_PI)) / factor + (factor - 1.0) / factor;
@@ -123,13 +129,11 @@ void Maze::Timer(int value) {
 					character->position->y = ny;
 					character->position->z = CHARACTER_HEIGHT * 0.5;
 					status->walking = GL_TRUE;
-
+					
 					//	Check if the character has fallen and drains some life
 					if (character->position->z - z < -4.0) {
 						character->health -= 10;
-						Music *f = new Music("fall.wav");
-						f->play();
-
+						
 					}
 				}
 			}
@@ -178,13 +182,13 @@ void Maze::Timer(int value) {
 				leGrafo(status->mapfile);
 			}
 
-			if (character->position->x > 185 && character->position->x < 195 && character->position->y>285 && character->position->y < 295) {
+			if (character->position->x > 185 && character->position->x<195 && character->position->y>285 && character->position->y < 295) {
 				//	Win the Game
 				status->mainMenu = true;
 				status->finished = true;
-				/*ServicesHandler *handler = new ServicesHandler();
+				ServicesHandler *handler = new ServicesHandler();
 				handler->uploadScore(status->score);
-				handler->uploadRoute(status->gameRoute);*/
+				handler->uploadRoute(status->gameRoute);
 			}
 
 		}
@@ -209,11 +213,11 @@ void Maze::Timer(int value) {
 				// Win the Game
 				status->mainMenu = true;
 				status->finished = true;
-				/*ServicesHandler *handler = new ServicesHandler();
+				ServicesHandler *handler = new ServicesHandler();
 				handler->uploadScore(status->score);
-				handler->uploadRoute(status->gameRoute);*/
+				handler->uploadRoute(status->gameRoute);
 			}
-
+				
 		}
 
 		if (DetectTrap(character->position->x, character->position->y, character->position->z - CHARACTER_HEIGHT / 2.0))
@@ -603,15 +607,6 @@ bool Maze::CollisionEnemy(GLfloat x, GLfloat y, GLfloat z)
 		z >= zMin && z <= zMax;
 }
 
-void Maze::showLoginWindow() {
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
-	glutInitWindowSize(350, 350);
-	glutCreateWindow("Login");
-	glutDisplayFunc(Graphics::loginDisplay);
-	glutKeyboardFunc(Keyboard::loginKeyboard);
-	glutMainLoop();
-}
-
 void Maze::spawn(){
 	if (status->mapfile == "quarto2.grafo"){
 		character->position->x = -125;
@@ -623,20 +618,26 @@ void Maze::Launch(int argc, char **argv){
 	srand(time(NULL));
 	rand();
 
-	status = new Status();
 	glutInit(&argc, argv);
 	alutInit(&argc, argv);
+
+	status = new Status();
 	model = new Model();
+
 	character = new MainCharacter();
 	ammo = new Ammo();
 	enemy = new EnemyCharacter();
+
 	door1 = new Door(15, 290, "door.mdl");
 	door2 = new Door(290, -270, "door.mdl");
 	exitDoor = new Door(280, -280, "exit.mdl");
 	exitDoor->model.SetSequence(1);
 	exitDoor->position->z = 3;
+
 	obstacle = new Obstacle();
 	trap = new Trap();
+
+	/* GLUT INIT STUFF */
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
 	glutInitWindowSize(640, 480);
 	int loginWindow = glutCreateWindow("OpenGL");
@@ -675,12 +676,5 @@ void Maze::Launch(int argc, char **argv){
 	leGrafo(status->mapfile);
 
 	glutMainLoop();
-
-	//	// there is a NEW BUG on receving the maps, dont know why so map is not saved ISSUE 47
-	//	//MapsReceiver *receiver = new MapsReceiver();
-	//	//string mapName = receiver->chooseMap();
-	//	//if (!mapName.empty()) {
-	//	//	//set choosen map
-	//	//	status->mapfile = mapName + ".grafo";
 
 }

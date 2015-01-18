@@ -30,9 +30,9 @@ public:
 	GLboolean snow, rain, spotlight;
 
 	string username, password, passwd, loginErrorMessage;
-	bool nextInput, loggedIn, mainMenu, showSoundsMenu, showTexturesMenu, finished;
+	bool nextInput, loggedIn, mainMenu, showSoundsMenu, showTexturesMenu, finished, gameOver, showEnemiesModelsMenu;
 
-	vector<string> soundsList, texturesList;
+	vector<string> soundsList, texturesList, enemiesModelsList;
 
 	string gameRoute;
 
