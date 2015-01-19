@@ -94,7 +94,7 @@ void Maze::Timer(int value) {
 			}
 		}
 
-		if (status->mapfile == "quarto3.grafo")
+		if (status->mapfile != "quarto3.grafo")
 		{
 			ChasePlayer();
 
